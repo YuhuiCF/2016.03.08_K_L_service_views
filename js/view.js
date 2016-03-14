@@ -281,7 +281,6 @@ var Views = function(states, $){
                     });
                     break;
                 case 'checkbox':
-                    console.log('here');
                     itemElmt = jQElmt.find('[data-answer-option-checkbox]:eq(0)');
                     itemParentElmt = itemElmt.parent();
                     itemElmt = itemElmt.clone();

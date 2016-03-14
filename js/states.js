@@ -185,8 +185,16 @@ var states = {
                     nextStateId: 'vehicle.complete.lacquer.type'
                 },
                 {
-                    answer: 'Polieren',
-                    description: 'Polieren Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.polish',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.polish',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'END',
                     serviceCode: 'vehicle.complete.polish',
                     calcParams: [
@@ -546,8 +554,16 @@ var states = {
                     ]
                 },
                 {
-                    answer: 'Polieren',
-                    description: 'Polieren Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.polish',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.polish',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'END',
                     serviceCode: 'rim.polish',
                     calcParams: [
@@ -930,9 +946,6 @@ var states = {
                     }
                 },
                 {
-                    answer: 'Oberflächenrost entfernen',
-                    description: 'Oberflächenrost Lorem Ipsum',
-/*
                     useConstants: [
                         {
                             useKey: 'answer.rust.repair',
@@ -943,7 +956,6 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-*/
                     nextStateId: {
                         'fender.front.right.type': 'fender.front.right.rust.type',
                         'fender.front.left.type': 'fender.front.left.rust.type',
@@ -1047,9 +1059,6 @@ var states = {
                     }
                 },
                 {
-                    answer: 'Oberflächenrost entfernen',
-                    description: 'Oberflächenrost Lorem Ipsum',
-/*
                     useConstants: [
                         {
                             useKey: 'answer.rust.repair',
@@ -1060,7 +1069,6 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-*/
                     nextStateId: {
                         'fender.rear.right.type': 'fender.rear.right.rust.type',
                         'fender.rear.left.type': 'fender.rear.left.rust.type',
@@ -1944,34 +1952,12 @@ var states = {
             question: 'Bitte geben Sie genauere Beschreibungen des Unfalls:',
             checklist: [
                 {
-                    type: 'checkbox',
+                    type: 'image',
                     answer: 'Betroffene Bauteile:',
                     img: {
                         file: 'CarPlan.jpg',
                         height: 150
-                    },
-                    options: [
-                        {value: 'Außenspiegel links'},
-                        {value: 'Außenspiegel rechts'},
-                        {value: 'Fahrzeugdach'},
-                        {value: 'Frontscheibe'},
-                        {value: 'Heckscheibe'},
-                        {value: 'Heckklappe / Kofferraumdeckel'},
-                        {value: 'Kotflügel vorne links'},
-                        {value: 'Kotflügel vorne rechts'},
-                        {value: 'Kotflügel (Seitenwand) hinten links'},
-                        {value: 'Kotflügel (Seitenwand) hinten rechts'},
-                        {value: 'Motorhaube'},
-                        {value: 'Nebelscheinwerfer vorne links'},
-                        {value: 'Nebelscheinwerfer vorne rechts'},
-                        {value: 'Scheinwerfer vorne links'},
-                        {value: 'Scheinwerfer vorne rechts'},
-                        {value: 'Schweller links'},
-                        {value: 'Schweller rechts'},
-                        {value: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links'},
-                        {value: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts'},
-                        {value: 'Stoßfänger / Stoßstange'}
-                    ]
+                    }
                 },
                 {
                     type: 'checkbox',
@@ -2022,6 +2008,7 @@ var stateConstants = {
     'answer.dent.repair': 'Einzelne Dellen entfernen',
     'answer.haildamage.repair': 'Hagelschaden reparieren',
     'answer.lacquer': 'Neulackierung des Bauteils',
+    'answer.polish': 'Polieren',
     'answer.rockfall.repair': 'Steinschläge entfernen',
     'answer.rust.repair': 'Rost entfernen',
     'answer.scratch.repair': 'Kratzer entfernen',
@@ -2031,9 +2018,10 @@ var stateConstants = {
     'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oderflächliche Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
     'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteile liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich, wählen Sie hierfür bitte die Option "Dellen entfernen".',
     'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf geworden ist oder der Lack fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
-    'description.rockfall.repair': 'Steinschläge Lorem Ipsum.',
-    'description.rust.repair': 'Rost Lorem Ipsum.',
-    'description.scratch.repair': 'Kratzer Lorem Ipsum.',
+    'description.polish': 'Polieren Lorem Ipsum.',
+    'description.rockfall.repair': 'Steinschläge sind nicht nur unansehnlich, sondern die scharfkantigen Steine beschädigen meist auch die Grundierung und es bildet sich Rost, der sich auch unter dem Lack weiter ausbreitet. Je nach Lage am Fahrzeug muss unter Umständen das gesamte Bauteil neu lackiert werden, nachdem die betroffene Stelle ausgebessert worden ist.',
+    'description.rust.repair': 'Um Rost langfristig zu entfernen, muss dieser zuerst restlos entfernt werden. Anschließend wird die Stelle großflächig für einen kompletten Neuaufbau des Lacks vorbereitet und anschließend das gesamte Bauteil lackiert. Bei größeren Rostflächen oder Durchrostung, wenden Sie sich bitte an einen Fachbetrieb (&lt;&lt;CrossLink Werkstattsuche&gt;&gt;).',
+    'description.scratch.repair': 'Kratzer werden üblicherweise durch Schleifen und Ebnen der Fläche mit Feinspachtel und einer kompletten Lackierung des Bauteils beseitigt. Ist auch die Grundierung beschädigt, muss eventuell bereits entstandener Rost ebenfalls entfernt werden.',
     'description.spotrepair': 'Eine kostengünstige Alternative zur Reparatur kleinerer Beschädigungen ist die Spot Repair Methode. Beseitigt werden können Steinschläge, kleinere Kratzer und Lackfehler bis etwa 3,5 cm Durchmesser, allerdings keine Dellen. Bei Stoßstangen lassen sich so auch kleinere Streifschäden beheben. Spot Repair wird nur empfohlen an Stoßstangen und im unteren Bereich des Fahrzeugs.'
 };
 
