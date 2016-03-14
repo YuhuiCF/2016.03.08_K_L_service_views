@@ -9,21 +9,21 @@ var states = {
     'category0': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Wählen Sie Ihre Serviceleistung',
+            question: 'Welche Leistung wünschen Sie?',
             answers: [
                 {
-                    answer: 'Karosserieteile & Glas',
-                    description: 'Lassen Sie Kratzer, Dellen, Steinschläge oder Glasschäden vom Fachmann reparieren oder einzelne Karosserieteile erneuern.',
+                    answer: 'Einzelne Karosserieteile & Glasschäden',
+                    description: 'Wählen Sie Leistungen für einzelne Karosserieteile, Scheiben oder Scheinwerfer. Lassen Sie Kratzer, Dellen, Steinschläge, kleinere Roststellen oder Glasschäden vom Fachmann gemäß den aktuellsten Standards reparieren oder einzelne Beuteile Ihres Fahrzeuges erneuern.',
                     nextStateId: 'components'
                 },
                 {
-                    answer: 'Fahrzeug komplett',
-                    description: 'Lassen Sie Ihr komplettes Fahrzeug polieren, größere Hagelschäden reparieren oder Ihr Fahrzeug neu lackieren',
+                    answer: 'Leistungen für das gesamte Fahrzeug',
+                    description: 'Sie wünschen einen Service für Ihr komplettes Fahrzeug? Lassen Sie Ihr komplettes Fahrzeug polieren, großflächige Hagelschäden reparieren oder Ihr Fahrzeug neu lackieren. Weitere Leistungen sind auf Anfrage bei unseren Fachwerkstätten verfügbar.',
                     nextStateId: 'vehicle.complete.type'
                 },
                 {
-                    answer: 'Unfallschaden',
-                    description: 'Bei größeren Schäden begutachten unsere Experten Ihren Schaden und unterbreiten Ihnen ein konkretes Angebot.<br>Finden Sie Ihren Experten und vereinbaren Sie online einen Termin zur Begutachtung. Sollte Ihr Fahrzeug nicht mehr fahrbereit sein, dann kommen wir auch gerne zu Ihnen.',
+                    answer: 'Sie haben einen Unfallschaden?',
+                    description: 'Bei größeren Schäden begutachten unsere Experten Ihren Schaden und unterbreiten Ihnen ein konkretes Angebot. Finden Sie Ihren Experten und vereinbaren Sie online einen Termin zur Begutachtung. Sollte Ihr Fahrzeug nicht mehr fahrbereit sein, dann kommen wir auch gerne zu Ihnen.',
                     nextStateId: 'accidentaldamage.type'
                 }
             ]
@@ -42,21 +42,21 @@ var states = {
             },
             answers: [
                 {
-                    answer: 'Kotflügel (Landing Page)',
+                    answer: 'Landing Page: Schaden am Kotflügel',
                     nextStateId: 'fender.position.type',
                     newWindow: true
                 },
                 {
-                    answer: 'Scheiben und Glas (Landing Page)',
+                    answer: 'Landing Page: Glasschäden reparieren',
                     nextStateId: 'window.glas.type',
                     newWindow: true
                 },
                 {
-                    answer: 'Außenspiegel links',
+                    answer: 'Außenspiegel / Seitenspiegel links',
                     nextStateId: 'mirror.left.type'
                 },
                 {
-                    answer: 'Außenspiegel rechts',
+                    answer: 'Außenspiegel / Seitenspiegel rechts',
                     nextStateId: 'mirror.right.type'
                 },
                 {
@@ -64,17 +64,21 @@ var states = {
                     nextStateId: 'roof.type'
                 },
                 {
+                    answer: 'Felgen',
+                    nextStateId: 'rim.type'
+                },
+                {
                     answer: 'Frontscheibe',
                     nextStateId: 'windshield.type'
                 },
                 {
-                    answer: 'Heckabschlußblech wechseln',
+                    answer: 'Heckabschlußblech',
                     nextStateId: 'END',
                     serviceCode: 'rearpanel.replace',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Heckscheibe wechseln',
+                    answer: 'Heckscheibe',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
@@ -92,11 +96,11 @@ var states = {
                     nextStateId: 'fender.front.right.type'
                 },
                 {
-                    answer: 'Kotflügel (Seitenwand) hinten links',
+                    answer: 'Kotflügel / Seitenwand hinten links',
                     nextStateId: 'fender.rear.left.type'
                 },
                 {
-                    answer: 'Kotflügel (Seitenwand) hinten rechts',
+                    answer: 'Kotflügel / Seitenwand hinten rechts',
                     nextStateId: 'fender.rear.right.type'
                 },
                 {
@@ -104,25 +108,25 @@ var states = {
                     nextStateId: 'hood.type'
                 },
                 {
-                    answer: 'Nebelscheinwerfer vorne links wechseln',
+                    answer: 'Nebelscheinwerfer vorne links',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Nebelscheinwerfer vorne rechts wechseln',
+                    answer: 'Nebelscheinwerfer vorne rechts',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer vorne links wechseln',
+                    answer: 'Scheinwerfer vorne links',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer vorne rechts wechseln',
+                    answer: 'Scheinwerfer vorne rechts',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
@@ -156,7 +160,7 @@ var states = {
     'vehicle.complete.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Das Fahrzeug braucht Untersuchungen',
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
                     useConstants: [
@@ -215,15 +219,15 @@ var states = {
             question: 'Was möchten Sie mit Ihrem Außenspiegel machen?',
             answers: [
                 {
-                    answer: 'Außenspiegel links ist defekt',
+                    answer: 'Leisteungen für den Außenspiegel links',
                     nextStateId: 'mirror.left.type'
                 },
                 {
-                    answer: 'Außenspiegel rechts ist defekt',
+                    answer: 'Leisteungen für den Außenspiegel rechts',
                     nextStateId: 'mirror.right.type'
                 },
                 {
-                    answer: 'Beide komplett wechseln',
+                    answer: 'Beide Außenspiegel ersetzen',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450284 (Außenspiegel beide komplett wechseln)',
                     calcParams: ['Repaircode E']
@@ -234,15 +238,12 @@ var states = {
     'mirror.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: {
-                'mirror.left.type': 'Was möchten Sie mit Ihrem Außenspiegel (links) machen?',
-                'mirror.right.type': 'Was möchten Sie mit Ihrem Außenspiegel (rechts) machen?'
-            },
+            question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
             answers: [
                 {
-                    answer: 'Glas tauschen',
-                    description: 'Eine kostengünstige Alternative zum Tausch des kompletten Seitenspiegels ist der Austausch des Glases.',
+                    answer: 'Glas ersetzen',
+                    description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
                     nextStateId: {
                         'mirror.left.type': 'mirror.left.glas.replace.type',
                         'mirror.right.type': 'mirror.right.glas.replace.type'
@@ -260,7 +261,7 @@ var states = {
                 },
                 {
                     answer: 'Außenspiegel ersetzen',
-                    description: 'Ist das Gehäuse des Spiegels stark beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
+                    description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
                     nextStateId: 'END',
                     serviceCode: {
                         'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
@@ -281,13 +282,13 @@ var states = {
     'mirror.glas.replace': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Wählen Sie bitte einen Service:',
+            question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
             answers: [
                 {
                     answer: {
-                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links wechseln',
-                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts wechseln'
+                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links ersetzen',
+                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts ersetzen'
                     },
                     nextStateId: 'END',
                     serviceCode: {
@@ -298,8 +299,8 @@ var states = {
                 },
                 {
                     answer: {
-                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links (Weitwinkel) wechseln',
-                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts (Weitwinkel) wechseln'
+                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links (Weitwinkel) ersetzen',
+                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts (Weitwinkel) ersetzen'
                     },
                     nextStateId: 'END',
                     serviceCode: {
@@ -323,12 +324,12 @@ var states = {
     'dent.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen der Dellen:',
+            question: 'Wie viele Dellen mit welchem durchschnittlichen Durchmesser möchten Sie reparieren lassen?',
             isTemplate: true,
             checklist: [
                 {
                     type: 'input',
-                    answer: 'Anzahl Dellen: ',
+                    answer: 'Anzahl Dellen:',
                     defaultValue: '1'
                 },
                 {
@@ -397,7 +398,7 @@ var states = {
     'roof.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Welcher Service suchen Sie für Ihr Fahrzeugdach?',
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
                     useConstants: [
@@ -472,11 +473,11 @@ var states = {
     'roof.rockfall.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen des Steinschlags:',
+            question: 'Wie viele Steinschläge möchten Sie reparieren lassen?',
             checklist: [
                 {
                     type: 'input',
-                    answer: 'Anzahl Steinschlag: ',
+                    answer: 'Anzahl Steinschläge:',
                     defaultValue: '1'
                 }
             ],
@@ -491,13 +492,19 @@ var states = {
     'vehicle.complete.lacquer.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Welcher Teil des Fahrzeugs möchten Sie lackieren?',
+            question: 'Welchen Teil Ihres Fahrzeuges möchten Sie lackieren lassen?',
             answers: [
                 {
-                    answer: 'Fahrzeug komplett außen',
+                    answer: 'Fahrzeug komplett (mit Dach)',
                     nextStateId: 'END',
                     serviceCode: 'vehicle.complete.outside.lacquer',
                     calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 20']
+                },
+				{
+                    answer: 'Fahrzeug komplett (ohne Dach)',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.outside.noroof.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 49']
                 },
                 {
                     answer: 'Fahrzeugseite links',
@@ -510,12 +517,6 @@ var states = {
                     nextStateId: 'END',
                     serviceCode: 'vehicle.complete.rightside.lacquer',
                     calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 60']
-                },
-                {
-                    answer: 'Fahrzeug ohne Dach außen',
-                    nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.outside.noroof.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 49']
                 },
                 {
                     answer: 'Vorderwagen',
@@ -535,20 +536,21 @@ var states = {
 
 
 // Felgen
-    'rim': {
+    'rim.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Felgen Services',
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
-                    answer: 'Reparieren / Instandsetzung',
-                    description: 'Reparieren / Instandsetzung Lorem Ipsum',
+                    answer: 'Felgen Reparieren',
+                    description: 'Kleinere optische Schäden wie Abschürfungen, Kratzer, Beulen oder Korrosionsschäden an Felgen lassen sich meist problemlos beheben. Auch bei einer dem ersten Anschrein nach nur oberflächeren Beschädgigung muss vor der Reparatur jede Felge auf Haarrisse hin untersucht werden.',
                     nextStateId: 'END',
                     serviceCode: 'rim.repair',
                     calcParams: [
-                        'Kein DAT Service, Alternativen',
-                        'Festpreis pro Felge / Felgensatz',
-                        'Nicht anbieten',
+                        'Nicht über DAT kalkulierbar, Alternativen wären:',
+                        '- Festpreis Reparatur pro Felge / Felgensatz',
+                        '- Reparatur nicht anbieten',
+						'(Alu/Stahl, Felgengröße, Einzeilig/Mehrteilig, Einfarbig/Mehrfarbig, Spinner, Design (Speichen, Stern, ...)',
                         'Oder: Reparatur Alufelge (service-id-554889)',
                         'Oder: Reparatur Stahlfelge (service-id-554890)'
                     ]
@@ -574,14 +576,14 @@ var states = {
                     ]
                 },
                 {
-                    answer: 'Versiegeln',
-                    description: 'Versiegeln Lorem Ipsum',
+                    answer: 'Felgen versiegeln',
+                    description: 'Die Felgen werden gereinigt und mit einer Nano-Politur versiegelt, danke Lotus-Effekt haftet weniger Schmutz an den Felgen und das Wasser perlt besser ab.',
                     nextStateId: 'END',
                     serviceCode: 'rim.sealing',
                     calcParams: [
-                        'Kein DAT Service, Alternativen',
-                        'Festpreis pro Felge / Felgensatz',
-                        'Nicht anbieten'
+                        'Nicht über DAT kalkulierbar, Alternativen wären:',
+                        '- Festpreis pro Felge / Felgensatz',
+                        '- Nicht anbieten'
                     ]
                 },
                 {
@@ -598,9 +600,9 @@ var states = {
                     nextStateId: 'END',
                     serviceCode: 'rim.lacquer',
                     calcParams: [
-                        'Kann die DAT, Ergebnisse aber potentiell nicht präzise. Alternativen:',
-                        'Festpreis pro Felge / Felgensatz',
-                        'Nicht anbieten'
+                        'Über DAT kalkulierbar, Ergebnisse aber potentiell nicht präzise genug. Alternativen:',
+                        '- Festpreis pro Felge / Felgensatz',
+                        '- Nicht anbieten'
                     ]
                 }
             ]
@@ -613,22 +615,22 @@ var states = {
         pageTitle: 'Frontscheibe Service View',
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Was möchten Sie mit Ihrer Frontscheibe machen?',
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
-                    answer: 'Scheibe reparieren',
-                    description: 'Die Reparatur der Frontscheibe ist günstiger und geht schneller, als der Austausch. Allerdings können Schäden nur dann repariert werden, wenn sie nicht im Sichtfeld des Fahrers liegen oder im Randbereich der Scheibe. Repariert werden können oberflächliche Steinschläge und kleine Risse bis maximal 2,5 cm Länge.  Zudem dürfen maximal 2 Steinschläge repariert werden, danach bleibt nur noch der Tausch der Scheibe.',
+                    answer: 'Frontscheibe reparieren',
+                    description: 'Die Reparatur der Frontscheibe ist günstiger und geht schneller, als der Austausch. Allerdings können Schäden nur dann repariert werden, wenn sie nicht im Sichtfeld des Fahrers liegen oder im Randbereich der Scheibe. Repariert werden können oberflächliche Steinschläge und kleine Risse bis maximal 2,5 cm Länge. Zudem dürfen maximal 2 Steinschläge repariert werden, danach bleibt nur noch der Tausch der Scheibe.',
                     nextStateId: 'windshield.repair.type'
                 },
                 {
-                    answer: 'Scheibenversieglung',
+                    answer: 'Frontscheiben versiegeln',
                     description: 'Die Scheibe wird gereinigt und mit einer Nano-Politur versiegelt, danke Lotus-Effekt haftet weniger Schmutz an der Scheibe und das Wasser perlt besser ab.',
                     nextStateId: 'END',
                     serviceCode: 'windshield.sealing',
                     calcParams: ['Festpreis']
                 },
                 {
-                    answer: 'Austausch der Scheibe',
+                    answer: 'Frontscheide austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
@@ -638,66 +640,49 @@ var states = {
         }
     },
     'windshield.repair.type': {
-        viewType: 'radioSelection',
-        configs: {
-            question: 'Haben Sie Loch oder Riss auf der Frontscheibe?',
-            answers: [
-                {
-                    answer: 'Loch',
-                    nextStateId: 'windshield.repair.hole.position'
-                },
-                {
-                    answer: 'Riss',
-                    nextStateId: 'windshield.advise.replace'
-                }
-            ]
-        }
-    },
-    'windshield.repair.hole.position': {
         viewType: 'radioSelectionWithImg',
         configs: {
-            question: 'Befindet sich wenichstens ein Loch im roten Bereich?',
+            question: 'Befindet sich eine Beschädigung im roten Bereich?',
             img: {
                 file: 'frontscheibe-wechseln-noetig.jpg'
             },
             answers: [
                 {
                     answer: 'Ja',
-                    nextStateId: 'windshield.advise.replace'
-                },
-                {
-                    answer: 'Nein',
-                    nextStateId: 'END',
-                    serviceCode: 'windshield.repair',
-                    calcParams: ['Festpreis je Steinschlag']
-                }
-            ]
-        }
-    },
-    'windshield.advise.replace': {
-        viewType: 'adviseSelection',
-        configs: {
-            question: 'Wir empfehlen Ihnen die Frontscheibe zu wechseln',
-            answers: [
-                {
-                    answer: 'Akzeptieren',
                     nextStateId: 'END',
                     serviceCode: 'windshield.replace',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Zurück',
-                    nextStateId: 'LASTSTATE'
+                    answer: 'Nein',
+                    nextStateId: 'windshield.repair.number.type'
                 }
             ]
         }
     },
+    'windshield.repair.number.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Wie viele Beschädigungen sind es?',
+            checklist: [
+                {
+                    type: 'input',
+                    answer: 'Anzahl Beschädigungen:',
+                    defaultValue: '1'
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'windshield.repair',
+            calcParams: ['Festpreis je Steinschlag']
+        }
+    },
+
 
 // Hagelschaden
     'haildamage.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Haben Sie Dellen ab 20 mm?',
+            question: 'Sind die Dellen teilweise größer als 20 mm?',
             isTemplate: true,
             answers: [
                 {
@@ -737,12 +722,12 @@ var states = {
     'haildamage.damage.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie die Anzahl der Dellen:',
+            question: 'Wie viele Dellen sind es?',
             isTemplate: true,
             checklist: [
                 {
                     type: 'input',
-                    answer: 'Anzahl Dellen: ',
+                    answer: 'Anzahl Dellen:',
                     defaultValue: '1'
                 }
             ],
@@ -797,7 +782,7 @@ var states = {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
-            question: 'Was möchten Sie mit Ihrer Heckklappe machen?',
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
                     useConstants: [
@@ -892,10 +877,7 @@ var states = {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
-            question: {
-                'fender.front.right.type': 'Was möchten Sie mit Ihrem Kotflügel (vorne rechts) machen?',
-                'fender.front.left.type': 'Was möchten Sie mit Ihrem Kotflügel (vorne links) machen?'
-            },
+            question: 'Welchen Service wünschen Sie?',
             answers: [
                 {
                     useConstants: [
@@ -1021,10 +1003,7 @@ var states = {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
-            question: {
-                'fender.rear.right.type': 'Was möchten Sie mit Ihrem Kotflügel (Seitenwand) hinten rechts machen?',
-                'fender.rear.left.type': 'Was möchten Sie mit Ihrem Kotflügel (Seitenwand) hinten links machen?'
-            },
+            question: 'Welchen Service wünschen Sie für Ihren Kotflügel?',
             answers: [
                 {
                     useConstants: [
@@ -1145,21 +1124,21 @@ var states = {
     'fender.rust.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen des Rosts:',
+            question: 'Bitte beschreiben Sie Anzahl und Größe der Roststellen.',
             isTemplate: true,
             checklist: [
                 {
                     type: 'input',
-                    answer: 'Anzahl der Roststellen:',
+                    answer: 'Anzahl Roststellen:',
                     defaultValue: '1'
                 },
                 {
                     type: 'dropdown',
-                    answer: 'Gesamtfläche der Roststellen:',
+                    answer: 'Gesamtfläche Roststellen:',
                     options: [
-                        {value: 'klein, < 5 cm Durchmesser'},
-                        {value: 'mittel, 5 bis 10 cm Durchmesser'},
-                        {value: 'groß, > 10 cm Durchmesser'}
+                        {value: 'klein (bis ca. 5 cm Durchmesser)'},
+                        {value: 'mittel (zwischen 5 und 10 cm Durchmesser)'},
+                        {value: 'groß (größer als 10 cm Durchmesser)'}
                     ]
                 }
             ],
@@ -1189,7 +1168,7 @@ var states = {
     'fender.position.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Für welcher Kotflügel?',
+            question: 'Für welchen Kotflügel?',
             answers: [
                 {
                     answer: 'Kotflügel vorne rechts',
@@ -1213,25 +1192,25 @@ var states = {
     'fender.replace.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Welcher Kotflügel möchten Sie wechseln?',
+            question: 'Welchen Kotflügel möchten Sie wechseln?',
             answers: [
                 {
-                    answer: 'Kotflügel komplett vorne rechts wechseln',
+                    answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)'
                 },
                 {
-                    answer: 'Kotflügel komplett vorne links wechseln',
+                    answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)'
                 },
                 {
-                    answer: 'Kotflügel komplett hinten rechts wechseln',
+                    answer: 'Kotflügel hinten rechts',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450273 (Kotflügel komplett hinten rechts wechseln)'
                 },
                 {
-                    answer: 'Kotflügel komplett hinten links wechseln',
+                    answer: 'Kotflügel hinten links',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450272 (Kotflügel komplett hinten links wechseln)'
                 }
@@ -1244,7 +1223,7 @@ var states = {
     'scratch.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen der Kratzern:',
+            question: 'Bitte beschreiben Sie den oder die Kratzer:',
             isTemplate: true,
             checklist: [
                 {
@@ -1254,7 +1233,7 @@ var states = {
                 },
                 {
                     type: 'dropdown',
-                    answer: 'Länge des Kratzers:',
+                    answer: 'Gesamtlänge aller Kratzer:',
                     options: [
                         {value: '0 bis 5 cm'},
                         {value: '5 bis 10 cm'},
@@ -1319,7 +1298,7 @@ var states = {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
-            question: 'Was möchten Sie mit Ihrem Motorhaube machen?',
+            question: 'Welchen Service wünschen Sie für Ihre Motorhaube?',
             answers: [
                 {
                     useConstants: [
@@ -1413,10 +1392,10 @@ var states = {
         pageTitle: 'Scheiben & Glas Service View',
         viewType: 'radioSelection',
         configs: {
-            question: 'Scheiben und Glas service?',
+            question: 'Für welches Bauteil wünschen Sie einen Service?',
             answers: [
                 {
-                    answer: 'Frontscheibe (Landing Page)',
+                    answer: 'Landign Page: Frontscheibe',
                     nextStateId: 'windshield.type',
                     newWindow: true
                 },
@@ -1425,7 +1404,7 @@ var states = {
                     nextStateId: 'windshield.type'
                 },
                 {
-                    answer: 'Heckscheibe wechseln',
+                    answer: 'Heckscheibe ersetzen',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
@@ -1443,7 +1422,7 @@ var states = {
                     nextStateId: 'headlight.type'
                 },
                 {
-                    answer: 'Außenspiegel',
+                    answer: 'Seitenspiegel / Außenspiegel',
                     nextStateId: 'mirror.quick.type'
                 }
             ]
@@ -1455,40 +1434,40 @@ var states = {
     'headlight.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Welche Scheinwerfer oder Nebelscheinwerfer möchten Sie wechseln',
+            question: 'Welchen Scheinwerfer / Nebelscheinwerfer möchten Sie tauschen?',
             answers: [
                 {
-                    answer: 'Scheinwerfer komplett vorne links wechseln',
+                    answer: 'Scheinwerfer vorne links wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer komplett vorne rechts wechseln',
+                    answer: 'Scheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer komplett vorne beide wechseln',
+                    answer: 'Scheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407550 (Scheinwerfer komplett vorne beide wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Nebelscheinwerfer komplett vorne links wechseln',
+                    answer: 'Nebelscheinwerfer vorne links wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Nebelscheinwerfer komplett vorne rechts wechseln',
+                    answer: 'Nebelscheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Nebelscheinwerfer komplett vorne beide wechseln',
+                    answer: 'Nebelscheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409870 (Nebelscheinwerfer komplett vorne beide wechseln)',
                     calcParams: ['Repaircode E']
@@ -1500,14 +1479,14 @@ var states = {
     'headlight.replace.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Was möchten Sie wechseln',
+            question: 'Welches Bauteil möchten Sie wechseln?',
             isTemplate: true,
             answers: [
                 {
                     answer: {
-                        'headlight.replace.front.left.type': 'Scheinwerfer komplett vorne links wechseln',
-                        'headlight.replace.front.right.type': 'Scheinwerfer komplett vorne rechts wechseln',
-                        'headlight.replace.front.both.type': 'Scheinwerfer komplett vorne beide wechseln'
+                        'headlight.replace.front.left.type': 'Scheinwerfer vorne links wechseln',
+                        'headlight.replace.front.right.type': 'Scheinwerfer vorne rechts wechseln',
+                        'headlight.replace.front.both.type': 'Scheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
@@ -1519,9 +1498,9 @@ var states = {
                 },
                 {
                     answer: {
-                        'headlight.replace.front.left.type': 'Nebelscheinwerfer komplett vorne links wechseln',
-                        'headlight.replace.front.right.type': 'Nebelscheinwerfer komplett vorne rechts wechseln',
-                        'headlight.replace.front.both.type': 'Nebelscheinwerfer komplett vorne beide wechseln'
+                        'headlight.replace.front.left.type': 'Nebelscheinwerfer vorne links wechseln',
+                        'headlight.replace.front.right.type': 'Nebelscheinwerfer vorne rechts wechseln',
+                        'headlight.replace.front.both.type': 'Nebelscheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
@@ -1549,7 +1528,7 @@ var states = {
     'sill.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Was möchten Sie machen?',
+            question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
             answers: [
                 {
@@ -1648,7 +1627,7 @@ var states = {
     'sidewindow.replace.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Was möchten Sie wechseln',
+            question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
             answers: [
                 {
@@ -1714,7 +1693,7 @@ var states = {
     'spotrepair.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen Für Spots und Streifschäden:',
+            question: 'Bitte beschreiben Sie Ihren Schaden:',
             isTemplate: true,
             checklist: [
                 {
@@ -1724,7 +1703,7 @@ var states = {
                 },
                 {
                     type: 'dropdown',
-                    answer: 'Länge der Streifschäden:',
+                    answer: 'Gesamtlänge der Streifschäden:',
                     options: [
                         {value: '0 bis 0.5 cm'},
                         {value: '0.5 bis 1 cm'},
@@ -1776,7 +1755,7 @@ var states = {
     'rockfall.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen für die Steinschläge:',
+            question: 'Wie viele Steinschläge in welcher Größe haben Sie?',
             isTemplate: true,
             checklist: [
                 {
@@ -1786,7 +1765,7 @@ var states = {
                 },
                 {
                     type: 'input',
-                    answer: 'Steinschlagdurchmesser (mm):',
+                    answer: 'Durchmesser Steinschläge (mm):',
                     defaultValue: '10'
                 }
             ],
@@ -1837,7 +1816,7 @@ var states = {
     'bumper.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
-            question: 'Was möchten Sie mit Ihrem Stoßfänger / Stoßstange machen?',
+            question: 'Welchen Service wünschen Sie für Ihren Stoßfänger?',
             answers: [
                 {
                     useConstants: [
@@ -1917,27 +1896,8 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.replace.type'
-                }
-            ]
-        }
-    },
-
-    'bumper.replace.type': {
-        viewType: 'radioSelection',
-        configs: {
-            question: 'Möchten Sie Ihre Frontschürze komplett wechseln',
-            answers: [
-                {
-                    answer: 'Ja',
                     nextStateId: 'END',
                     serviceCode: 'service-id-518536 (Frontschürze komplett wechseln)',
-                    calcParams: ['Repaircode E']
-                },
-                {
-                    answer: 'Nein',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-518537 (Frontschürze wechseln)',
                     calcParams: ['Repaircode E']
                 }
             ]
@@ -1949,11 +1909,11 @@ var states = {
     'accidentaldamage.type': {
         viewType: 'mixSelection',
         configs: {
-            question: 'Bitte geben Sie genauere Beschreibungen des Unfalls:',
+            question: 'Bitte beschreiben Sie Ihren Schaden:',
             checklist: [
                 {
                     type: 'image',
-                    answer: 'Betroffene Bauteile:',
+                    answer: 'Welche Bauteile sind betroffen?',
                     img: {
                         file: 'CarPlan.jpg',
                         height: 150
@@ -1961,7 +1921,7 @@ var states = {
                 },
                 {
                     type: 'checkbox',
-                    answer: 'Art des Schadens:',
+                    answer: 'Wie ist der Schadens entstanden?',
                     options: [
                         {value: 'Unfall vorne'},
                         {value: 'Unfall hinten'},
@@ -1971,7 +1931,7 @@ var states = {
                 },
                 {
                     type: 'radio',
-                    answer: 'Wurde der Airbag ausgelöst:',
+                    answer: 'Wurde der Airbag ausgelöst?',
                     options: [
                         {value: 'Ja'},
                         {value: 'Nein'}
@@ -1979,19 +1939,19 @@ var states = {
                 },
                 {
                     type: 'radio',
-                    answer: 'Fahrzeugzustand:',
+                    answer: 'Ist Ihr Fahrzeug fahrbereit?',
                     options: [
-                        {value: 'Fahrzeug fahrbereit'},
-                        {value: 'Fahrzeug nicht fahrbereit'}
+                        {value: 'ja'},
+                        {value: 'nein'}
                     ]
                 },
                 {
                     type: 'radio',
-                    answer: 'Begutachtung:',
+                    answer: 'Wo wünschen Sie die Begutachtung?',
                     options: [
-                        {value: 'Hausbesuch'},
-                        {value: 'Werkstatt'},
-                        {value: 'Fahrzeug in die Werkstatt schleppen'}
+                        {value: 'Bei Ihnen vor Ort'},
+                        {value: 'Bei der Fachwerkstatt'},
+                        {value: 'Fahrzeug zur Begutachtung in die Fachwerkstatt schleppen'}
                     ]
                 }
             ],
@@ -2004,7 +1964,7 @@ var states = {
 };
 
 var stateConstants = {
-    'answer.replace': 'Austausch des Bauteils',
+    'answer.replace': 'Wechsel des Bauteils',
     'answer.dent.repair': 'Einzelne Dellen entfernen',
     'answer.haildamage.repair': 'Hagelschaden reparieren',
     'answer.lacquer': 'Neulackierung des Bauteils',
@@ -2018,7 +1978,7 @@ var stateConstants = {
     'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oderflächliche Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
     'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteile liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich, wählen Sie hierfür bitte die Option "Dellen entfernen".',
     'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf geworden ist oder der Lack fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
-    'description.polish': 'Polieren Lorem Ipsum.',
+    'description.polish': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
     'description.rockfall.repair': 'Steinschläge sind nicht nur unansehnlich, sondern die scharfkantigen Steine beschädigen meist auch die Grundierung und es bildet sich Rost, der sich auch unter dem Lack weiter ausbreitet. Je nach Lage am Fahrzeug muss unter Umständen das gesamte Bauteil neu lackiert werden, nachdem die betroffene Stelle ausgebessert worden ist.',
     'description.rust.repair': 'Um Rost langfristig zu entfernen, muss dieser zuerst restlos entfernt werden. Anschließend wird die Stelle großflächig für einen kompletten Neuaufbau des Lacks vorbereitet und anschließend das gesamte Bauteil lackiert. Bei größeren Rostflächen oder Durchrostung, wenden Sie sich bitte an einen Fachbetrieb (&lt;&lt;CrossLink Werkstattsuche&gt;&gt;).',
     'description.scratch.repair': 'Kratzer werden üblicherweise durch Schleifen und Ebnen der Fläche mit Feinspachtel und einer kompletten Lackierung des Bauteils beseitigt. Ist auch die Grundierung beschädigt, muss eventuell bereits entstandener Rost ebenfalls entfernt werden.',
