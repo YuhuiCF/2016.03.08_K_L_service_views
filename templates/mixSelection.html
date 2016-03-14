@@ -1,16 +1,16 @@
 
-<div data-view class="inputDropdownCheckboxSelection">
+<div data-view class="mixSelection">
     <h3 data-question></h3>
     <div data-answers>
         <div data-answer>
             <div data-answer-type-input>
                 <label>
-                    <span data-answer-text></span><br>
+                    <p><b data-answer-text></b></p>
                     <input type="text" data-answer-view-id data-answer-default-value>
                 </label>
             </div>
             <div data-answer-type-radio>
-                <span data-answer-text></span>
+                <p><b data-answer-text></b></p>
                 <div data-answer-option-radio>
                     <label>
                         <input type="radio" data-answer-view-id>
@@ -18,8 +18,20 @@
                     </label>
                 </div>
             </div>
+            <div data-answer-type-checkbox>
+                <p><b data-answer-text></b></p>
+                <div>
+                    <img data-img>
+                </div>
+                <div data-answer-option-checkbox>
+                    <label>
+                        <input type="checkbox" data-answer-view-id>
+                        <span data-answer-option-text></span>
+                    </label>
+                </div>
+            </div>
             <div data-answer-type-dropdown>
-                <span data-answer-text></span><br>
+                <p><b data-answer-text></b></p>
                 <select data-answer-default-value data-answer-view-id>
                     <option data-answer-option-text></option>
                 </select>

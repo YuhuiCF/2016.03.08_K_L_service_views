@@ -87,8 +87,7 @@ var Views = function(states, $){
 
         var imgElmt = viewJQElmt.find('[data-img]');
         if (configs.img) {
-            imgElmt.attr('height', configs.img.height);
-            imgElmt.attr('src', 'img/' + configs.img.file);
+            setImageConfigs(imgElmt, configs.img);
         }
 
         var answerElmt = viewJQElmt.find('[data-answer]');
@@ -111,10 +110,11 @@ var Views = function(states, $){
                 answer.calcParams = setAndReturnValueOfConfigId(answer.calcParams, configId);
             }
 
-            var textElmt = viewJQElmt.find('[data-answer-text]:eq(' + i + ')');
-            var clickElmt = viewJQElmt.find('[data-answer-click]:eq(' + i + ')');
-            var viewIdElmt = viewJQElmt.find('[data-answer-view-id]:eq(' + i + ')');
-            var descriptionElmt = viewJQElmt.find('[data-answer-description]:eq(' + i + ')');
+            var thisAnswerElmt = viewJQElmt.find('[data-answer]:last');
+            var textElmt = thisAnswerElmt.find('[data-answer-text]');
+            var clickElmt = thisAnswerElmt.find('[data-answer-click]');
+            var viewIdElmt = thisAnswerElmt.find('[data-answer-view-id]');
+            var descriptionElmt = thisAnswerElmt.find('[data-answer-description]');
 
             textElmt.html(answer.answer);
 
@@ -128,7 +128,7 @@ var Views = function(states, $){
                     goToNextFrom(clickElmt, answer);
                 });
             } else {
-                textElmt.addClass('inactive');
+                thisAnswerElmt.addClass('inactive');
             }
         });
 
@@ -175,6 +175,7 @@ var Views = function(states, $){
             goToNextFrom(this, configs);
         });
 
+/*
         function getAndSetConfirmedOptions(configs, jQElmt){
             var viewElmt = jQElmt.closest('[data-view]');
 
@@ -187,6 +188,7 @@ var Views = function(states, $){
 
             return configs;
         }
+*/
 
         function goBackFrom(elmt){
             if ($('[data-view]').length > 1) {
@@ -221,6 +223,11 @@ var Views = function(states, $){
             }
         }
 
+        function setImageConfigs(imgElmt, config){
+            imgElmt.attr('height', config.height);
+            imgElmt.attr('src', 'img/' + config.file);
+        }
+
         function prepareAnswerElement(jQElmt, item){
             //var elmt = jQElmt;
             $.each(jQElmt.children(), function(i, e){
@@ -230,6 +237,15 @@ var Views = function(states, $){
             });
 
             var itemElmt, itemParentElmt, defaultValue;
+
+            var imgElmt = jQElmt.find('[data-img]');
+            if (item.img) {
+                setImageConfigs(imgElmt, item.img);
+            } else {
+                if (imgElmt.length > 0) {
+                    imgElmt.remove();
+                }
+            }
 
             switch (item.type) {
                 case 'dropdown':
@@ -263,6 +279,29 @@ var Views = function(states, $){
                             thisItemElmt.find('[data-answer-view-id]').prop('checked', true);
                         }
                     });
+                    break;
+                case 'checkbox':
+                    console.log('here');
+                    itemElmt = jQElmt.find('[data-answer-option-checkbox]:eq(0)');
+                    itemParentElmt = itemElmt.parent();
+                    itemElmt = itemElmt.clone();
+                    defaultValue = item.defaultValue;
+
+                    $.each(item.options, function(i, option){
+                        if (i > 0) {
+                            itemParentElmt.append(itemElmt.clone());
+                        }
+                        var thisItemElmt = itemParentElmt.find('[data-answer-option-checkbox]:last');
+                        var valueElmt = thisItemElmt.find('[data-answer-option-text]');
+                        var value = option.value;
+                        valueElmt.html(value);
+
+                        if ($.inArray(value, defaultValue) > -1) {
+                            thisItemElmt.find('[data-answer-view-id]').prop('checked', true);
+                        }
+                    });
+                    break;
+                default:
                     break;
             }
             return jQElmt;

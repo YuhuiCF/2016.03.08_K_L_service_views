@@ -51,7 +51,7 @@ h4 {
 
 .inactive,
 .inactive * {
-    color: #ddd;
+    color: #bbb;
 }
 
 [data-views] [data-view]:first-child{
@@ -120,9 +120,13 @@ h4 {
     margin-top: 0;
 }
 
-.inputDropdownCheckboxSelection [data-answer] > div,
-.inputDropdownCheckboxSelection [data-answer-fake] {
+.mixSelection [data-answer] > div,
+.mixSelection [data-answer-fake] {
     margin-top: 20px;
+}
+
+.mixSelection p {
+    margin-bottom: 0;
 }
 
 

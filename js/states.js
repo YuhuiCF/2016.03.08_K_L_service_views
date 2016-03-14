@@ -24,7 +24,7 @@ var states = {
                 {
                     answer: 'Unfallschaden',
                     description: 'Bei größeren Schäden begutachten unsere Experten Ihren Schaden und unterbreiten Ihnen ein konkretes Angebot.<br>Finden Sie Ihren Experten und vereinbaren Sie online einen Termin zur Begutachtung. Sollte Ihr Fahrzeug nicht mehr fahrbereit sein, dann kommen wir auch gerne zu Ihnen.',
-                    //nextStateId: 'window.glas.type'
+                    nextStateId: 'accidentaldamage.type'
                 }
             ]
         }
@@ -68,10 +68,20 @@ var states = {
                     nextStateId: 'windshield.type'
                 },
                 {
+                    answer: 'Heckabschlußblech wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'rearpanel.replace',
+                    calcParams: ['Repaircode E']
+                },
+                {
                     answer: 'Heckscheibe wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Heckklappe / Kofferraumdeckel',
+                    nextStateId: 'tailgate.type'
                 },
                 {
                     answer: 'Kotflügel vorne links',
@@ -118,8 +128,20 @@ var states = {
                     calcParams: ['Repaircode E']
                 },
                 {
+                    answer: 'Schweller links',
+                    nextStateId: 'sill.left.type'
+                },
+                {
+                    answer: 'Schweller rechts',
+                    nextStateId: 'sill.right.type'
+                },
+                {
                     answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links',
-                    nextStateId: 'sidewindow.replace.type'
+                    nextStateId: 'sidewindow.left.replace.type'
+                },
+                {
+                    answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts',
+                    nextStateId: 'sidewindow.right.replace.type'
                 },
                 {
                     answer: 'Stoßfänger / Stoßstange',
@@ -139,6 +161,19 @@ var states = {
                 {
                     useConstants: [
                         {
+                            useKey: 'answer.haildamage.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.haildamage.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'vehicle.haildamage.type'
+                },
+                {
+                    useConstants: [
+                        {
                             useKey: 'answer.lacquer',
                             forKey: 'answer'
                         },
@@ -147,24 +182,18 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    //nextStateId: 'mirror.left.type'
+                    nextStateId: 'vehicle.complete.lacquer.type'
                 },
                 {
                     answer: 'Polieren',
-                    //nextStateId: 'mirror.right.type'
-                },
-                {
-                    useConstants: [
-                        {
-                            useKey: 'answer.haildamage',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.haildamage',
-                            forKey: 'description'
-                        }
-                    ],
-                    nextStateId: 'vehicle.haildamage.type'
+                    description: 'Polieren Lorem Ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.polish',
+                    calcParams: [
+                        'Kein DAT Service, Alternativen',
+                        'Oberfläche mal Preis',
+                        'Festpreis pro Fahrzeugkategorie (Kleinwagen, Transporter, ...)'
+                    ]
                 }
             ]
         }
@@ -318,7 +347,8 @@ var states = {
                 'hood.dent.type': 'hood.dent.repair',
                 'roof.dent.type': 'roof.dent.repair',
                 'sill.left.dent.type': 'sill.left.dent.repair',
-                'sill.right.dent.type': 'sill.right.dent.repair'
+                'sill.right.dent.type': 'sill.right.dent.repair',
+                'tailgate.dent.type': 'tailgate.dent.repair'
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
@@ -350,6 +380,9 @@ var states = {
     'sill.right.dent.type': {
         useTemplate: 'dent.type'
     },
+    'tailgate.dent.type': {
+        useTemplate: 'dent.type'
+    },
 
 
 // Fahrzeugdach
@@ -372,11 +405,29 @@ var states = {
                     nextStateId: 'roof.dent.type'
                 },
                 {
-                    answer: 'Kratzer reparieren',
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'roof.scratch.type'
                 },
                 {
-                    answer: 'Steinschlag reparieren',
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'roof.rockfall.type'
                 },
                 {
@@ -397,11 +448,11 @@ var states = {
                 {
                     useConstants: [
                         {
-                            useKey: 'answer.haildamage',
+                            useKey: 'answer.haildamage.repair',
                             forKey: 'answer'
                         },
                         {
-                            useKey: 'description.haildamage',
+                            useKey: 'description.haildamage.repair',
                             forKey: 'description'
                         }
                     ],
@@ -426,6 +477,120 @@ var states = {
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
+
+
+// Fahrzeug lackieren
+    'vehicle.complete.lacquer.type': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welcher Teil des Fahrzeugs möchten Sie lackieren?',
+            answers: [
+                {
+                    answer: 'Fahrzeug komplett außen',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.outside.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 20']
+                },
+                {
+                    answer: 'Fahrzeugseite links',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.leftside.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 50']
+                },
+                {
+                    answer: 'Fahrzeugseite rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.rightside.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 60']
+                },
+                {
+                    answer: 'Fahrzeug ohne Dach außen',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.outside.noroof.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 49']
+                },
+                {
+                    answer: 'Vorderwagen',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.frontsection.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 40124']
+                },
+                {
+                    answer: 'Hinterwagen',
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.rearsection.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 50000']
+                }
+            ]
+        }
+    },
+
+
+// Felgen
+    'rim': {
+        viewType: 'radioSelectionWithBlockDescription',
+        configs: {
+            question: 'Felgen Services',
+            answers: [
+                {
+                    answer: 'Reparieren / Instandsetzung',
+                    description: 'Reparieren / Instandsetzung Lorem Ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'rim.repair',
+                    calcParams: [
+                        'Kein DAT Service, Alternativen',
+                        'Festpreis pro Felge / Felgensatz',
+                        'Nicht anbieten',
+                        'Oder: Reparatur Alufelge (service-id-554889)',
+                        'Oder: Reparatur Stahlfelge (service-id-554890)'
+                    ]
+                },
+                {
+                    answer: 'Polieren',
+                    description: 'Polieren Lorem Ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'rim.polish',
+                    calcParams: [
+                        'Felgengröße',
+                        'Material',
+                        'Alufelgen polieren',
+                        'Stahlfelgen polieren',
+                    ]
+                },
+                {
+                    answer: 'Versiegeln',
+                    description: 'Versiegeln Lorem Ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'rim.sealing',
+                    calcParams: [
+                        'Kein DAT Service, Alternativen',
+                        'Festpreis pro Felge / Felgensatz',
+                        'Nicht anbieten'
+                    ]
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.lacquer',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.lacquer',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'END',
+                    serviceCode: 'rim.lacquer',
+                    calcParams: [
+                        'Kann die DAT, Ergebnisse aber potentiell nicht präzise. Alternativen:',
+                        'Festpreis pro Felge / Felgensatz',
+                        'Nicht anbieten'
+                    ]
+                }
+            ]
+        }
+    },
+
 
 // Frontscheibe
     'windshield.type': {
@@ -522,24 +687,34 @@ var states = {
                 {
                     answer: 'Ja',
                     nextStateId: {
-                        'vehicle.haildamage.type': 'vehicle.haildamage.severe.type',
-                        'roof.haildamage.type': 'roof.haildamage.severe.type'
+                        'hood.haildamage.type': 'hood.haildamage.severe.type',
+                        'roof.haildamage.type': 'roof.haildamage.severe.type',
+                        'tailgate.haildamage.type': 'tailgate.haildamage.severe.type',
+                        'vehicle.haildamage.type': 'vehicle.haildamage.severe.type'
                     }
                 },
                 {
                     answer: 'Nein',
                     nextStateId: {
-                        'vehicle.haildamage.type': 'vehicle.haildamage.minor.type',
-                        'roof.haildamage.type': 'roof.haildamage.minor.type'
+                        'hood.haildamage.type': 'hood.haildamage.minor.type',
+                        'roof.haildamage.type': 'roof.haildamage.minor.type',
+                        'tailgate.haildamage.type': 'tailgate.haildamage.minor.type',
+                        'vehicle.haildamage.type': 'vehicle.haildamage.minor.type'
                     }
                 },
             ]
         }
     },
-    'vehicle.haildamage.type': {
+    'hood.haildamage.type': {
         useTemplate: 'haildamage.type'
     },
     'roof.haildamage.type': {
+        useTemplate: 'haildamage.type'
+    },
+    'tailgate.haildamage.type': {
+        useTemplate: 'haildamage.type'
+    },
+    'vehicle.haildamage.type': {
         useTemplate: 'haildamage.type'
     },
 
@@ -557,29 +732,141 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'vehicle.haildamage.severe.type': 'vehicle.haildamage.severe',
-                'roof.haildamage.severe.type': 'roof.haildamage.severe',
-                'vehicle.haildamage.minor.type': 'vehicle.haildamage.minor',
+                'hood.haildamage.minor.type': 'hood.haildamage.minor',
                 'roof.haildamage.minor.type': 'roof.haildamage.minor',
+                'tailgate.haildamage.minor.type': 'tailgate.haildamage.minor',
+                'vehicle.haildamage.minor.type': 'vehicle.haildamage.minor',
+                'hood.haildamage.severe.type': 'hood.haildamage.severe',
+                'roof.haildamage.severe.type': 'roof.haildamage.severe',
+                'tailgate.haildamage.severe.type': 'tailgate.haildamage.severe',
+                'vehicle.haildamage.severe.type': 'vehicle.haildamage.severe',
             },
             calcParams: {
-                'vehicle.haildamage.severe.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
-                'roof.haildamage.severe.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'hood.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'roof.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'tailgate.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'vehicle.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
                 'default': ['DVL (Vordrücken, Lackieren)', 'Lackstufe 3 (über 50%)', 'Anzahl Dellen']
             }
         }
     },
-    'vehicle.haildamage.severe.type': {
+    'hood.haildamage.minor.type': {
         useTemplate: 'haildamage.damage.type'
     },
-    'roof.haildamage.severe.type': {
+    'roof.haildamage.minor.type': {
+        useTemplate: 'haildamage.damage.type'
+    },
+    'tailgate.haildamage.minor.type': {
         useTemplate: 'haildamage.damage.type'
     },
     'vehicle.haildamage.minor.type': {
         useTemplate: 'haildamage.damage.type'
     },
-    'roof.haildamage.minor.type': {
+    'hood.haildamage.severe.type': {
         useTemplate: 'haildamage.damage.type'
+    },
+    'roof.haildamage.severe.type': {
+        useTemplate: 'haildamage.damage.type'
+    },
+    'tailgate.haildamage.severe.type': {
+        useTemplate: 'haildamage.damage.type'
+    },
+    'vehicle.haildamage.severe.type': {
+        useTemplate: 'haildamage.damage.type'
+    },
+
+
+// Heckklappe / Kofferraumdeckel
+    'tailgate.type': {
+        viewType: 'radioSelectionWithBlockDescription',
+        configs: {
+            isTemplate: true,
+            question: 'Was möchten Sie mit Ihrer Heckklappe machen?',
+            answers: [
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.dent.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.dent.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'tailgate.dent.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'tailgate.scratch.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'tailgate.rockfall.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.haildamage.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.haildamage.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'tailgate.haildamage.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.lacquer',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.lacquer',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'END',
+                    serviceCode: 'tailgate.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.replace',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.replace',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'END',
+                    serviceCode: 'tailgate.replace',
+                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
+                }
+            ]
+        }
     },
 
 
@@ -627,8 +914,16 @@ var states = {
                     }
                 },
                 {
-                    answer: 'Kratzer reparieren',
-                    description: 'Kratzer Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: {
                         'fender.front.right.type': 'fender.front.right.scratch.type',
                         'fender.front.left.type': 'fender.front.left.scratch.type',
@@ -637,14 +932,34 @@ var states = {
                 {
                     answer: 'Oberflächenrost entfernen',
                     description: 'Oberflächenrost Lorem Ipsum',
+/*
+                    useConstants: [
+                        {
+                            useKey: 'answer.rust.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rust.repair',
+                            forKey: 'description'
+                        }
+                    ],
+*/
                     nextStateId: {
                         'fender.front.right.type': 'fender.front.right.rust.type',
                         'fender.front.left.type': 'fender.front.left.rust.type',
                     }
                 },
                 {
-                    answer: 'Steinschlag reparieren',
-                    description: 'Steinschlag Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: {
                         'fender.front.right.type': 'fender.front.right.rockfall.type',
                         'fender.front.left.type': 'fender.front.left.rockfall.type',
@@ -716,8 +1031,16 @@ var states = {
                     }
                 },
                 {
-                    answer: 'Kratzer reparieren',
-                    description: 'Kratzer Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: {
                         'fender.rear.right.type': 'fender.rear.right.scratch.type',
                         'fender.rear.left.type': 'fender.rear.left.scratch.type',
@@ -726,14 +1049,34 @@ var states = {
                 {
                     answer: 'Oberflächenrost entfernen',
                     description: 'Oberflächenrost Lorem Ipsum',
+/*
+                    useConstants: [
+                        {
+                            useKey: 'answer.rust.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rust.repair',
+                            forKey: 'description'
+                        }
+                    ],
+*/
                     nextStateId: {
                         'fender.rear.right.type': 'fender.rear.right.rust.type',
                         'fender.rear.left.type': 'fender.rear.left.rust.type',
                     }
                 },
                 {
-                    answer: 'Steinschlag reparieren',
-                    description: 'Steinschlag Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: {
                         'fender.rear.right.type': 'fender.rear.right.rockfall.type',
                         'fender.rear.left.type': 'fender.rear.left.rockfall.type',
@@ -924,6 +1267,9 @@ var states = {
                 'fender.rear.left.scratch.type': 'fender.rear.left.scratch.repair',
                 'hood.scratch.type': 'hood.scratch.repair',
                 'roof.scratch.type': 'roof.scratch.repair',
+                'sill.left.scratch.type': 'sill.left.scratch.repair',
+                'sill.right.scratch.type': 'sill.right.scratch.repair',
+                'tailgate.scratch.type': 'tailgate.scratch.repair',
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
@@ -949,11 +1295,19 @@ var states = {
     'roof.scratch.type': {
         useTemplate: 'scratch.type'
     },
+    'sill.left.scratch.type': {
+        useTemplate: 'scratch.type'
+    },
+    'sill.right.scratch.type': {
+        useTemplate: 'scratch.type'
+    },
+    'tailgate.scratch.type': {
+        useTemplate: 'scratch.type'
+    },
 
 
 // Motorhaube
     'hood.type': {
-        pageTitle: 'Kotflügel Service View',
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
@@ -973,14 +1327,43 @@ var states = {
                     nextStateId: 'hood.dent.type'
                 },
                 {
-                    answer: 'Kratzer reparieren',
-                    description: 'Kratzer Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'hood.scratch.type'
                 },
                 {
-                    answer: 'Steinschlag reparieren',
-                    description: 'Steinschlag Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'hood.rockfall.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.haildamage.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.haildamage.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'hood.haildamage.type'
                 },
                 {
                     useConstants: [
@@ -1040,8 +1423,12 @@ var states = {
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Seitenscheiben',
-                    nextStateId: 'sidewindow.replace.type'
+                    answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links',
+                    nextStateId: 'sidewindow.left.replace.type'
+                },
+                {
+                    answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts',
+                    nextStateId: 'sidewindow.right.replace.type'
                 },
                 {
                     answer: 'Scheinwerfer, Nebelscheinwerfer',
@@ -1168,17 +1555,10 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    //nextStateId: 'sill.spotrepair.type'
-                },
-                {
-                    answer: 'Steinschlag reparieren',
-                    description: 'Steinschlag Lorem Ipsum',
-                    //nextStateId: 'bumper.rockfall.type'
-                },
-                {
-                    answer: 'Kratzer reparieren',
-                    description: 'Kratzer Lorem Ipsum',
-                    //nextStateId: 'sill.left.scratch.type'
+                    nextStateId: {
+                        'sill.left.type': 'sill.left.spotrepair.type',
+                        'sill.right.type': 'sill.right.spotrepair.type'
+                    }
                 },
                 {
                     useConstants: [
@@ -1194,6 +1574,55 @@ var states = {
                     nextStateId: {
                         'sill.left.type': 'sill.left.dent.type',
                         'sill.right.type': 'sill.right.dent.type'
+                    }
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: {
+                        'sill.left.type': 'sill.left.rockfall.type',
+                        'sill.right.type': 'sill.right.rockfall.type'
+                    }
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: {
+                        'sill.left.type': 'sill.left.scratch.type',
+                        'sill.right.type': 'sill.right.scratch.type'
+                    }
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.replace',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.replace',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'END',
+                    serviceCode: {
+                        'sill.left.type': 'sill.left.replace',
+                        'sill.right.type': 'sill.right.replace'
                     }
                 }
             ]
@@ -1306,6 +1735,8 @@ var states = {
                 'fender.front.left.spotrepair.type': 'fender.front.left.spotrepair',
                 'fender.rear.right.spotrepair.type': 'fender.rear.right.spotrepair',
                 'fender.rear.left.spotrepair.type': 'fender.rear.left.spotrepair',
+                'sill.left.spotrepair.type': 'sill.left.spotrepair',
+                'sill.right.spotrepair.type': 'sill.right.spotrepair',
             },
             calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
         }
@@ -1323,6 +1754,12 @@ var states = {
         useTemplate: 'spotrepair.type'
     },
     'fender.rear.left.spotrepair.type': {
+        useTemplate: 'spotrepair.type'
+    },
+    'sill.left.spotrepair.type': {
+        useTemplate: 'spotrepair.type'
+    },
+    'sill.right.spotrepair.type': {
         useTemplate: 'spotrepair.type'
     },
 
@@ -1352,7 +1789,10 @@ var states = {
                 'fender.front.right.rockfall.type': 'fender.front.right.rockfall.repair',
                 'fender.rear.left.rockfall.type': 'fender.rear.left.rockfall.repair',
                 'fender.rear.right.rockfall.type': 'fender.rear.right.rockfall.repair',
-                'hood.rockfall.type': 'hood.rockfall.repair'
+                'hood.rockfall.type': 'hood.rockfall.repair',
+                'sill.left.rockfall.type': 'sill.left.rockfall.repair',
+                'sill.right.rockfall.type': 'sill.right.rockfall.repair',
+                'tailgate.rockfall.type': 'tailgate.rockfall.repair'
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
@@ -1373,6 +1813,15 @@ var states = {
         useTemplate: 'rockfall.type'
     },
     'hood.rockfall.type': {
+        useTemplate: 'rockfall.type'
+    },
+    'sill.left.rockfall.type': {
+        useTemplate: 'rockfall.type'
+    },
+    'sill.right.rockfall.type': {
+        useTemplate: 'rockfall.type'
+    },
+    'tailgate.rockfall.type': {
         useTemplate: 'rockfall.type'
     },
 
@@ -1396,13 +1845,29 @@ var states = {
                     nextStateId: 'bumper.spotrepair.type'
                 },
                 {
-                    answer: 'Steinschlag reparieren',
-                    description: 'Steinschlag Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.rockfall.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.rockfall.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'bumper.rockfall.type'
                 },
                 {
-                    answer: 'Kratzer reparieren',
-                    description: 'Kratzer Lorem Ipsum',
+                    useConstants: [
+                        {
+                            useKey: 'answer.scratch.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.scratch.repair',
+                            forKey: 'description'
+                        }
+                    ],
                     nextStateId: 'bumper.scratch.type'
                 },
                 {
@@ -1419,9 +1884,19 @@ var states = {
                     nextStateId: 'bumper.dent.type'
                 },
                 {
-                    answer: 'Lackieren',
-                    description: 'Lackieren Lorem Ipsum',
-                    //nextStateId: 'bumper.rockfall.type'
+                    useConstants: [
+                        {
+                            useKey: 'answer.lacquer',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.lacquer',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.lacquer',
+                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
                 },
                 {
                     useConstants: [
@@ -1459,6 +1934,85 @@ var states = {
                 }
             ]
         }
+    },
+
+
+// Unfallschaden
+    'accidentaldamage.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Bitte geben Sie genauere Beschreibungen des Unfalls:',
+            checklist: [
+                {
+                    type: 'checkbox',
+                    answer: 'Betroffene Bauteile:',
+                    img: {
+                        file: 'CarPlan.jpg',
+                        height: 150
+                    },
+                    options: [
+                        {value: 'Außenspiegel links'},
+                        {value: 'Außenspiegel rechts'},
+                        {value: 'Fahrzeugdach'},
+                        {value: 'Frontscheibe'},
+                        {value: 'Heckscheibe'},
+                        {value: 'Heckklappe / Kofferraumdeckel'},
+                        {value: 'Kotflügel vorne links'},
+                        {value: 'Kotflügel vorne rechts'},
+                        {value: 'Kotflügel (Seitenwand) hinten links'},
+                        {value: 'Kotflügel (Seitenwand) hinten rechts'},
+                        {value: 'Motorhaube'},
+                        {value: 'Nebelscheinwerfer vorne links'},
+                        {value: 'Nebelscheinwerfer vorne rechts'},
+                        {value: 'Scheinwerfer vorne links'},
+                        {value: 'Scheinwerfer vorne rechts'},
+                        {value: 'Schweller links'},
+                        {value: 'Schweller rechts'},
+                        {value: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links'},
+                        {value: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts'},
+                        {value: 'Stoßfänger / Stoßstange'}
+                    ]
+                },
+                {
+                    type: 'checkbox',
+                    answer: 'Art des Schadens:',
+                    options: [
+                        {value: 'Unfall vorne'},
+                        {value: 'Unfall hinten'},
+                        {value: 'Unfall seitlich'},
+                        {value: 'Parkrempler'}
+                    ]
+                },
+                {
+                    type: 'radio',
+                    answer: 'Wurde der Airbag ausgelöst:',
+                    options: [
+                        {value: 'Ja'},
+                        {value: 'Nein'}
+                    ]
+                },
+                {
+                    type: 'radio',
+                    answer: 'Fahrzeugzustand:',
+                    options: [
+                        {value: 'Fahrzeug fahrbereit'},
+                        {value: 'Fahrzeug nicht fahrbereit'}
+                    ]
+                },
+                {
+                    type: 'radio',
+                    answer: 'Begutachtung:',
+                    options: [
+                        {value: 'Hausbesuch'},
+                        {value: 'Werkstatt'},
+                        {value: 'Fahrzeug in die Werkstatt schleppen'}
+                    ]
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'accidentaldamage',
+            calcParams: ['FIN', 'Upload Bilder (0..5)', 'Schadensbeschreibung']
+        }
     }
 
 };
@@ -1466,14 +2020,20 @@ var states = {
 var stateConstants = {
     'answer.replace': 'Austausch des Bauteils',
     'answer.dent.repair': 'Einzelne Dellen entfernen',
-    'answer.haildamage': 'Hagelschaden reparieren',
+    'answer.haildamage.repair': 'Hagelschaden reparieren',
     'answer.lacquer': 'Neulackierung des Bauteils',
+    'answer.rockfall.repair': 'Steinschläge entfernen',
+    'answer.rust.repair': 'Rost entfernen',
+    'answer.scratch.repair': 'Kratzer entfernen',
     'answer.spotrepair': 'Spot Repair',
 
-    'description.replace': 'Bei stärkeren Verformungen oder einer notwendigen Instandsetzung von über 50% des Bauteils ist in der Regel der Austausch des Bauteils günstiger, als die Instandsetzung. Je nach Ursache des Schadens können auch benachbarte Bauteile wie z.B. Halterungen in Mitleidenschaft gezogen worden sein, hier wird ist die Vorführung des Fahrzeugs in einem Fachbetrieb empfohlen (<<CrossLink Unfallschaden>>).',
+    'description.replace': 'Bei stärkeren Verformungen oder einer notwendigen Instandsetzung von über 50% des Bauteils ist in der Regel der Austausch des Bauteils günstiger, als die Instandsetzung. Je nach Ursache des Schadens können auch benachbarte Bauteile wie z.B. Halterungen in Mitleidenschaft gezogen worden sein, hier wird ist die Vorführung des Fahrzeugs in einem Fachbetrieb empfohlen (&lt;&lt;CrossLink Unfallschaden&gt;&gt;).',
     'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oderflächliche Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
-    'description.haildamage': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteile liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich, wählen Sie hierfür bitte die Option "Dellen entfernen".',
+    'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteile liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich, wählen Sie hierfür bitte die Option "Dellen entfernen".',
     'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf geworden ist oder der Lack fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
+    'description.rockfall.repair': 'Steinschläge Lorem Ipsum.',
+    'description.rust.repair': 'Rost Lorem Ipsum.',
+    'description.scratch.repair': 'Kratzer Lorem Ipsum.',
     'description.spotrepair': 'Eine kostengünstige Alternative zur Reparatur kleinerer Beschädigungen ist die Spot Repair Methode. Beseitigt werden können Steinschläge, kleinere Kratzer und Lackfehler bis etwa 3,5 cm Durchmesser, allerdings keine Dellen. Bei Stoßstangen lassen sich so auch kleinere Streifschäden beheben. Spot Repair wird nur empfohlen an Stoßstangen und im unteren Bereich des Fahrzeugs.'
 };
 
