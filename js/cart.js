@@ -13,10 +13,11 @@ var Cart = function($){
     var hightlightTO;
 
     $(document).on('trigger-addService', function(ev, data){
-        $('html, body').animate({
-            scrollTop: cartElmt.offset().top
-        });
         self.addService(data);
+        var cartItemElmt = cartElmt.find('[data-service-config="' + data.serviceCode +'"]');
+        $('html, body').animate({
+            scrollTop: cartItemElmt.offset().top
+        });
     });
 
     self.addService = function(data){
