@@ -72,13 +72,13 @@ var states = {
                     nextStateId: 'windshield.type'
                 },
                 {
-                    answer: 'Heckabschlußblech',
+                    answer: 'Heckabschlußblech erneuern (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'rearpanel.replace',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Heckscheibe',
+                    answer: 'Heckscheibe tauschen (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
@@ -551,8 +551,8 @@ var states = {
                         '- Festpreis Reparatur pro Felge / Felgensatz',
                         '- Reparatur nicht anbieten',
 						'(Alu/Stahl, Felgengröße, Einzeilig/Mehrteilig, Einfarbig/Mehrfarbig, Spinner, Design (Speichen, Stern, ...)',
-                        'Oder: Reparatur Alufelge (service-id-554889)',
-                        'Oder: Reparatur Stahlfelge (service-id-554890)'
+                        'Reparatur Alufelge (service-id-554889)',
+                        'Reparatur Stahlfelge (service-id-554890)'
                     ]
                 },
                 {
@@ -642,7 +642,7 @@ var states = {
     'windshield.repair.type': {
         viewType: 'radioSelectionWithImg',
         configs: {
-            question: 'Befindet sich eine Beschädigung im roten Bereich?',
+            question: 'Befindet sich eine Beschädigung im roten Bereich oder sind die Risse länger als 2,5 Zentimeter?',
             img: {
                 file: 'frontscheibe-wechseln-noetig.jpg'
             },
@@ -1975,9 +1975,9 @@ var stateConstants = {
     'answer.spotrepair': 'Spot Repair',
 
     'description.replace': 'Bei stärkeren Verformungen oder einer notwendigen Instandsetzung von über 50% des Bauteils ist in der Regel der Austausch des Bauteils günstiger, als die Instandsetzung. Je nach Ursache des Schadens können auch benachbarte Bauteile wie z.B. Halterungen in Mitleidenschaft gezogen worden sein, hier wird ist die Vorführung des Fahrzeugs in einem Fachbetrieb empfohlen (&lt;&lt;CrossLink Unfallschaden&gt;&gt;).',
-    'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oderflächliche Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
-    'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteile liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich, wählen Sie hierfür bitte die Option "Dellen entfernen".',
-    'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf geworden ist oder der Lack fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
+    'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oberflächlich Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
+    'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteils liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich. Wählen Sie hierfür bitte die Option "Dellen entfernen".',
+    'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf oder fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
     'description.polish': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
     'description.rockfall.repair': 'Steinschläge sind nicht nur unansehnlich, sondern die scharfkantigen Steine beschädigen meist auch die Grundierung und es bildet sich Rost, der sich auch unter dem Lack weiter ausbreitet. Je nach Lage am Fahrzeug muss unter Umständen das gesamte Bauteil neu lackiert werden, nachdem die betroffene Stelle ausgebessert worden ist.',
     'description.rust.repair': 'Um Rost langfristig zu entfernen, muss dieser zuerst restlos entfernt werden. Anschließend wird die Stelle großflächig für einen kompletten Neuaufbau des Lacks vorbereitet und anschließend das gesamte Bauteil lackiert. Bei größeren Rostflächen oder Durchrostung, wenden Sie sich bitte an einen Fachbetrieb (&lt;&lt;CrossLink Werkstattsuche&gt;&gt;).',
