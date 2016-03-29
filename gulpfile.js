@@ -6,7 +6,7 @@ var jshint = require('gulp-jshint');
 //var sass = require('gulp-sass');
 //var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var minifyHTML = require('gulp-minify-html');
+var htmlmin = require('gulp-htmlmin');
 var minifyCSS = require('gulp-minify-css');
 var usemin = require('gulp-usemin');
 var wrapper = require('gulp-wrapper');
@@ -28,10 +28,10 @@ gulp.task('usemin', function () {
     return gulp.src(paths.html.index)
         .pipe(usemin({
             css: [minifyCSS()],
-            html: [minifyHTML({
-                conditionals: true,
-                empty: true,
-                quotes: true
+            html: [htmlmin({
+                collapseWhitespace: true,
+                removeEmptyAttributes: true,
+                removeComments: true
             })],
             //js: [uglify(), rev()]
             js: ['concat'],
@@ -57,13 +57,13 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('default'));
 });
 
-// Lint Task
+// minify templates Task
 gulp.task('minifyTemplates', function() {
     return gulp.src(paths.html.templates)
-        .pipe(minifyHTML({
-            conditionals: true,
-            empty: true,
-            quotes: true
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeEmptyAttributes: true,
+            removeComments: true
         }))
         .pipe(gulp.dest('./dist/templates'));
 });
