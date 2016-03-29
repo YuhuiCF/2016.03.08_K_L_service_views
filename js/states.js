@@ -1985,6 +1985,7 @@ var stateConstants = {
     'description.spotrepair': 'Eine kostengünstige Alternative zur Reparatur kleinerer Beschädigungen ist die Spot Repair Methode. Beseitigt werden können Steinschläge, kleinere Kratzer und Lackfehler bis etwa 3,5 cm Durchmesser, allerdings keine Dellen. Bei Stoßstangen lassen sich so auch kleinere Streifschäden beheben. Spot Repair wird nur empfohlen an Stoßstangen und im unteren Bereich des Fahrzeugs.'
 };
 
+// beautify object structure
 for (var stateKey in states) {
     states[stateKey].configs = states[stateKey].configs || {};
     states[stateKey].configs.id = stateKey;
