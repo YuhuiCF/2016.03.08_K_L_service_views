@@ -12,132 +12,268 @@ var states = {
             question: 'Welche Leistung wünschen Sie?',
             answers: [
                 {
-                    answer: 'Einzelne Karosserieteile & Glasschäden',
-                    description: 'Wählen Sie Leistungen für einzelne Karosserieteile, Scheiben oder Scheinwerfer. Lassen Sie Kratzer, Dellen, Steinschläge, kleinere Roststellen oder Glasschäden vom Fachmann gemäß den aktuellsten Standards reparieren oder einzelne Beuteile Ihres Fahrzeuges erneuern.',
-                    nextStateId: 'components'
+                    answer: 'Lackstift',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'touchupstick.type'
                 },
                 {
-                    answer: 'Leistungen für das gesamte Fahrzeug',
-                    description: 'Sie wünschen einen Service für Ihr komplettes Fahrzeug? Lassen Sie Ihr komplettes Fahrzeug polieren, großflächige Hagelschäden reparieren oder Ihr Fahrzeug neu lackieren. Weitere Leistungen sind auf Anfrage bei unseren Fachwerkstätten verfügbar.',
-                    nextStateId: 'vehicle.complete.type'
+                    useConstants: [
+                        {
+                            useKey: 'answer.dent.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.dent.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'dent.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.spotrepair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.spotrepair',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'spotrepair.type'
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.haildamage.repair',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.haildamage.repair',
+                            forKey: 'description'
+                        }
+                    ],
+                    //nextStateId: 'components'
+                },
+                {
+                    answer: 'Sonstige Reparaturen',
+                    description: '(Rost, Steinschlag, größere Kratzer etc.) Lorem ipsum',
+                    //nextStateId: 'window.glas.type',
+                },
+                {
+                    answer: 'Services für Scheiben und Glas',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'window.glas.type',
+                    vehicleRequired: true
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.lacquer',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.lacquer',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'lacquer.components.type',
+                    vehicleRequired: true
+                },
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.replace',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.replace',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'replace.components.type',
+                    vehicleRequired: true
+                },
+                {
+                    answer: 'Fahrzeug lackieren',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'vehicle.complete.lacquer.type',
+                    vehicleRequired: true
                 },
                 {
                     answer: 'Sie haben einen Unfallschaden?',
                     description: 'Bei größeren Schäden begutachten unsere Experten Ihren Schaden und unterbreiten Ihnen ein konkretes Angebot. Finden Sie Ihren Experten und vereinbaren Sie online einen Termin zur Begutachtung. Sollte Ihr Fahrzeug nicht mehr fahrbereit sein, dann kommen wir auch gerne zu Ihnen.',
                     nextStateId: 'accidentaldamage.type'
+                },
+                {
+                    answer: 'Schaden Begutachten lassen',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'examine.damage'
+                },
+                {
+                    answer: 'Fachwerkstatt finden',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'locations.search'
                 }
             ]
         }
     },
 
 
-// Bauteile
-    'components': {
+// Bauteile (Lackieren)
+    'lacquer.components.type': {
         viewType: 'radioSelectionWithImg',
         configs: {
-            question: 'Für welcher Bauteil suchen Sie einen Service?',
+            question: 'Für welcher Bauteil suchen Sie den Service?',
             img: {
                 file: 'CarPlan.jpg',
                 height: 150
             },
             answers: [
                 {
-                    answer: 'Landing Page: Schaden am Kotflügel',
-                    nextStateId: 'fender.position.type',
-                    newWindow: true
-                },
-                {
-                    answer: 'Landing Page: Glasschäden reparieren',
-                    nextStateId: 'window.glas.type',
-                    newWindow: true
-                },
-                {
-                    answer: 'Außenspiegel / Seitenspiegel links',
-                    nextStateId: 'mirror.left.type'
-                },
-                {
-                    answer: 'Außenspiegel / Seitenspiegel rechts',
-                    nextStateId: 'mirror.right.type'
-                },
-                {
                     answer: 'Fahrzeugdach',
-                    nextStateId: 'roof.type'
+                    nextStateId: 'END',
+                    serviceCode: 'roof.lacquer',
+                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Metallic 2 Schicht', 'Oberflächenlackierungstufe 1']
                 },
                 {
                     answer: 'Felgen',
-                    nextStateId: 'rim.type'
+                    nextStateId: 'END',
+                    serviceCode: 'rim.lacquer',
+                    calcParams: [
+                        'Über DAT kalkulierbar, Ergebnisse aber potentiell nicht präzise genug. Alternativen:',
+                        '- Festpreis pro Felge / Felgensatz',
+                        '- Nicht anbieten'
+                    ]
                 },
                 {
-                    answer: 'Frontscheibe',
-                    nextStateId: 'windshield.type'
+                    answer: 'Heckklappe / Kofferraumdeckel',
+                    nextStateId: 'END',
+                    serviceCode: 'tailgate.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
                 },
+                {
+                    answer: 'Kotflügel / Seitenwand',
+                    nextStateId: 'fender.lacquer.type'
+                },
+                {
+                    answer: 'Motorhaube',
+                    nextStateId: 'END',
+                    serviceCode: 'hood.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Schweller links',
+                    //nextStateId: 'sill.left.type'
+                },
+                {
+                    answer: 'Schweller rechts',
+                    //nextStateId: 'sill.right.type'
+                },
+                {
+                    answer: 'Stoßfänger / Stoßstange',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.lacquer',
+                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                }
+            ]
+        }
+    },
+
+
+// Bauteile (Ersetzen)
+    'replace.components.type': {
+        viewType: 'radioSelectionWithImg',
+        configs: {
+            question: 'Welcher Bauteil möchten Sie ersetzen?',
+            img: {
+                file: 'CarPlan.jpg',
+                height: 150
+            },
+            answers: [
+/*
+                {
+                    answer: 'Außenspiegel / Seitenspiegel links',
+                    nextStateId: 'mirror.left.replace.type'
+                },
+                {
+                    answer: 'Außenspiegel / Seitenspiegel rechts',
+                    nextStateId: 'mirror.right.replace.type'
+                },
+*/
+                {
+                    answer: 'Felgen',
+                    //nextStateId: 'rim.type'
+                },
+/*
+                {
+                    answer: 'Frontscheide austauschen',
+                    description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+*/
                 {
                     answer: 'Heckabschlußblech erneuern (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'rearpanel.replace',
                     calcParams: ['Repaircode E']
                 },
+/*
                 {
                     answer: 'Heckscheibe tauschen (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
                 },
+*/
                 {
-                    answer: 'Heckklappe / Kofferraumdeckel',
-                    nextStateId: 'tailgate.type'
+                    answer: 'Heckklappe / Kofferraumdeckel ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: 'tailgate.replace',
+                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
                 },
                 {
-                    answer: 'Kotflügel vorne links',
-                    nextStateId: 'fender.front.left.type'
-                },
-                {
-                    answer: 'Kotflügel vorne rechts',
-                    nextStateId: 'fender.front.right.type'
-                },
-                {
-                    answer: 'Kotflügel / Seitenwand hinten links',
-                    nextStateId: 'fender.rear.left.type'
-                },
-                {
-                    answer: 'Kotflügel / Seitenwand hinten rechts',
-                    nextStateId: 'fender.rear.right.type'
+                    answer: 'Kotflügel',
+                    nextStateId: 'fender.replace.type'
                 },
                 {
                     answer: 'Motorhaube',
-                    nextStateId: 'hood.type'
+                    nextStateId: 'END',
+                    serviceCode: 'hood.replace',
+                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
                 },
+/*
                 {
-                    answer: 'Nebelscheinwerfer vorne links',
+                    answer: 'Nebelscheinwerfer vorne links (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Nebelscheinwerfer vorne rechts',
+                    answer: 'Nebelscheinwerfer vorne rechts (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer vorne links',
+                    answer: 'Scheinwerfer vorne links (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer vorne rechts',
+                    answer: 'Scheinwerfer vorne rechts (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Schweller links',
-                    nextStateId: 'sill.left.type'
-                },
-                {
-                    answer: 'Schweller rechts',
-                    nextStateId: 'sill.right.type'
+                    answer: 'Schweller',
+                    nextStateId: 'sill.replace.type'
                 },
                 {
                     answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links',
@@ -147,9 +283,12 @@ var states = {
                     answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts',
                     nextStateId: 'sidewindow.right.replace.type'
                 },
+*/
                 {
                     answer: 'Stoßfänger / Stoßstange',
-                    nextStateId: 'bumper.type'
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-518536 (Frontschürze komplett wechseln)',
+                    calcParams: ['Repaircode E']
                 }
             ]
         }
@@ -235,6 +374,7 @@ var states = {
             ]
         }
     },
+
     'mirror.type': {
         viewType: 'radioSelectionWithBlockDescription',
         configs: {
@@ -279,6 +419,40 @@ var states = {
         useTemplate: 'mirror.type'
     },
 
+    'mirror.replace.type': {
+        viewType: 'radioSelectionWithBlockDescription',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            isTemplate: true,
+            answers: [
+                {
+                    answer: 'Glas ersetzen',
+                    description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
+                    nextStateId: {
+                        'mirror.left.type': 'mirror.left.glas.replace.type',
+                        'mirror.right.type': 'mirror.right.glas.replace.type'
+                    }
+                },
+                {
+                    answer: 'Außenspiegel ersetzen',
+                    description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
+                    nextStateId: 'END',
+                    serviceCode: {
+                        'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
+                        'mirror.right.type': 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
+                    },
+                    calcParams: ['Repaircode E']
+                }
+            ]
+        }
+    },
+    'mirror.left.replace.type': {
+        useTemplate: 'mirror.replace.type'
+    },
+    'mirror.right.replace.type': {
+        useTemplate: 'mirror.replace.type'
+    },
+
     'mirror.glas.replace': {
         viewType: 'radioSelection',
         configs: {
@@ -321,6 +495,24 @@ var states = {
 
 
 // Dellen
+    'dent.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Wie viele Dellen mit welchem durchschnittlichen Durchmesser möchten Sie reparieren lassen?',
+            isTemplate: true,
+            checklist: [
+                {
+                    type: 'input',
+                    answer: 'Anzahl Dellen:',
+                    defaultValue: '1'
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'dent.repair',
+            calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
+        }
+    },
+/*
     'dent.type': {
         viewType: 'mixSelection',
         configs: {
@@ -392,6 +584,7 @@ var states = {
     'tailgate.dent.type': {
         useTemplate: 'dent.type'
     },
+*/
 
 
 // Fahrzeugdach
@@ -871,6 +1064,26 @@ var states = {
     },
 
 
+// Lackstift
+    'touchupstick.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Wie viele Lackstifte sind nötig?',
+            isTemplate: true,
+            checklist: [
+                {
+                    type: 'input',
+                    answer: 'Anzahl Lackstifte:',
+                    defaultValue: '1'
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'touchupstick',
+            //calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
+        }
+    },
+
+
 // Kotflügel
     'fender.front.type': {
         pageTitle: 'Kotflügel Service View',
@@ -1121,6 +1334,39 @@ var states = {
         useTemplate: 'fender.rear.type'
     },
 
+    'fender.lacquer.type': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Kotflügel möchten Sie lackieren?',
+            answers: [
+                {
+                    answer: 'Kotflügel vorne links',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.front.left.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel vorne rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.front.right.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel hinten links',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.rear.left.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel hinten rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.rear.right.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                }
+            ]
+        }
+    },
+
     'fender.rust.type': {
         viewType: 'mixSelection',
         configs: {
@@ -1189,30 +1435,35 @@ var states = {
             ]
         }
     },
+
     'fender.replace.type': {
         viewType: 'radioSelection',
         configs: {
-            question: 'Welchen Kotflügel möchten Sie wechseln?',
+            question: 'Welchen Kotflügel möchten Sie erneuern?',
             answers: [
-                {
-                    answer: 'Kotflügel vorne rechts',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)'
-                },
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)'
+                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
                 },
                 {
-                    answer: 'Kotflügel hinten rechts',
+                    answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450273 (Kotflügel komplett hinten rechts wechseln)'
+                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
                 },
                 {
                     answer: 'Kotflügel hinten links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450272 (Kotflügel komplett hinten links wechseln)'
+                    serviceCode: 'service-id-450272 (Kotflügel komplett hinten links wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel hinten rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450273 (Kotflügel komplett hinten rechts wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
                 }
             ]
         }
@@ -1394,17 +1645,19 @@ var states = {
         configs: {
             question: 'Für welches Bauteil wünschen Sie einen Service?',
             answers: [
+/*
                 {
                     answer: 'Landign Page: Frontscheibe',
                     nextStateId: 'windshield.type',
                     newWindow: true
                 },
+*/
                 {
                     answer: 'Frontscheibe',
                     nextStateId: 'windshield.type'
                 },
                 {
-                    answer: 'Heckscheibe ersetzen',
+                    answer: 'Heckscheibe ersetzen (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
@@ -1610,7 +1863,8 @@ var states = {
                     serviceCode: {
                         'sill.left.type': 'sill.left.replace',
                         'sill.right.type': 'sill.right.replace'
-                    }
+                    },
+                    calcParams: ['Repaircode E']
                 }
             ]
         }
@@ -1620,6 +1874,27 @@ var states = {
     },
     'sill.right.type': {
         useTemplate: 'sill.type'
+    },
+
+    'sill.replace.type': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Schweller möchten Sie ersetzen?',
+            answers: [
+                {
+                    answer: 'Schweller links ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: 'sill.left.replace',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Schweller rechts ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: 'sill.right.replace',
+                    calcParams: ['Repaircode E']
+                }
+            ]
+        }
     },
 
 
@@ -1694,6 +1969,23 @@ var states = {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
+            checklist: [
+                {
+                    type: 'input',
+                    answer: 'Anzahl der Spots:',
+                    defaultValue: '1'
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'spotrepair',
+            calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
+        }
+    },
+/*
+    'spotrepair.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Bitte beschreiben Sie Ihren Schaden:',
             isTemplate: true,
             checklist: [
                 {
@@ -1749,6 +2041,7 @@ var states = {
     'sill.right.spotrepair.type': {
         useTemplate: 'spotrepair.type'
     },
+*/
 
 
 // Steinschlag
@@ -1912,46 +2205,11 @@ var states = {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
             checklist: [
                 {
-                    type: 'image',
-                    answer: 'Welche Bauteile sind betroffen?',
-                    img: {
-                        file: 'CarPlan.jpg',
-                        height: 150
-                    }
-                },
-                {
-                    type: 'checkbox',
-                    answer: 'Wie ist der Schadens entstanden?',
-                    options: [
-                        {value: 'Unfall vorne'},
-                        {value: 'Unfall hinten'},
-                        {value: 'Unfall seitlich'},
-                        {value: 'Parkrempler'}
-                    ]
-                },
-                {
-                    type: 'radio',
-                    answer: 'Wurde der Airbag ausgelöst?',
-                    options: [
-                        {value: 'Ja'},
-                        {value: 'Nein'}
-                    ]
-                },
-                {
                     type: 'radio',
                     answer: 'Ist Ihr Fahrzeug fahrbereit?',
                     options: [
                         {value: 'ja'},
                         {value: 'nein'}
-                    ]
-                },
-                {
-                    type: 'radio',
-                    answer: 'Wo wünschen Sie die Begutachtung?',
-                    options: [
-                        {value: 'Bei Ihnen vor Ort'},
-                        {value: 'Bei der Fachwerkstatt'},
-                        {value: 'Fahrzeug zur Begutachtung in die Fachwerkstatt schleppen'}
                     ]
                 }
             ],
@@ -1986,13 +2244,74 @@ var stateConstants = {
 };
 
 // beautify object structure
-for (var stateKey in states) {
-    states[stateKey].configs = states[stateKey].configs || {};
-    states[stateKey].configs.id = stateKey;
+
+forEachState(function(state, stateKey){
+    // update states that use templates
+    if (state.useTemplate) {
+        $.extend(true, state, states[state.useTemplate]);
+
+        applyTemplateForState(state, stateKey);
+    }
 
     // set stateConstants for answers
-    var answers = states[stateKey].configs.answers || [];
+    var answers = state.configs.answers || [];
     $.each(answers, checkAndSetConstants);
+
+    // put stateKey in configs.id
+    state.configs = state.configs || {};
+    state.configs.id = stateKey;
+});
+
+forEachState(function(state){
+    // set vehicleRequired property for child states
+    setVehicleRequired(state);
+});
+
+function setAndReturnValueOfConfigId(value, stateKey){
+    if (typeof value === 'object') {
+        if (value[stateKey]) {
+            return value[stateKey];
+        } else if (value['default']) {
+            return value['default'];
+        } else {
+            return value;
+        }
+    } else {
+        return value;
+    }
+}
+
+function applyTemplateForState(state, stateKey){
+    var configs = state.configs;
+
+    configs.question = setAndReturnValueOfConfigId(configs.question, stateKey);
+    configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
+    if (configs.img) {
+        configs.img.file = setAndReturnValueOfConfigId(configs.img.file, stateKey);
+    }
+
+    if (configs.checklist) {
+        configs.checklist = setAndReturnValueOfConfigId(configs.checklist, stateKey);
+        configs.nextStateId = setAndReturnValueOfConfigId(configs.nextStateId, stateKey);
+        configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
+        configs.calcParams = setAndReturnValueOfConfigId(configs.calcParams, stateKey);
+    }
+
+    $.each(configs.answers || [], function(i, answer){
+        answer.answer = setAndReturnValueOfConfigId(answer.answer, stateKey);
+        answer.nextStateId = setAndReturnValueOfConfigId(answer.nextStateId, stateKey);
+        answer.newWindow = setAndReturnValueOfConfigId(answer.newWindow, stateKey);
+        answer.serviceCode = setAndReturnValueOfConfigId(answer.serviceCode, stateKey);
+        answer.description = setAndReturnValueOfConfigId(answer.description, stateKey);
+        answer.calcParams = setAndReturnValueOfConfigId(answer.calcParams, stateKey);
+    });
+}
+
+function forEachState(callback){
+    for (var stateKey in states) {
+        var state = states[stateKey];
+        callback(state, stateKey);
+    }
 }
 
 function checkAndSetConstants(i, answer){
@@ -2000,6 +2319,33 @@ function checkAndSetConstants(i, answer){
     if (useConstants) {
         $.each(useConstants, function(j, setting){
             answer[setting.forKey] = stateConstants[setting.useKey];
+        });
+    }
+}
+
+function setVehicleRequired(state, vehicleRequired){
+    // check only for states whose property isVehicleRequiredSet is not true
+    if (state.isVehicleRequiredSet !== true) {
+        var answers = state.configs.answers || [];
+        if (!answers.length) {
+            state.configs.vehicleRequired = vehicleRequired;
+        }
+
+        //console.log(state.configs.id);
+        $.each(answers, function(i, answer){
+            if (answer.vehicleRequired !== true) {
+                answer.vehicleRequired = vehicleRequired;
+            }
+            // set isVehicleRequiredSet
+            states.isVehicleRequiredSet = true;
+                //console.log(vehicleRequired);
+                //console.log(state.configs.id);
+                //console.log(answer);
+            // need to check children states for vehicleRequired answer
+            if (answer.vehicleRequired && answer.nextStateId && answer.nextStateId !== 'END') {
+                //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
+                setVehicleRequired(states[answer.nextStateId], true);
+            }
         });
     }
 }

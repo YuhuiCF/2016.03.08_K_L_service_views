@@ -1,7 +1,10 @@
 
-var cart = new Cart($);
+var cart = new Cart($, Events);
 
-var views = new Views(states, $);
+var vehicleSelection = new VehicleSelection($, Events);
+var regionSelection = new RegionSelection($, Events);
+
+var views = new ServiceViews(states, $, Events);
 
 function getUrlParam(name){
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");

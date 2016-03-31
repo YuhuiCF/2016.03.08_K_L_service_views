@@ -1,0 +1,58 @@
+
+.service-views .service-view:first-child{
+    margin-top: 0;
+}
+.service-view {
+    margin-top: 30px;
+}
+
+.service-question {
+    color: #fff;
+    background: #f18e00;
+    cursor: pointer;
+}
+.close.service-question {
+    background: #008bc5;
+}
+
+.service-answers {
+    margin-top: 20px;
+}
+
+.service-answer,
+.service-answer-fake {
+    padding-left: 2%;
+}
+
+.radioSelectionWithBlockDescription .service-answer {
+    margin-top: 20px;
+    padding: 20px;
+    background: #eee;
+}
+
+.radioSelectionWithBlockDescription .service-answer .service-answer-text {
+    margin-top: 0;
+}
+
+.mixSelection .service-answer > div,
+.mixSelection .service-answer-fake {
+    margin-top: 20px;
+}
+
+.mixSelection p {
+    margin-bottom: 0;
+}
+
+
+
+
+@media (min-width: 1024px) {
+
+.radioSelectionWithBlockDescription .service-answer {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 32%;
+    margin: 0.6%;
+}
+
+}

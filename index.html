@@ -13,43 +13,59 @@
 
         <h2>Karosserie & Lack Serviceleistungen</h2>
 
-        <h3>Ihr Fahrzeug: Mercedes-Benz BM 219 CLS (06.2004->) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</h3>
+        <article>
+            <div class="service-views"></div>
 
-        <h3>Ihre Region: Stuttgart</h3>
+            <br>
 
-        <br>
-
-        <div data-views></div>
-
-        <br>
-
-        <div data-service-cart>
-            <h3 data-service-empty>Sie haben noch keine Services ausgewählt</h3>
-            <div data-service-not-empty>
-                <h3 data-service-not-empty-text>Ihre ausgewählte Services und Kalkulationsparametern:</h3>
-                <ul data-services>
-                    <li data-service-item>
-                        <b data-service-item-text></b><br>
-                        <span data-service-item-calc-params></span>
-                        <button data-service-item-remove class="floatRight">Entfernen</button>
-                        <br clear="all">
-                    </li>
-                </ul>
-                <div>
-                    <button>Angebote Suchen</button>
+            <div class="service-cart">
+                <h3 class="service-cart-empty">Sie haben noch keine Services ausgewählt</h3>
+                <div class="service-cart-not-empty">
+                    <h3 class="service-cart-not-empty-text">Ihre ausgewählte Services und Kalkulationsparametern:</h3>
+                    <ul class="service-cart-services">
+                        <li class="service-cart-item">
+                            <b class="service-cart-item-text"></b><br>
+                            <span class="service-cart-item-calc-params"></span>
+                            <button class="floatRight service-cart-item-remove">Entfernen</button>
+                            <br clear="all">
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </article>
+
+        <article class="vehicle-selection">
+            <h3>Ihr Fahrzeug: <button class="select-vehicle">Fahrzeug auswählen</button><span class="selected-vehicle">Mercedes-Benz BM 219 CLS (06.2004-&gt;) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</span></h3>
+        </article>
+
+        <article class="region-selection">
+            <h3>Ihre Region: <input type="text" placeholder="PLZ, Straße, Stadt"></h3><!-- Stuttgart -->
+        </article>
+
+        <br>
+
+        <div class="offer-search">
+            <button class="offer-search-button" disabled>Angebote Suchen</button>
         </div>
 
         <!-- build:css css/styles.css -->
-        <link media="all" type="text/css" href="css/styles.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/basics.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/serviceViews.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/cart.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/vehicleSelection.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/regionSelection.css" rel="stylesheet">
         <!-- endbuild -->
 
         <!-- build:js js/scripts.js -->
         <script type="text/javascript" src="js/lib/jquery.js"></script>
-        <script type="text/javascript" src="js/cart.js"></script>
+
+        <script type="text/javascript" src="js/Events.js"></script>
+        <script type="text/javascript" src="js/VehicleSelection.js"></script>
+        <script type="text/javascript" src="js/RegionSelection.js"></script>
+        <script type="text/javascript" src="js/Cart.js"></script>
         <script type="text/javascript" src="js/states.js"></script>
-        <script type="text/javascript" src="js/view.js"></script>
+        <script type="text/javascript" src="js/ServiceViews.js"></script>
 
         <script type="text/javascript" src="js/main.js"></script>
         <!-- endbuild -->

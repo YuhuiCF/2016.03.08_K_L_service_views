@@ -3,10 +3,12 @@ var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
+var csslint = require('gulp-csslint');
 //var sass = require('gulp-sass');
 //var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
+var htmlhint = require('gulp-htmlhint');
 var minifyCSS = require('gulp-minify-css');
 var usemin = require('gulp-usemin');
 var wrapper = require('gulp-wrapper');
@@ -15,10 +17,11 @@ var wrapper = require('gulp-wrapper');
 var paths = {
     scripts: {
         all: ['./js/**/*.js'],
-        lint: ['./js/*.js','!./js/lib/*']
+        JSLint: ['./js/*.js','!./js/lib/*']
     },
     css: ['./css/*.css'],
-    html: {
+    html:{
+        all: ['./index.html', './templates/*.html'],
         index: ['./index.html'],
         templates: ['./templates/*.html']
     }
@@ -27,7 +30,7 @@ var paths = {
 gulp.task('usemin', function () {
     return gulp.src(paths.html.index)
         .pipe(usemin({
-            css: [minifyCSS()],
+            css: ['concat'],
             html: [htmlmin({
                 collapseWhitespace: true,
                 removeEmptyAttributes: true,
@@ -50,11 +53,31 @@ gulp.task('minifyJS', ['usemin'], function(){
         .pipe(gulp.dest('./dist/js'));
 });
 
+gulp.task('minifyCSS', ['usemin'], function(){
+    return gulp.src('./dist/css/styles.css')
+        .pipe(minifyCSS())
+        .pipe(gulp.dest('./dist/css'));
+});
+
 // Lint Task
-gulp.task('lint', function() {
-    return gulp.src(paths.scripts.lint)
+gulp.task('JSLint', function() {
+    return gulp.src(paths.scripts.JSLint)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
+});
+
+gulp.task('CSSLint', function() {
+    return gulp.src(paths.css)
+        .pipe(csslint())
+        .pipe(csslint.reporter());
+});
+
+gulp.task('HTMLHint', function(){
+    return gulp.src(paths.html.all)
+        .pipe(htmlhint({
+            "doctype-first": false
+        }))
+        .pipe(htmlhint.reporter());
 });
 
 // minify templates Task
@@ -79,11 +102,13 @@ gulp.task('sass', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch(paths.scripts.lint, ['lint']);
+    gulp.watch(paths.html.all, ['HTMLHint']);
+    gulp.watch(paths.scripts.JSLint, ['JSLint']);
+    gulp.watch(paths.css, ['CSSLint']);
     gulp.watch([paths.html.index, paths.css, paths.scripts.all], ['usemin', 'minifyJS']);
     gulp.watch([paths.html.templates], ['minifyTemplates']);
     //gulp.watch('scss/*.scss', ['sass']);
 });
 
 // Default Task
-gulp.task('default', ['lint', 'usemin', 'minifyJS', 'minifyTemplates']);
+gulp.task('default', ['HTMLHint', 'JSLint', 'CSSLint', 'minifyCSS', 'usemin', 'minifyJS', 'minifyTemplates']);
