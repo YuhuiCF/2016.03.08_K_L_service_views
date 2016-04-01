@@ -9,7 +9,7 @@ var csslint = require('gulp-csslint');
 var uglify = require('gulp-uglify');
 var htmlmin = require('gulp-htmlmin');
 var htmlhint = require('gulp-htmlhint');
-var minifyCSS = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 var usemin = require('gulp-usemin');
 var wrapper = require('gulp-wrapper');
 //var rev = require('gulp-rev');
@@ -38,7 +38,7 @@ gulp.task('usemin', function () {
             })],
             //js: [uglify(), rev()]
             js: ['concat'],
-            inlinecss: [ minifyCSS(), 'concat']
+            //inlinecss: [ minifyCSS(), 'concat']
         }))
         .pipe(gulp.dest('./dist'));
 });
@@ -55,7 +55,7 @@ gulp.task('minifyJS', ['usemin'], function(){
 
 gulp.task('minifyCSS', ['usemin'], function(){
     return gulp.src('./dist/css/styles.css')
-        .pipe(minifyCSS())
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./dist/css'));
 });
 
