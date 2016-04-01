@@ -15,6 +15,11 @@ var Views = function($, Events){
 
     Events.on('startSearch', function(data){
         self.showView('result-list');
+        Events.trigger('resultListDisplayed', data);
+    });
+
+    Events.on('goBackFromResultList', function(){
+        self.showView('search');
     });
 
     self.hideAllViews = function(){

@@ -50,13 +50,52 @@
             </div>
         </section>
 
-        <section class="result-list-view">
 
+
+        <section class="result-list-view">
+            <h3>Werkstätten in Ihrer Nähe</h3>
+            <div class="result-list">
+                <div class="result-header">
+                    <div class="result-item-detail location-distance">
+                        <b>Entfernung (km)</b>
+                    </div>
+                    <div class="result-item-detail location-name">
+                        <b>Werkstatt</b>
+                    </div>
+                    <div class="result-item-detail location-address">
+                        <b>Adresse</b>
+                    </div>
+                    <div class="result-item-detail offer-button">
+
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-item-detail location-distance"></div>
+                    <div class="result-item-detail location-name"></div>
+                    <div class="result-item-detail location-address"></div>
+                    <div class="result-item-detail offer-button">
+                        <button class="offer-with-price-button">Unverbindlicher Termin</button>
+                        <button class="offer-with-no-price-button">Begutachtungstermin</button>
+                        <button class="offer-contact-location-button">Kontaktanfrage</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-navigation">
+                <button class="last-view">Neue Suche</button>
+            </div>
         </section>
+
+
 
         <section class="offer-view">
 
+            <div class="view-navigation">
+                <button class="last-view">Neue Suche</button>
+            </div>
         </section>
+
+
 
         <!-- build:css css/styles.css -->
         <link media="all" type="text/css" href="css/basics.css" rel="stylesheet">
@@ -67,6 +106,8 @@
         <link media="all" type="text/css" href="css/cart.css" rel="stylesheet">
         <link media="all" type="text/css" href="css/vehicleSelection.css" rel="stylesheet">
         <link media="all" type="text/css" href="css/regionSelection.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/resultList.css" rel="stylesheet">
         <!-- endbuild -->
 
         <!-- build:js js/scripts.js -->
@@ -80,6 +121,11 @@
 
         <script type="text/javascript" src="js/states.js"></script>
         <script type="text/javascript" src="js/ServiceViews.js"></script>
+
+        <script type="text/javascript" src="js/resultListData.js"></script>
+        <script type="text/javascript" src="js/ResultList.js"></script>
+
+        <script type="text/javascript" src="js/Offer.js"></script>
 
         <script type="text/javascript" src="js/main.js"></script>
         <!-- endbuild -->

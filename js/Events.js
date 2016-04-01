@@ -58,5 +58,10 @@ var Events = (function($, eventNames){
 
     'regionSelected',
 
-    'startSearch'
+    'startSearch',
+
+    'resultListDisplayed',
+    'goBackFromResultList',
+
+    'goBackFromOffer'
 ]);

@@ -6,6 +6,7 @@ var regionSelection = new RegionSelection($, Events);
 var views = new Views($, Events);
 
 var serviceViews = new ServiceViews(states, $, Events);
+var resultList = new ResultList(resultListData, $, Events);
 
 function getUrlParam(name){
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");

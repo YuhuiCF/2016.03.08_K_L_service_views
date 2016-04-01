@@ -140,6 +140,17 @@ var states = {
                     calcParams: ['Repaircode L', 'Lackstufe 1', 'Metallic 2 Schicht', 'Oberflächenlackierungstufe 1']
                 },
                 {
+                    answer: 'Gehäuse Außenspiegel links',
+                    nextStateId: 'END',
+                    serviceCode: 'mirror.left.lacquer'
+                },
+                {
+                    answer: 'Gehäuse Außenspiegel rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'mirror.right.lacquer'
+                },
+/*
+                {
                     answer: 'Felgen',
                     nextStateId: 'END',
                     serviceCode: 'rim.lacquer',
@@ -149,6 +160,12 @@ var states = {
                         '- Nicht anbieten'
                     ]
                 },
+*/
+                {
+                    answer: 'Heckabschlußblech',
+                    nextStateId: 'END',
+                    serviceCode: 'rearpanel.lacquer'
+                },
                 {
                     answer: 'Heckklappe / Kofferraumdeckel',
                     nextStateId: 'END',
@@ -156,8 +173,28 @@ var states = {
                     calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
                 },
                 {
-                    answer: 'Kotflügel / Seitenwand',
-                    nextStateId: 'fender.lacquer.type'
+                    answer: 'Kotflügel vorne links',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.front.left.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel vorne rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.front.right.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel / Seitenwand hinten links',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.rear.left.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel / Seitenwand hinten rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'fender.rear.right.lacquer.complete',
+                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
                 },
                 {
                     answer: 'Motorhaube',
@@ -167,17 +204,45 @@ var states = {
                 },
                 {
                     answer: 'Schweller links',
-                    //nextStateId: 'sill.left.type'
+                    nextStateId: 'END',
+                    serviceCode: 'sill.left.lacquer'
                 },
                 {
                     answer: 'Schweller rechts',
-                    //nextStateId: 'sill.right.type'
+                    nextStateId: 'END',
+                    serviceCode: 'sill.right.lacquer'
                 },
                 {
-                    answer: 'Stoßfänger / Stoßstange',
+                    answer: 'Stoßfänger vorne',
                     nextStateId: 'END',
-                    serviceCode: 'bumper.lacquer',
+                    serviceCode: 'bumper.front.lacquer',
                     calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Stoßfänger hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.rear.lacquer',
+                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Tür links vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.left.lacquer'
+                },
+                {
+                    answer: 'Tür rechts vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.right.lacquer'
+                },
+                {
+                    answer: 'Tür / Schiebetür links hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.left.lacquer'
+                },
+                {
+                    answer: 'Tür / Schiebetür rechts hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.right.lacquer'
                 }
             ]
         }
@@ -194,21 +259,23 @@ var states = {
                 height: 150
             },
             answers: [
+                {
+                    answer: 'Gehäuse Außenspiegel links',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450268 (Außenspiegel links komplett wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Gehäuse Außenspiegel rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450269 (Außenspiegel rechts komplett wechseln)',
+                    calcParams: ['Repaircode E']
+                },
 /*
-                {
-                    answer: 'Außenspiegel / Seitenspiegel links',
-                    nextStateId: 'mirror.left.replace.type'
-                },
-                {
-                    answer: 'Außenspiegel / Seitenspiegel rechts',
-                    nextStateId: 'mirror.right.replace.type'
-                },
-*/
                 {
                     answer: 'Felgen',
                     //nextStateId: 'rim.type'
                 },
-/*
                 {
                     answer: 'Frontscheide austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
@@ -216,14 +283,12 @@ var states = {
                     serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
                     calcParams: ['Repaircode E']
                 },
-*/
                 {
                     answer: 'Heckabschlußblech erneuern (Single Service)',
                     nextStateId: 'END',
                     serviceCode: 'rearpanel.replace',
                     calcParams: ['Repaircode E']
                 },
-/*
                 {
                     answer: 'Heckscheibe tauschen (Single Service)',
                     nextStateId: 'END',
@@ -238,8 +303,16 @@ var states = {
                     calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
                 },
                 {
-                    answer: 'Kotflügel',
-                    nextStateId: 'fender.replace.type'
+                    answer: 'Kotflügel vorne links',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                },
+                {
+                    answer: 'Kotflügel vorne rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)',
+                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
                 },
                 {
                     answer: 'Motorhaube',
@@ -286,10 +359,34 @@ var states = {
                 },
 */
                 {
-                    answer: 'Stoßfänger / Stoßstange',
+                    answer: 'Stoßfänger vorne',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-518536 (Frontschürze komplett wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'bumper.front.replace'
+                },
+                {
+                    answer: 'Stoßfänger hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.rear.replace'
+                },
+                {
+                    answer: 'Tür links vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.left.replace'
+                },
+                {
+                    answer: 'Tür rechts vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.right.replace'
+                },
+                {
+                    answer: 'Tür / Schiebetür links hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.left.replace'
+                },
+                {
+                    answer: 'Tür / Schiebetür rechts hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.right.replace'
                 }
             ]
         }
@@ -1654,30 +1751,117 @@ var states = {
                 },
 */
                 {
-                    answer: 'Frontscheibe',
-                    nextStateId: 'windshield.type'
+                    answer: 'Dreieckscheibe links vorne wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450258 (Dreieckscheibe links vorne wechseln)',
+                    calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Heckscheibe ersetzen (Single Service)',
+                    answer: 'Dreieckscheibe rechts vorne wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450261 (Dreieckscheibe rechts vorne wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Frontscheide Steinschlag reparieren',
+                    nextStateId: 'END',
+                    serviceCode: 'windshield.rockfall.repair'
+                },
+                {
+                    answer: 'Frontscheide wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Glas Außenspiegel links ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-95663 (Glas Außenspiegel links wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Glas Außenspiegel rechts ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-95641 (Glas Außenspiegel rechts wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Heckscheibe wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links',
-                    nextStateId: 'sidewindow.left.replace.type'
+                    answer: 'Nebelscheinwerfer vorne links wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
+                    calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts',
-                    nextStateId: 'sidewindow.right.replace.type'
+                    answer: 'Nebelscheinwerfer vorne rechts wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
+                    calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Scheinwerfer, Nebelscheinwerfer',
-                    nextStateId: 'headlight.type'
+                    answer: 'Nebelscheinwerfer vorne beide wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-409870 (Nebelscheinwerfer komplett vorne beide wechseln)',
+                    calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Seitenspiegel / Außenspiegel',
-                    nextStateId: 'mirror.quick.type'
+                    answer: 'Scheinwerfer vorne links wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Scheinwerfer vorne rechts wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Scheinwerfer vorne beide wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407550 (Scheinwerfer komplett vorne beide wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenscheibe Tür links vorne wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450253 (Seitenscheibe Tür links vorne wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenscheibe Tür rechts vorne wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450254 (Seitenscheibe Tür rechts vorne wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenscheibe Tür links hinten wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450255 (Seitenscheibe Tür links hinten wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenscheibe Tür rechts hinten wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450256 (Seitenscheibe Tür rechts hinten wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenfenster, Dreieckscheibe hinten links wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450262 (Seitenfenster, Dreieckscheibe hinten links wechseln)',
+                    calcParams: ['Repaircode E']
+                },
+                {
+                    answer: 'Seitenfenster, Dreieckscheibe hinten rechts wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450263 (Seitenfenster, Dreieckscheibe hinten rechts wechseln)',
+                    calcParams: ['Repaircode E']
                 }
             ]
         }
