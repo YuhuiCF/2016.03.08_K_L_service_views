@@ -3,8 +3,9 @@ var cart = new Cart($, Events);
 
 var vehicleSelection = new VehicleSelection($, Events);
 var regionSelection = new RegionSelection($, Events);
+var views = new Views($, Events);
 
-var views = new ServiceViews(states, $, Events);
+var serviceViews = new ServiceViews(states, $, Events);
 
 function getUrlParam(name){
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -25,4 +26,4 @@ if (initStateUrlParam !== '') {
     initState = initStateUrlParam;
 }
 
-views.loadView(states[initState], true);
+serviceViews.loadView(states[initState], true);

@@ -24,10 +24,6 @@ var ServiceViews = function(states, $, Events){
         }
 
         function appendView(template, state){
-            if (isInitState) {
-                Events.trigger('initStateLoaded');
-            }
-
             $('.service-views').append(template);
 
             // set page title if needed
@@ -174,11 +170,10 @@ var ServiceViews = function(states, $, Events){
                 return;
             }
 
+            answer.calcParams = answer.calcParams || [];
             var serviceCode = answer.serviceCode;
-            var calcParams = answer.calcParams;
-            var vehicleRequired = answer.vehicleRequired;
             if (serviceCode) {
-                Events.trigger('addService', {serviceCode: serviceCode, calcParams: calcParams || [], vehicleRequired: vehicleRequired});
+                Events.trigger('serviceSelected', answer);
             }
 
             switch (nextStateId) {

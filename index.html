@@ -11,45 +11,57 @@
             </div>
         </header>
 
-        <h2>Karosserie & Lack Serviceleistungen</h2>
+        <section class="search-view">
+            <h2>Karosserie &amp; Lack Serviceleistungen</h2>
 
-        <article>
-            <div class="service-views"></div>
+            <article>
+                <div class="service-views"></div>
+
+                <br>
+
+                <div class="service-cart">
+                    <h3 class="service-cart-empty">Sie haben noch keine Services ausgewählt</h3>
+                    <div class="service-cart-not-empty">
+                        <h3 class="service-cart-not-empty-text">Ihre ausgewählte Services und Kalkulationsparametern:</h3>
+                        <ul class="service-cart-services">
+                            <li class="service-cart-item">
+                                <b class="service-cart-item-text"></b><br>
+                                <span class="service-cart-item-calc-params"></span>
+                                <button class="floatRight service-cart-item-remove">Entfernen</button>
+                                <br clear="all">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="vehicle-selection">
+                <h3>Ihr Fahrzeug: <button class="select-vehicle">Fahrzeug auswählen</button><span class="selected-vehicle">Mercedes-Benz BM 219 CLS (06.2004-&gt;) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</span></h3>
+            </article>
+
+            <article class="region-selection">
+                <h3>Ihre Region: <button class="select-region">Standort auswählen</button><span class="selected-region">Stuttgart</span></h3>
+            </article>
 
             <br>
 
-            <div class="service-cart">
-                <h3 class="service-cart-empty">Sie haben noch keine Services ausgewählt</h3>
-                <div class="service-cart-not-empty">
-                    <h3 class="service-cart-not-empty-text">Ihre ausgewählte Services und Kalkulationsparametern:</h3>
-                    <ul class="service-cart-services">
-                        <li class="service-cart-item">
-                            <b class="service-cart-item-text"></b><br>
-                            <span class="service-cart-item-calc-params"></span>
-                            <button class="floatRight service-cart-item-remove">Entfernen</button>
-                            <br clear="all">
-                        </li>
-                    </ul>
-                </div>
+            <div class="search">
+                <button class="search-button" disabled>Angebote Suchen</button>
             </div>
-        </article>
+        </section>
 
-        <article class="vehicle-selection">
-            <h3>Ihr Fahrzeug: <button class="select-vehicle">Fahrzeug auswählen</button><span class="selected-vehicle">Mercedes-Benz BM 219 CLS (06.2004-&gt;) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</span></h3>
-        </article>
+        <section class="result-list-view">
 
-        <article class="region-selection">
-            <h3>Ihre Region: <input type="text" placeholder="PLZ, Straße, Stadt"></h3><!-- Stuttgart -->
-        </article>
+        </section>
 
-        <br>
+        <section class="offer-view">
 
-        <div class="offer-search">
-            <button class="offer-search-button" disabled>Angebote Suchen</button>
-        </div>
+        </section>
 
         <!-- build:css css/styles.css -->
         <link media="all" type="text/css" href="css/basics.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/views.css" rel="stylesheet">
 
         <link media="all" type="text/css" href="css/serviceViews.css" rel="stylesheet">
         <link media="all" type="text/css" href="css/cart.css" rel="stylesheet">
@@ -59,11 +71,13 @@
 
         <!-- build:js js/scripts.js -->
         <script type="text/javascript" src="js/lib/jquery.js"></script>
-
         <script type="text/javascript" src="js/Events.js"></script>
+
+        <script type="text/javascript" src="js/Views.js"></script>
         <script type="text/javascript" src="js/VehicleSelection.js"></script>
         <script type="text/javascript" src="js/RegionSelection.js"></script>
         <script type="text/javascript" src="js/Cart.js"></script>
+
         <script type="text/javascript" src="js/states.js"></script>
         <script type="text/javascript" src="js/ServiceViews.js"></script>
 

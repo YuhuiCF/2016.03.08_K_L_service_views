@@ -92,7 +92,8 @@ var states = {
                         }
                     ],
                     nextStateId: 'replace.components.type',
-                    vehicleRequired: true
+                    vehicleRequired: true,
+                    calculable: true
                 },
                 {
                     answer: 'Fahrzeug lackieren',
@@ -2264,7 +2265,16 @@ forEachState(function(state, stateKey){
 
 forEachState(function(state){
     // set vehicleRequired property for child states
-    setVehicleRequired(state);
+    inheritStateProperties(state, [
+        {
+            key: 'vehicleRequired',
+            inheritValue: true
+        },
+        {
+            key: 'calculable',
+            inheritValue: true
+        }
+    ]);
 });
 
 function setAndReturnValueOfConfigId(value, stateKey){
@@ -2323,29 +2333,62 @@ function checkAndSetConstants(i, answer){
     }
 }
 
-function setVehicleRequired(state, vehicleRequired){
-    // check only for states whose property isVehicleRequiredSet is not true
-    if (state.isVehicleRequiredSet !== true) {
+function inheritStateProperties(state, properties){
+    // check only for states whose property propertiesInherited is not true
+    if (state.propertiesInherited !== true) {
+        // set propertiesInherited
+        states.propertiesInherited = true;
+
         var answers = state.configs.answers || [];
         if (!answers.length) {
-            state.configs.vehicleRequired = vehicleRequired;
+            $.each(properties || [], function(i, property){
+                state.configs[property.key] = property.value;
+            });
+            //state.configs.vehicleRequired = vehicleRequired;
         }
 
         //console.log(state.configs.id);
         $.each(answers, function(i, answer){
-            if (answer.vehicleRequired !== true) {
-                answer.vehicleRequired = vehicleRequired;
-            }
-            // set isVehicleRequiredSet
-            states.isVehicleRequiredSet = true;
-                //console.log(vehicleRequired);
-                //console.log(state.configs.id);
-                //console.log(answer);
-            // need to check children states for vehicleRequired answer
-            if (answer.vehicleRequired && answer.nextStateId && answer.nextStateId !== 'END') {
-                //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
-                setVehicleRequired(states[answer.nextStateId], true);
-            }
+            setAnswerInheritedProperties(answer, properties);
         });
     }
+}
+
+function setAnswerInheritedProperties(answer, properties){
+    $.each(properties || [], function(i, property){
+        /*
+        if (answer.vehicleRequired !== true) {
+            answer.vehicleRequired = vehicleRequired;
+        }
+        */
+        if (answer[property.key] !== property.inheritValue) {
+            answer[property.key] = property.value;
+        }
+            //console.log(vehicleRequired);
+            //console.log(state.configs.id);
+            //console.log(answer);
+    });
+    // need to check children states for vehicleRequired answer
+    if (hasAnswerPropertyToInherit(answer, properties) && answer.nextStateId && answer.nextStateId !== 'END') {
+        //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
+        inheritStateProperties(states[answer.nextStateId], returnUpdatedProperties(answer, properties));
+    }
+}
+
+function hasAnswerPropertyToInherit(answer, properties){
+    var output = false;
+    $.each(properties || [], function(i, property){
+        if (answer[property.key] === property.inheritValue){
+            output = true;
+            return;
+        }
+    });
+    return output;
+}
+
+function returnUpdatedProperties(answer, properties){
+    $.each(properties || [], function(i, property){
+        property.value = answer[property.key];
+    });
+    return properties;
 }

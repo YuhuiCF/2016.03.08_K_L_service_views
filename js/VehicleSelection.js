@@ -2,14 +2,15 @@
 var VehicleSelection = function($, Events){
     var self = this;
     var vehicleElmt = $('.vehicle-selection');
-    var selectVehicleButton = $('.select-vehicle');
-    var selectedVehicleText = $('.selected-vehicle');
 
-    Events.on('showVehicleSelection', function(){
+    var selectVehicleButton = vehicleElmt.find('.select-vehicle');
+    var selectedVehicleText = vehicleElmt.find('.selected-vehicle');
+
+    Events.on('hasVehicleRequiredService', function(){
         vehicleElmt.show();
     });
 
-    Events.on('hideVehicleSelection', function(){
+    Events.on('hasNoVehicleRequiredService', function(){
         vehicleElmt.hide();
     });
 

@@ -49,10 +49,14 @@ var Events = (function($, eventNames){
         }
     };
 })($, [
-    'addService',
-    'initStateLoaded',
+    'serviceSelected',
+    'allServicesRemoved',
 
-    'showVehicleSelection',
-    'hideVehicleSelection',
-    'vehicleSelected'
+    'hasVehicleRequiredService',
+    'hasNoVehicleRequiredService',
+    'vehicleSelected',
+
+    'regionSelected',
+
+    'startSearch'
 ]);

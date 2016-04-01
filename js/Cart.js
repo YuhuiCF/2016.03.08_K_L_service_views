@@ -10,14 +10,20 @@ var Cart = function($, Events){
     var serviceItemElmt = cartElmt.find('.service-cart-item');
     var serviceItemParentElmt = serviceItemElmt.parent();
 
-    var offerSearchElmt = $('.offer-search');
-    var offerSearchButton = $('.offer-search-button');
+    var searchElmt = $('.search');
+    var searchButton = $('.search-button');
 
     var hightlightTO;
+    var hasVehicleRequiredService = false;
 
-    Events.on('addService', function(data){
+    searchButton.bind('click', function(){
+        Events.trigger('startSearch', {selectedServices: services});
+    });
+
+    Events.on('serviceSelected', function(data){
         self.addService(data);
         var cartItemElmt = cartElmt.find('[data-service-config="' + data.serviceCode +'"]');
+
         $('html, body').animate({
             scrollTop: cartItemElmt.offset().top
         });
@@ -26,17 +32,37 @@ var Cart = function($, Events){
     var vehicleSelectedTriggered = false;
     Events.on('vehicleSelected', function(){
         vehicleSelectedTriggered = true;
-        enableOfferSearchButton();
+        checkEnableOfferSearchButton();
     });
 
-    Events.on('hideVehicleSelection', enableOfferSearchButton);
+    var regionSelectedTriggered = false;
+    Events.on('regionSelected', function(){
+        regionSelectedTriggered = true;
+        checkEnableOfferSearchButton();
+    });
+
+    Events.on('hasNoVehicleRequiredService', function(){
+        checkEnableOfferSearchButton();
+    });
+
+    Events.on('allServicesRemoved', function(){
+        self.showNoService();
+    });
 
     function enableOfferSearchButton(){
-        offerSearchButton.prop('disabled', false);
+        searchButton.prop('disabled', false);
+    }
+
+    function checkEnableOfferSearchButton(){
+        if (!(hasVehicleRequiredService && !vehicleSelectedTriggered) && regionSelectedTriggered) {
+            enableOfferSearchButton();
+        } else {
+            disableOfferSearchButton();
+        }
     }
 
     function disableOfferSearchButton(){
-        offerSearchButton.prop('disabled', true);
+        searchButton.prop('disabled', true);
     }
 
     function getServiceIndexByCode(serviceCode){
@@ -54,15 +80,17 @@ var Cart = function($, Events){
         var serviceCode = data.serviceCode;
         var calcParams = data.calcParams;
         var vehicleRequired = data.vehicleRequired;
+        /*
         var service = {
             serviceCode: serviceCode,
             vehicleRequired: vehicleRequired
         };
+        */
 
         var newElmt = serviceItemElmt.clone();
 
         if (getServiceIndexByCode(serviceCode) === -1) {
-            services.push(service);
+            services.push(data);
 
             newElmt.attr('data-service-config', serviceCode);
             newElmt.find('.service-cart-item-text').html(serviceCode);
@@ -72,7 +100,7 @@ var Cart = function($, Events){
                 newElmt.remove();
                 self.removeService(serviceCode);
 
-                self.updateServices();
+                self.updateServiceDisplay();
             });
             serviceItemParentElmt.append(newElmt);
         } else {
@@ -80,7 +108,7 @@ var Cart = function($, Events){
         }
 
         self.highlightService(newElmt);
-        self.updateServices();
+        self.updateServiceDisplay();
     };
 
     self.removeService = function(serviceCode){
@@ -90,44 +118,41 @@ var Cart = function($, Events){
         }
     };
 
-    self.updateServices = function(){
+    self.updateServiceDisplay = function(){
         // show or hide cart
         if (services.length > 0) {
             self.showAllServices();
         } else {
-            self.showNoService();
+            Events.trigger('allServicesRemoved');
         }
         // show or hide vehicle selection
-        var showVehicleSelection = false;
+        hasVehicleRequiredService = false;
         $.each(services, function(i, service){
             if (service.vehicleRequired) {
-                showVehicleSelection = true;
+                hasVehicleRequiredService = true;
                 return;
             }
         });
 
-        if (showVehicleSelection) {
-            Events.trigger('showVehicleSelection');
-            if (vehicleSelectedTriggered) {
-                enableOfferSearchButton();
-            } else {
-                disableOfferSearchButton();
-            }
+        if (hasVehicleRequiredService) {
+            Events.trigger('hasVehicleRequiredService');
         } else {
-            Events.trigger('hideVehicleSelection');
+            Events.trigger('hasNoVehicleRequiredService');
         }
+
+        checkEnableOfferSearchButton();
     };
 
     self.showNoService = function(){
         noServiceElmt.show();
         allServicesElmt.hide();
-        offerSearchElmt.hide();
+        searchElmt.hide();
     };
 
     self.showAllServices = function(){
         noServiceElmt.hide();
         allServicesElmt.show();
-        offerSearchElmt.show();
+        searchElmt.show();
     };
 
     self.highlightService = function(serviceItem){
