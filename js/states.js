@@ -2337,7 +2337,7 @@ function inheritStateProperties(state, properties){
     // check only for states whose property propertiesInherited is not true
     if (state.propertiesInherited !== true) {
         // set propertiesInherited
-        states.propertiesInherited = true;
+        state.propertiesInherited = true;
 
         var answers = state.configs.answers || [];
         if (!answers.length) {
@@ -2387,8 +2387,11 @@ function hasAnswerPropertyToInherit(answer, properties){
 }
 
 function returnUpdatedProperties(answer, properties){
+    var output = [];
     $.each(properties || [], function(i, property){
-        property.value = answer[property.key];
+        var newProperty = $.extend({},property);
+        newProperty.value = answer[newProperty.key];
+        output.push(newProperty);
     });
-    return properties;
+    return output;
 }
