@@ -14,6 +14,7 @@ var ResultList = function(data, $, Events){
     var resultItemElmt = originalResultItemElmt.clone();
     originalResultItemElmt.remove();
 
+    // write result list
     $.each(data, function(i, location){
         resultItemsElmt.append(resultItemElmt.clone());
 
@@ -52,12 +53,14 @@ var ResultList = function(data, $, Events){
         });
 
         self.hideAllButtons();
+        var offerButton;
         if (hasContactRequest) {
-            offerContactLocationButtons.show();
+            offerButton = offerContactLocationButtons;
         } else if (isCalculable) {
-            offerWithPriceButtons.show();
+            offerButton = offerWithPriceButtons;
         } else {
-            offerWithNoPriceButtons.show();
+            offerButton = offerWithNoPriceButtons;
         }
+        offerButton.show();
     });
 };
