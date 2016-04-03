@@ -1,11 +1,13 @@
 
+var header = new Header($, configs);
+
 var cart = new Cart($, Events);
 
 var vehicleSelection = new VehicleSelection($, Events);
 var regionSelection = new RegionSelection($, Events);
 var views = new Views($, Events);
 
-var serviceViews = new ServiceViews(states, $, Events);
+var serviceViews = new ServiceViews(states, $, Events, configs);
 var resultList = new ResultList(resultListData, $, Events);
 
 function getUrlParam(name){

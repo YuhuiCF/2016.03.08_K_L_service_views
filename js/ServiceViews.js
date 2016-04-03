@@ -1,8 +1,10 @@
 
-var ServiceViews = function(states, $, Events){
+var ServiceViews = function(states, $, Events, configs){
     var self = this;
 
     var templates = {};
+
+    var isDevEnv = configs.isDevEnv;
 
     self.loadView = function(state, isInitState){
         var configId = state.configs.id;
@@ -189,7 +191,7 @@ var ServiceViews = function(states, $, Events){
 
         function setImageConfigs(imgElmt, config){
             imgElmt.attr('height', config.height);
-            imgElmt.attr('src', 'img/' + config.file);
+            imgElmt.attr('src', (isDevEnv ? '' : '../') + 'img/' + config.file);
         }
 
         function prepareMixAnswerElement(jQElmt, item){
