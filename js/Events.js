@@ -63,5 +63,7 @@ var Events = (function($, eventNames){
     'resultListDisplayed',
     'goBackFromResultList',
 
+    'openOffer',
+    'offerDisplayed',
     'goBackFromOffer'
 ]);

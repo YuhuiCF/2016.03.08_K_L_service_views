@@ -89,6 +89,44 @@
 
 
         <section class="offer-view">
+            <h3>Ihr Angebot</h3>
+            <div class="offer">
+                <div class="offer-services">
+                    <h4>Gewählte Services</h4>
+                    <div class="offer-service">
+                        <div class="offer-service-code"></div>
+                        <div class="offer-service-message"></div>
+                    </div>
+                </div>
+                <div class="offer-price-message">
+                    <i>Der genaue Preisvorschlag erhalten Sie von der Werkstatt nach Ihrem Besichtigungstermin.</i>
+                </div>
+                <div class="offer-timeslot">
+                    <h4>Termin</h4>
+                    <select>
+                        <option>Heute</option>
+                        <option>Morgen</option>
+                        <option>Übermorgen</option>
+                    </select>
+                </div>
+                <div class="offer-customer-info">
+                    <h4>Ihre Kontaktangaben</h4>
+                    <div><b>E-Mail-Adresse:</b> Max.Mustermann@mcon-group.com</div>
+                    <div><b>Telefonnummer:</b> 01234567</div>
+                    <div>
+                        <b>Ihre Nachricht:</b><br>
+                        <textarea></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="booking-button">
+                    <button class="booking-with-price-button">Unverbindlicher Termin</button>
+                    <button class="booking-with-no-price-button">Begutachtungstermin</button>
+                    <button class="booking-contact-location-button">Werkstatt Kontaktieren</button>
+                </div>
+            </div>
+
+            <br>
 
             <div class="view-navigation">
                 <button class="last-view">Zurück zur Ergebnisliste</button>
@@ -97,7 +135,7 @@
 
 
 
-        <!-- build:css css/styles.css -->
+        <!-- build:css styles.css -->
         <link media="all" type="text/css" href="css/basics.css" rel="stylesheet">
 
         <link media="all" type="text/css" href="css/views.css" rel="stylesheet">
@@ -108,9 +146,11 @@
         <link media="all" type="text/css" href="css/regionSelection.css" rel="stylesheet">
 
         <link media="all" type="text/css" href="css/resultList.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/offer.css" rel="stylesheet">
         <!-- endbuild -->
 
-        <!-- build:js js/scripts.js -->
+        <!-- build:js scripts.js -->
         <script type="text/javascript" src="js/lib/jquery.js"></script>
         <script type="text/javascript" src="js/Events.js"></script>
 

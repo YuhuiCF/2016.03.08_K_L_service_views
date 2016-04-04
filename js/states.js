@@ -64,7 +64,8 @@ var states = {
                     answer: 'Services für Scheiben und Glas',
                     description: 'Lorem ipsum',
                     nextStateId: 'window.glas.type',
-                    vehicleRequired: true
+                    vehicleRequired: true,
+                    calculable: true
                 },
                 {
                     useConstants: [
@@ -109,14 +110,15 @@ var states = {
                 {
                     answer: 'Schaden Begutachten lassen',
                     description: 'Lorem ipsum',
-                    nextStateId: 'END',
-                    serviceCode: 'examine.damage'
+                    nextStateId: 'examinedamage.type'
+                    //serviceCode: 'examinedamage'
                 },
                 {
                     answer: 'Fachwerkstatt finden',
                     description: 'Lorem ipsum',
                     nextStateId: 'END',
-                    serviceCode: 'locations.search'
+                    serviceCode: 'locations.search',
+                    unitPrice: 0
                 }
             ]
         }
@@ -393,6 +395,28 @@ var states = {
     },
 
 
+// Begutachtung
+    'examinedamage.type': {
+        viewType: 'mixSelection',
+        configs: {
+            question: 'Bitte beschreiben Sie Ihren Schaden:',
+            checklist: [
+                {
+                    type: 'radio',
+                    answer: 'Ist Ihr Fahrzeug fahrbereit?',
+                    options: [
+                        {value: 'ja'},
+                        {value: 'nein'}
+                    ]
+                }
+            ],
+            nextStateId: 'END',
+            serviceCode: 'examinedamage',
+            calcParams: ['FIN', 'Upload Bilder (0..5)', 'Schadensbeschreibung']
+        }
+    },
+
+
 // Fahrzeug komplett
     'vehicle.complete.type': {
         viewType: 'radioSelectionWithBlockDescription',
@@ -607,6 +631,7 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: 'dent.repair',
+            unitPrice: 60,
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
@@ -1177,6 +1202,7 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: 'touchupstick',
+            unitPrice: 30
             //calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
@@ -2163,6 +2189,7 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: 'spotrepair',
+            unitPrice: 80,
             calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
         }
     },
@@ -2406,176 +2433,178 @@ var states = {
 
 };
 
-var stateConstants = {
-    'answer.replace': 'Wechsel des Bauteils',
-    'answer.dent.repair': 'Einzelne Dellen entfernen',
-    'answer.haildamage.repair': 'Hagelschaden reparieren',
-    'answer.lacquer': 'Neulackierung des Bauteils',
-    'answer.polish': 'Polieren',
-    'answer.rockfall.repair': 'Steinschläge entfernen',
-    'answer.rust.repair': 'Rost entfernen',
-    'answer.scratch.repair': 'Kratzer entfernen',
-    'answer.spotrepair': 'Spot Repair',
+(function(states){
+    var stateConstants = {
+        'answer.replace': 'Wechsel des Bauteils',
+        'answer.dent.repair': 'Einzelne Dellen entfernen',
+        'answer.haildamage.repair': 'Hagelschaden reparieren',
+        'answer.lacquer': 'Neulackierung des Bauteils',
+        'answer.polish': 'Polieren',
+        'answer.rockfall.repair': 'Steinschläge entfernen',
+        'answer.rust.repair': 'Rost entfernen',
+        'answer.scratch.repair': 'Kratzer entfernen',
+        'answer.spotrepair': 'Spot Repair',
 
-    'description.replace': 'Bei stärkeren Verformungen oder einer notwendigen Instandsetzung von über 50% des Bauteils ist in der Regel der Austausch des Bauteils günstiger, als die Instandsetzung. Je nach Ursache des Schadens können auch benachbarte Bauteile wie z.B. Halterungen in Mitleidenschaft gezogen worden sein, hier wird ist die Vorführung des Fahrzeugs in einem Fachbetrieb empfohlen (&lt;&lt;CrossLink Unfallschaden&gt;&gt;).',
-    'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oberflächlich Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
-    'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteils liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich. Wählen Sie hierfür bitte die Option "Dellen entfernen".',
-    'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf oder fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
-    'description.polish': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-    'description.rockfall.repair': 'Steinschläge sind nicht nur unansehnlich, sondern die scharfkantigen Steine beschädigen meist auch die Grundierung und es bildet sich Rost, der sich auch unter dem Lack weiter ausbreitet. Je nach Lage am Fahrzeug muss unter Umständen das gesamte Bauteil neu lackiert werden, nachdem die betroffene Stelle ausgebessert worden ist.',
-    'description.rust.repair': 'Um Rost langfristig zu entfernen, muss dieser zuerst restlos entfernt werden. Anschließend wird die Stelle großflächig für einen kompletten Neuaufbau des Lacks vorbereitet und anschließend das gesamte Bauteil lackiert. Bei größeren Rostflächen oder Durchrostung, wenden Sie sich bitte an einen Fachbetrieb (&lt;&lt;CrossLink Werkstattsuche&gt;&gt;).',
-    'description.scratch.repair': 'Kratzer werden üblicherweise durch Schleifen und Ebnen der Fläche mit Feinspachtel und einer kompletten Lackierung des Bauteils beseitigt. Ist auch die Grundierung beschädigt, muss eventuell bereits entstandener Rost ebenfalls entfernt werden.',
-    'description.spotrepair': 'Eine kostengünstige Alternative zur Reparatur kleinerer Beschädigungen ist die Spot Repair Methode. Beseitigt werden können Steinschläge, kleinere Kratzer und Lackfehler bis etwa 3,5 cm Durchmesser, allerdings keine Dellen. Bei Stoßstangen lassen sich so auch kleinere Streifschäden beheben. Spot Repair wird nur empfohlen an Stoßstangen und im unteren Bereich des Fahrzeugs.'
-};
+        'description.replace': 'Bei stärkeren Verformungen oder einer notwendigen Instandsetzung von über 50% des Bauteils ist in der Regel der Austausch des Bauteils günstiger, als die Instandsetzung. Je nach Ursache des Schadens können auch benachbarte Bauteile wie z.B. Halterungen in Mitleidenschaft gezogen worden sein, hier wird ist die Vorführung des Fahrzeugs in einem Fachbetrieb empfohlen (&lt;&lt;CrossLink Unfallschaden&gt;&gt;).',
+        'description.dent.repair': 'Je nach Position am Fahrzeug lassen sich kleinere, oberflächlich Dellen unter Umständen auch durch Drücken oder ziehen entfernen. Größere, tiefere, an Kanten oder am Bauteilrand liegende Dellen müssen in der Regel mit Feinspachtel geebnet und das Bauteil komplett neu lackiert werden.',
+        'description.haildamage.repair': 'Die meisten kleineren Dellen lassen sich ohne Lackierarbeiten entfernen, ausgenommen sind meist tiefe, scharfkantige oder in den Randbereichen eines Bauteils liegende Dellen. Sollte die Lackierung Ihres Fahrzeugs durch den Hagel beschädigt worden sein, ist eine einfache Reparatur nicht mehr möglich. Wählen Sie hierfür bitte die Option "Dellen entfernen".',
+        'description.lacquer': 'Eine Neulackierung des Bauteils im Farbton des Fahrzeugs kann erforderlich sein, wenn der Lack im Laufe der Zeit stumpf oder fleckig geworden ist. Beachten Sie bitte, dass eine Neulackierung keine Beseitigung von Beschädigungen wie Kratzern, Dellen oder Steinschlägen beinhaltet.',
+        'description.polish': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+        'description.rockfall.repair': 'Steinschläge sind nicht nur unansehnlich, sondern die scharfkantigen Steine beschädigen meist auch die Grundierung und es bildet sich Rost, der sich auch unter dem Lack weiter ausbreitet. Je nach Lage am Fahrzeug muss unter Umständen das gesamte Bauteil neu lackiert werden, nachdem die betroffene Stelle ausgebessert worden ist.',
+        'description.rust.repair': 'Um Rost langfristig zu entfernen, muss dieser zuerst restlos entfernt werden. Anschließend wird die Stelle großflächig für einen kompletten Neuaufbau des Lacks vorbereitet und anschließend das gesamte Bauteil lackiert. Bei größeren Rostflächen oder Durchrostung, wenden Sie sich bitte an einen Fachbetrieb (&lt;&lt;CrossLink Werkstattsuche&gt;&gt;).',
+        'description.scratch.repair': 'Kratzer werden üblicherweise durch Schleifen und Ebnen der Fläche mit Feinspachtel und einer kompletten Lackierung des Bauteils beseitigt. Ist auch die Grundierung beschädigt, muss eventuell bereits entstandener Rost ebenfalls entfernt werden.',
+        'description.spotrepair': 'Eine kostengünstige Alternative zur Reparatur kleinerer Beschädigungen ist die Spot Repair Methode. Beseitigt werden können Steinschläge, kleinere Kratzer und Lackfehler bis etwa 3,5 cm Durchmesser, allerdings keine Dellen. Bei Stoßstangen lassen sich so auch kleinere Streifschäden beheben. Spot Repair wird nur empfohlen an Stoßstangen und im unteren Bereich des Fahrzeugs.'
+    };
 
-// beautify object structure
+    // beautify object structure
 
-forEachState(function(state, stateKey){
-    // update states that use templates
-    if (state.useTemplate) {
-        $.extend(true, state, states[state.useTemplate]);
+    forEachState(function(state, stateKey){
+        // update states that use templates
+        if (state.useTemplate) {
+            $.extend(true, state, states[state.useTemplate]);
 
-        applyTemplateForState(state, stateKey);
-    }
-
-    // set stateConstants for answers
-    var answers = state.configs.answers || [];
-    $.each(answers, checkAndSetConstants);
-
-    // put stateKey in configs.id
-    state.configs = state.configs || {};
-    state.configs.id = stateKey;
-});
-
-forEachState(function(state){
-    // set vehicleRequired property for child states
-    inheritStateProperties(state, [
-        {
-            key: 'vehicleRequired',
-            inheritValue: true
-        },
-        {
-            key: 'calculable',
-            inheritValue: true
+            applyTemplateForState(state, stateKey);
         }
-    ]);
-});
 
-function setAndReturnValueOfConfigId(value, stateKey){
-    if (typeof value === 'object') {
-        if (value[stateKey]) {
-            return value[stateKey];
-        } else if (value['default']) {
-            return value['default'];
+        // set stateConstants for answers
+        var answers = state.configs.answers || [];
+        $.each(answers, checkAndSetConstants);
+
+        // put stateKey in configs.id
+        state.configs = state.configs || {};
+        state.configs.id = stateKey;
+    });
+
+    forEachState(function(state){
+        // set vehicleRequired property for child states
+        inheritStateProperties(state, [
+            {
+                key: 'vehicleRequired',
+                inheritValue: true
+            },
+            {
+                key: 'calculable',
+                inheritValue: true
+            }
+        ]);
+    });
+
+    function setAndReturnValueOfConfigId(value, stateKey){
+        if (typeof value === 'object') {
+            if (value[stateKey]) {
+                return value[stateKey];
+            } else if (value['default']) {
+                return value['default'];
+            } else {
+                return value;
+            }
         } else {
             return value;
         }
-    } else {
-        return value;
-    }
-}
-
-function applyTemplateForState(state, stateKey){
-    var configs = state.configs;
-
-    configs.question = setAndReturnValueOfConfigId(configs.question, stateKey);
-    configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
-    if (configs.img) {
-        configs.img.file = setAndReturnValueOfConfigId(configs.img.file, stateKey);
     }
 
-    if (configs.checklist) {
-        configs.checklist = setAndReturnValueOfConfigId(configs.checklist, stateKey);
-        configs.nextStateId = setAndReturnValueOfConfigId(configs.nextStateId, stateKey);
+    function applyTemplateForState(state, stateKey){
+        var configs = state.configs;
+
+        configs.question = setAndReturnValueOfConfigId(configs.question, stateKey);
         configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
-        configs.calcParams = setAndReturnValueOfConfigId(configs.calcParams, stateKey);
-    }
+        if (configs.img) {
+            configs.img.file = setAndReturnValueOfConfigId(configs.img.file, stateKey);
+        }
 
-    $.each(configs.answers || [], function(i, answer){
-        answer.answer = setAndReturnValueOfConfigId(answer.answer, stateKey);
-        answer.nextStateId = setAndReturnValueOfConfigId(answer.nextStateId, stateKey);
-        answer.newWindow = setAndReturnValueOfConfigId(answer.newWindow, stateKey);
-        answer.serviceCode = setAndReturnValueOfConfigId(answer.serviceCode, stateKey);
-        answer.description = setAndReturnValueOfConfigId(answer.description, stateKey);
-        answer.calcParams = setAndReturnValueOfConfigId(answer.calcParams, stateKey);
-    });
-}
+        if (configs.checklist) {
+            configs.checklist = setAndReturnValueOfConfigId(configs.checklist, stateKey);
+            configs.nextStateId = setAndReturnValueOfConfigId(configs.nextStateId, stateKey);
+            configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
+            configs.calcParams = setAndReturnValueOfConfigId(configs.calcParams, stateKey);
+        }
 
-function forEachState(callback){
-    for (var stateKey in states) {
-        var state = states[stateKey];
-        callback(state, stateKey);
-    }
-}
-
-function checkAndSetConstants(i, answer){
-    var useConstants = answer.useConstants;
-    if (useConstants) {
-        $.each(useConstants, function(j, setting){
-            answer[setting.forKey] = stateConstants[setting.useKey];
+        $.each(configs.answers || [], function(i, answer){
+            answer.answer = setAndReturnValueOfConfigId(answer.answer, stateKey);
+            answer.nextStateId = setAndReturnValueOfConfigId(answer.nextStateId, stateKey);
+            answer.newWindow = setAndReturnValueOfConfigId(answer.newWindow, stateKey);
+            answer.serviceCode = setAndReturnValueOfConfigId(answer.serviceCode, stateKey);
+            answer.description = setAndReturnValueOfConfigId(answer.description, stateKey);
+            answer.calcParams = setAndReturnValueOfConfigId(answer.calcParams, stateKey);
         });
     }
-}
 
-function inheritStateProperties(state, properties){
-    // check only for states whose property propertiesInherited is not true
-    if (state.propertiesInherited !== true) {
-        // set propertiesInherited
-        state.propertiesInherited = true;
+    function forEachState(callback){
+        for (var stateKey in states) {
+            var state = states[stateKey];
+            callback(state, stateKey);
+        }
+    }
 
-        var answers = state.configs.answers || [];
-        if (!answers.length) {
-            $.each(properties || [], function(i, property){
-                state.configs[property.key] = property.value;
+    function checkAndSetConstants(i, answer){
+        var useConstants = answer.useConstants;
+        if (useConstants) {
+            $.each(useConstants, function(j, setting){
+                answer[setting.forKey] = stateConstants[setting.useKey];
             });
-            //state.configs.vehicleRequired = vehicleRequired;
         }
-
-        //console.log(state.configs.id);
-        $.each(answers, function(i, answer){
-            setAnswerInheritedProperties(answer, properties);
-        });
     }
-}
 
-function setAnswerInheritedProperties(answer, properties){
-    $.each(properties || [], function(i, property){
-        /*
-        if (answer.vehicleRequired !== true) {
-            answer.vehicleRequired = vehicleRequired;
-        }
-        */
-        if (answer[property.key] !== property.inheritValue) {
-            answer[property.key] = property.value;
-        }
-            //console.log(vehicleRequired);
+    function inheritStateProperties(state, properties){
+        // check only for states whose property propertiesInherited is not true
+        if (state.propertiesInherited !== true) {
+            // set propertiesInherited
+            state.propertiesInherited = true;
+
+            var answers = state.configs.answers || [];
+            if (!answers.length) {
+                $.each(properties || [], function(i, property){
+                    state.configs[property.key] = property.value;
+                });
+                //state.configs.vehicleRequired = vehicleRequired;
+            }
+
             //console.log(state.configs.id);
-            //console.log(answer);
-    });
-    // need to check children states for vehicleRequired answer
-    if (hasAnswerPropertyToInherit(answer, properties) && answer.nextStateId && answer.nextStateId !== 'END') {
-        //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
-        inheritStateProperties(states[answer.nextStateId], returnUpdatedProperties(answer, properties));
-    }
-}
-
-function hasAnswerPropertyToInherit(answer, properties){
-    var output = false;
-    $.each(properties || [], function(i, property){
-        if (answer[property.key] === property.inheritValue){
-            output = true;
-            return;
+            $.each(answers, function(i, answer){
+                setAnswerInheritedProperties(answer, properties);
+            });
         }
-    });
-    return output;
-}
+    }
 
-function returnUpdatedProperties(answer, properties){
-    var output = [];
-    $.each(properties || [], function(i, property){
-        var newProperty = $.extend({},property);
-        newProperty.value = answer[newProperty.key];
-        output.push(newProperty);
-    });
-    return output;
-}
+    function setAnswerInheritedProperties(answer, properties){
+        $.each(properties || [], function(i, property){
+            /*
+            if (answer.vehicleRequired !== true) {
+                answer.vehicleRequired = vehicleRequired;
+            }
+            */
+            if (answer[property.key] !== property.inheritValue) {
+                answer[property.key] = property.value;
+            }
+                //console.log(vehicleRequired);
+                //console.log(state.configs.id);
+                //console.log(answer);
+        });
+        // need to check children states for vehicleRequired answer
+        if (hasAnswerPropertyToInherit(answer, properties) && answer.nextStateId && answer.nextStateId !== 'END') {
+            //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
+            inheritStateProperties(states[answer.nextStateId], returnUpdatedProperties(answer, properties));
+        }
+    }
+
+    function hasAnswerPropertyToInherit(answer, properties){
+        var output = false;
+        $.each(properties || [], function(i, property){
+            if (answer[property.key] === property.inheritValue){
+                output = true;
+                return;
+            }
+        });
+        return output;
+    }
+
+    function returnUpdatedProperties(answer, properties){
+        var output = [];
+        $.each(properties || [], function(i, property){
+            var newProperty = $.extend({},property);
+            newProperty.value = answer[newProperty.key];
+            output.push(newProperty);
+        });
+        return output;
+    }
+})(states);

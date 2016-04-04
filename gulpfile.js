@@ -1,5 +1,6 @@
 // Include gulp
 var gulp = require('gulp');
+var del = require('del');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
@@ -27,7 +28,11 @@ var paths = {
     }
 };
 
-gulp.task('usemin', function () {
+gulp.task('clean', function(){
+    return del(['./dist/**/*']);
+});
+
+gulp.task('usemin', ['clean', 'JSLint' ,'CSSLint', 'HTMLHint'], function () {
     return gulp.src(paths.html.index)
         .pipe(usemin({
             css: ['concat'],
@@ -44,19 +49,19 @@ gulp.task('usemin', function () {
 });
 
 gulp.task('minifyJS', ['usemin'], function(){
-    return gulp.src('./dist/js/scripts.js')
+    return gulp.src('./dist/scripts.js')
         .pipe(wrapper({
             header: '(function(){\n',
             footer: '\n})();'
         }))
         .pipe(uglify())
-        .pipe(gulp.dest('./dist/js'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('minifyCSS', ['usemin'], function(){
-    return gulp.src('./dist/css/styles.css')
+    return gulp.src('./dist/styles.css')
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest('./dist'));
 });
 
 // Lint Task
@@ -81,7 +86,7 @@ gulp.task('HTMLHint', function(){
 });
 
 // minify templates Task
-gulp.task('minifyTemplates', function() {
+gulp.task('minifyTemplates', ['usemin'], function() {
     return gulp.src(paths.html.templates)
         .pipe(htmlmin({
             collapseWhitespace: true,

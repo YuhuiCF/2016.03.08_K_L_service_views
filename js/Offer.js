@@ -1,64 +1,66 @@
 
-var Offer = function(data, $, Events){
+var Offer = function($, Events){
     var self = this;
 
     var offerView = $('.offer-view');
-    //var originalResultItemElmt = offerView.find('.result-item');
 
     var showResultListButton = offerView.find('.last-view');
     showResultListButton.bind('click', function(){
-        Events.trigger('goBackFromOffer');
-    });
-/*
-    var resultItemsElmt = originalResultItemElmt.parent();
-    var resultItemElmt = originalResultItemElmt.clone();
-    originalResultItemElmt.remove();
-
-    $.each(data, function(i, location){
-        resultItemsElmt.append(resultItemElmt.clone());
-
-        var thisItemElmt = resultItemsElmt.children().filter(':last');
-        var distanceElmt = thisItemElmt.find('.location-distance');
-        var nameElmt = thisItemElmt.find('.location-name');
-        var addressElmt = thisItemElmt.find('.location-address');
-
-        distanceElmt.html(location.distance);
-        nameElmt.html(location.name);
-        addressElmt.html(location.address);
+        Events.trigger('goBackFromOffer', self.data);
     });
 
-    var offerWithPriceButtons = resultItemsElmt.find('.offer-with-price-button');
-    var offerWithNoPriceButtons = resultItemsElmt.find('.offer-with-no-price-button');
-    var offerContactLocationButtons = resultItemsElmt.find('.offer-contact-location-button');
+    var offerServiceSelector = '.offer-service';
+    var offerServiceElmt = offerView.find(offerServiceSelector).clone();
+    var offerServicesElmt = offerView.find('.offer-services');
+
+    var withPriceButtons = offerView.find('.booking-with-price-button');
+    var withNoPriceButtons = offerView.find('.booking-with-no-price-button');
+    var contactLocationButtons = offerView.find('.booking-contact-location-button');
+
+    var bookingButtons = withPriceButtons.add(withNoPriceButtons).add(contactLocationButtons);
 
     self.hideAllButtons = function(){
-        offerWithPriceButtons.hide();
-        offerWithNoPriceButtons.hide();
-        offerContactLocationButtons.hide();
+        bookingButtons.hide();
     };
 
-    Events.on('resultListDisplayed', function(data){
-        var hasContactRequest = false;
-        var isCalculable = false;
+    Events.on('offerDisplayed', function(data){
+        offerServicesElmt.find(offerServiceSelector).remove();
+        self.data = data;
+
         $.each(data.selectedServices, function(i, service){
-            // test if offer page should do contact request
-            if (service.serviceCode === 'locations.search') {
-                hasContactRequest = true;
-            }
-            // test if is calculable
+            offerServicesElmt.append(offerServiceElmt.clone());
+
+            var thisServiceElmt = offerServicesElmt.find(offerServiceSelector).filter(':last');
+            var serviceCodeElmt = thisServiceElmt.find('.offer-service-code');
+            var serviceMsgElmt = thisServiceElmt.find('.offer-service-message');
+
+            var serviceCode = service.serviceCode;
+            serviceCodeElmt.html(serviceCode);
+
+            var message = 'Preis nach Vereinbahrung';
+
             if (service.calculable) {
-                isCalculable = true;
+                message = 'Einzelpreis: ' + (service.unitPrice || '100') + ' €';
+            } else if (typeof service.unitPrice !== 'undefined') {
+                message = 'Einzelpreis: ab ' + service.unitPrice + ' €';
             }
+
+            serviceMsgElmt.html(message);
         });
 
         self.hideAllButtons();
-        if (hasContactRequest) {
-            offerContactLocationButtons.show();
-        } else if (isCalculable) {
-            offerWithPriceButtons.show();
-        } else {
-            offerWithNoPriceButtons.show();
+
+        var bookingButton = withNoPriceButtons;
+        if (data.hasContactRequest) {
+            bookingButton = contactLocationButtons;
+        } else if (data.isCalculable) {
+            bookingButton = withPriceButtons;
         }
+
+        bookingButton.show();
     });
-*/
+
+    bookingButtons.bind('click', function(){
+        //Events.trigger('sendBooking', self.data);
+    });
 };

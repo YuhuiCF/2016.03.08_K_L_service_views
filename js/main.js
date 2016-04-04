@@ -9,6 +9,8 @@ var views = new Views($, Events);
 
 var serviceViews = new ServiceViews(states, $, Events, configs);
 var resultList = new ResultList(resultListData, $, Events);
+var offer = new Offer($, Events);
+
 
 function getUrlParam(name){
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");

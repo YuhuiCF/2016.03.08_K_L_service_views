@@ -3,16 +3,17 @@ var ResultList = function(data, $, Events){
     var self = this;
 
     var resultListView = $('.result-list-view');
-    var originalResultItemElmt = resultListView.find('.result-item');
+    var resultItemSelector = '.result-item';
+    var resultItemElmt = resultListView.find(resultItemSelector);
 
     var startSearchButton = resultListView.find('.last-view');
     startSearchButton.bind('click', function(){
         Events.trigger('goBackFromResultList');
     });
 
-    var resultItemsElmt = originalResultItemElmt.parent();
-    var resultItemElmt = originalResultItemElmt.clone();
-    originalResultItemElmt.remove();
+    var resultItemsElmt = resultItemElmt.parent();
+    resultItemElmt = resultItemElmt.clone();
+    resultItemsElmt.find(resultItemSelector).remove();
 
     // write result list
     $.each(data, function(i, location){
@@ -28,39 +29,28 @@ var ResultList = function(data, $, Events){
         addressElmt.html(location.address);
     });
 
-    var offerWithPriceButtons = resultItemsElmt.find('.offer-with-price-button');
-    var offerWithNoPriceButtons = resultItemsElmt.find('.offer-with-no-price-button');
-    var offerContactLocationButtons = resultItemsElmt.find('.offer-contact-location-button');
+    var withPriceButtons = resultItemsElmt.find('.offer-with-price-button');
+    var withNoPriceButtons = resultItemsElmt.find('.offer-with-no-price-button');
+    var contactLocationButtons = resultItemsElmt.find('.offer-contact-location-button');
+
+    var bookingButtons = withPriceButtons.add(withNoPriceButtons).add(contactLocationButtons);
 
     self.hideAllButtons = function(){
-        offerWithPriceButtons.hide();
-        offerWithNoPriceButtons.hide();
-        offerContactLocationButtons.hide();
+        bookingButtons.hide();
     };
 
     Events.on('resultListDisplayed', function(data){
-        var hasContactRequest = false;
-        var isCalculable = false;
-        $.each(data.selectedServices, function(i, service){
-            // test if offer page should do contact request
-            if (service.serviceCode === 'locations.search') {
-                hasContactRequest = true;
-            }
-            // test if is calculable
-            if (service.calculable) {
-                isCalculable = true;
-            }
-        });
-
         self.hideAllButtons();
-        var offerButton;
-        if (hasContactRequest) {
-            offerButton = offerContactLocationButtons;
-        } else if (isCalculable) {
-            offerButton = offerWithPriceButtons;
-        } else {
-            offerButton = offerWithNoPriceButtons;
+        var offerButton = withNoPriceButtons;
+        if (data.hasContactRequest) {
+            offerButton = contactLocationButtons;
+        } else if (data.isCalculable) {
+            offerButton = withPriceButtons;
         }
+
+        offerButton.bind('click', function(){
+            Events.trigger('openOffer', data);
+        });
         offerButton.show();
     });
 };

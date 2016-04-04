@@ -17,7 +17,25 @@ var Cart = function($, Events){
     var hasVehicleRequiredService = false;
 
     searchButton.bind('click', function(){
-        Events.trigger('startSearch', {selectedServices: services});
+        var hasContactRequest = false;
+        var isCalculable = true;
+        $.each(services, function(i, service){
+            // test if offer page should do contact request
+            if (service.serviceCode === 'locations.search') {
+                hasContactRequest = true;
+            }
+            // test if is calculable
+            if (service.calculable !== true) {
+                isCalculable = false;
+            }
+        });
+        var data = {
+            selectedServices: services,
+            hasContactRequest: hasContactRequest,
+            isCalculable: isCalculable
+        };
+
+        Events.trigger('startSearch', data);
     });
 
     Events.on('serviceSelected', function(data){

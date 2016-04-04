@@ -8,6 +8,6 @@ var resultListData = [
     {
         distance: 1.5,
         name: 'Werkstatt B',
-        address: 'Stuttgart Flughafen'
+        address: 'Stuttgart Hauptbahnhof'
     }
 ];

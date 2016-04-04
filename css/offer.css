@@ -1,0 +1,21 @@
+
+.offer-view textarea {
+    width: 100%;
+    min-height: 100px;
+}
+
+.offer-service-code {
+    font-weight: bold;
+}
+
+.offer-service-message {
+    padding-left: 20px;
+}
+
+.booking-button button {
+    background: #008bc5;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    font-size: 20px;
+}
