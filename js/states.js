@@ -128,32 +128,32 @@ var states = {
                 {
                     answer: 'Heckklappe / Kofferraumdeckel',
                     nextStateId: 'END',
-                    serviceCode: 'tailgate.lacquer.complete'
+                    serviceCode: 'tailgate.lacquer'
                 },
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.left.lacquer.complete'
+                    serviceCode: 'fender.front.left.lacquer'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.right.lacquer.complete'
+                    serviceCode: 'fender.front.right.lacquer'
                 },
                 {
                     answer: 'Kotflügel / Seitenwand hinten links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.left.lacquer.complete'
+                    serviceCode: 'fender.rear.left.lacquer'
                 },
                 {
                     answer: 'Kotflügel / Seitenwand hinten rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.right.lacquer.complete'
+                    serviceCode: 'fender.rear.right.lacquer'
                 },
                 {
                     answer: 'Motorhaube',
                     nextStateId: 'END',
-                    serviceCode: 'hood.lacquer.complete'
+                    serviceCode: 'hood.lacquer'
                 },
                 {
                     answer: 'Schweller links',
@@ -213,12 +213,12 @@ var states = {
                 {
                     answer: 'Gehäuse Außenspiegel links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450268 (Außenspiegel links komplett wechseln)'
+                    serviceCode: 'service-id-450268'
                 },
                 {
                     answer: 'Gehäuse Außenspiegel rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
+                    serviceCode: 'service-id-450269'
                 },
 /*
                 {
@@ -229,7 +229,7 @@ var states = {
                     answer: 'Frontscheibe austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
+                    serviceCode: 'service-id-407537',
                     calcParams: ['Repaircode E']
                 },
                 {
@@ -253,12 +253,12 @@ var states = {
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)'
+                    serviceCode: 'service-id-450270'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)'
+                    serviceCode: 'service-id-450271'
                 },
                 {
                     answer: 'Motorhaube',
@@ -432,7 +432,7 @@ var states = {
                 {
                     answer: 'Beide Außenspiegel ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450284 (Außenspiegel beide komplett wechseln)'
+                    serviceCode: 'service-id-450284'
                 }
             ]
         }
@@ -452,6 +452,7 @@ var states = {
                         'mirror.right.type': 'mirror.right.glas.replace.type'
                     }
                 },
+                /*
                 {
                     answer: 'Kratzer, Steinschlag reparieren',
                     description: 'Kleine Beschädigungen lassen sich oft reparieren, indem die Beschädigungen beseitigt werden und der Spiegel neu lackiert wird. Eine fachgerecht instandgesetzter Seitenspiegel sieht aus wie neu.',
@@ -459,15 +460,17 @@ var states = {
                     serviceCode: {
                         'mirror.left.type': 'mirror.left.scratch.rockfall.repair',
                         'mirror.right.type': 'mirror.right.scratch.rockfall.repair'
-                    }
+                    },
+                    calcParams: ['Repaircode M', 'Lackstufe 1', 'Metallic 2 Schicht']
                 },
+                */
                 {
                     answer: 'Außenspiegel ersetzen',
                     description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
-                        'mirror.right.type': 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
+                        'mirror.left.type': 'service-id-450268',
+                        'mirror.right.type': 'service-id-450269'
                     }
                 }
             ]
@@ -499,8 +502,8 @@ var states = {
                     description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
-                        'mirror.right.type': 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
+                        'mirror.left.type': 'service-id-450268',
+                        'mirror.right.type': 'service-id-450269'
                     }
                 }
             ]
@@ -526,8 +529,8 @@ var states = {
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.glas.replace.type': 'service-id-95663 (Glas Außenspiegel links wechseln)',
-                        'mirror.right.glas.replace.type': 'service-id-95641 (Glas Außenspiegel rechts wechseln)'
+                        'mirror.left.glas.replace.type': 'service-id-95663',
+                        'mirror.right.glas.replace.type': 'service-id-95641'
                     }
                 },
                 {
@@ -537,8 +540,8 @@ var states = {
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.glas.replace.type': 'service-id-345091 (Glas Außenspiegel links (Weitwinkel) wechseln)',
-                        'mirror.right.glas.replace.type': 'service-id-355773 (Glas Außenspiegel rechts (Weitwinkel) wechseln)'
+                        'mirror.left.glas.replace.type': 'service-id-345091',
+                        'mirror.right.glas.replace.type': 'service-id-355773'
                     }
                 }
             ]
@@ -860,6 +863,7 @@ var states = {
                     description: 'Die Reparatur der Frontscheibe ist günstiger und geht schneller, als der Austausch. Allerdings können Schäden nur dann repariert werden, wenn sie nicht im Sichtfeld des Fahrers liegen oder im Randbereich der Scheibe. Repariert werden können oberflächliche Steinschläge und kleine Risse bis maximal 2,5 cm Länge. Zudem dürfen maximal 2 Steinschläge repariert werden, danach bleibt nur noch der Tausch der Scheibe.',
                     nextStateId: 'windshield.repair.type'
                 },
+                /*
                 {
                     answer: 'Frontscheiben versiegeln',
                     description: 'Die Scheibe wird gereinigt und mit einer Nano-Politur versiegelt, danke Lotus-Effekt haftet weniger Schmutz an der Scheibe und das Wasser perlt besser ab.',
@@ -867,12 +871,12 @@ var states = {
                     serviceCode: 'windshield.sealing',
                     calcParams: ['Festpreis']
                 },
+                */
                 {
                     answer: 'Frontscheibe austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407537'
                 }
             ]
         }
@@ -888,8 +892,7 @@ var states = {
                 {
                     answer: 'Ja',
                     nextStateId: 'END',
-                    serviceCode: 'windshield.replace',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'windshield.replace'
                 },
                 {
                     answer: 'Nein',
@@ -898,6 +901,7 @@ var states = {
             ]
         }
     },
+    /*
     'windshield.repair.number.type': {
         viewType: 'mixSelection',
         configs: {
@@ -914,9 +918,11 @@ var states = {
             calcParams: ['Festpreis je Steinschlag']
         }
     },
+    */
 
 
 // Hagelschaden
+/*
     'haildamage.type': {
         viewType: 'radioSelection',
         configs: {
@@ -1013,6 +1019,7 @@ var states = {
     'vehicle.haildamage.severe.type': {
         useTemplate: 'haildamage.damage.type'
     },
+    */
 
 
 // Heckklappe / Kofferraumdeckel
@@ -1086,8 +1093,7 @@ var states = {
                         }
                     ],
                     nextStateId: 'END',
-                    serviceCode: 'tailgate.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'tailgate.lacquer'
                 },
                 {
                     useConstants: [
@@ -1101,8 +1107,7 @@ var states = {
                         }
                     ],
                     nextStateId: 'END',
-                    serviceCode: 'tailgate.replace',
-                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
+                    serviceCode: 'tailgate.replace'
                 }
             ]
         }
@@ -1123,9 +1128,7 @@ var states = {
                 }
             ],
             nextStateId: 'END',
-            serviceCode: 'touchupstick',
-            unitPrice: 30
-            //calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
+            serviceCode: 'touchupstick'
         }
     },
 
@@ -1231,10 +1234,9 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.front.right.type': 'fender.front.right.lacquer.complete',
-                        'fender.front.left.type': 'fender.front.left.lacquer.complete'
-                    },
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                        'fender.front.right.type': 'fender.front.right.lacquer',
+                        'fender.front.left.type': 'fender.front.left.lacquer'
+                    }
                 },
                 {
                     useConstants: [
@@ -1249,10 +1251,9 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.front.right.type': 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)',
-                        'fender.front.left.type': 'service-id-450270 (Kotflügel komplett vorne links wechseln)'
-                    },
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                        'fender.front.right.type': 'service-id-450271',
+                        'fender.front.left.type': 'service-id-450270'
+                    }
                 }
             ]
         }
@@ -1343,8 +1344,7 @@ var states = {
                     serviceCode: {
                         'fender.rear.right.type': 'fender.rear.right.lacquer',
                         'fender.rear.left.type': 'fender.rear.left.lacquer'
-                    },
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    }
                 },
                 {
                     useConstants: [
@@ -1359,10 +1359,9 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.rear.right.type': 'service-id-450273 (Kotflügel komplett hinten rechts wechseln)',
-                        'fender.rear.left.type': 'service-id-450272 (Kotflügel komplett hinten links wechseln)'
-                    },
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                        'fender.rear.right.type': 'service-id-450273',
+                        'fender.rear.left.type': 'service-id-450272'
+                    }
                 }
             ]
         }
@@ -1388,31 +1387,28 @@ var states = {
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.left.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.front.left.lacquer'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.right.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.front.right.lacquer'
                 },
                 {
                     answer: 'Kotflügel hinten links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.left.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.rear.left.lacquer'
                 },
                 {
                     answer: 'Kotflügel hinten rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.right.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.rear.right.lacquer'
                 }
             ]
         }
     },
 
+/*
     'fender.rust.type': {
         viewType: 'mixSelection',
         configs: {
@@ -1456,6 +1452,7 @@ var states = {
     'fender.rear.right.rust.type': {
         useTemplate: 'fender.rust.type'
     },
+    */
 
     'fender.position.type': {
         viewType: 'radioSelection',
@@ -1490,26 +1487,22 @@ var states = {
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450270'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450271'
                 },
                 {
                     answer: 'Kotflügel hinten links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450272 (Kotflügel komplett hinten links wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450272'
                 },
                 {
                     answer: 'Kotflügel hinten rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450273 (Kotflügel komplett hinten rechts wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450273'
                 }
             ]
         }
@@ -1517,6 +1510,7 @@ var states = {
 
 
 // Kratzer
+/*
     'scratch.type': {
         viewType: 'mixSelection',
         configs: {
@@ -1588,7 +1582,7 @@ var states = {
     'tailgate.scratch.type': {
         useTemplate: 'scratch.type'
     },
-
+*/
 
 // Motorhaube
     'hood.type': {
@@ -1661,8 +1655,7 @@ var states = {
                         }
                     ],
                     nextStateId: 'END',
-                    serviceCode: 'hood.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'hood.lacquer'
                 },
                 {
                     useConstants: [
@@ -1676,8 +1669,7 @@ var states = {
                         }
                     ],
                     nextStateId: 'END',
-                    serviceCode: 'hood.replace',
-                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
+                    serviceCode: 'hood.replace'
                 }
             ]
         }
@@ -1710,28 +1702,30 @@ var states = {
                     serviceCode: 'service-id-450261 (Dreieckscheibe rechts vorne wechseln)',
                     calcParams: ['Repaircode E']
                 },
+                /*
                 {
                     answer: 'Frontscheibe Steinschlag reparieren',
                     nextStateId: 'END',
                     serviceCode: 'windshield.rockfall.repair',
                     calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
                 },
+                */
                 {
                     answer: 'Frontscheibe wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
+                    serviceCode: 'service-id-407537',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Glas Außenspiegel links ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-95663 (Glas Außenspiegel links wechseln)',
+                    serviceCode: 'service-id-95663',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Glas Außenspiegel rechts ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-95641 (Glas Außenspiegel rechts wechseln)',
+                    serviceCode: 'service-id-95641',
                     calcParams: ['Repaircode E']
                 },
                 {
