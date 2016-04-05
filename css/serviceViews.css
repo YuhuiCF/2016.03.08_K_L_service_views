@@ -24,13 +24,13 @@
     padding-left: 2%;
 }
 
-.radioSelectionWithBlockDescription .service-answer {
+.singleSelectionWithBlockDescription .service-answer {
     margin-top: 20px;
     padding: 20px;
     background: #eee;
 }
 
-.radioSelectionWithBlockDescription .service-answer .service-answer-text {
+.singleSelectionWithBlockDescription .service-answer .service-answer-text {
     margin-top: 0;
 }
 
@@ -48,7 +48,7 @@
 
 @media (min-width: 1024px) {
 
-.radioSelectionWithBlockDescription .service-answer {
+.singleSelectionWithBlockDescription .service-answer {
     display: inline-block;
     box-sizing: border-box;
     width: 32%;

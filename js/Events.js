@@ -34,7 +34,7 @@ var Events = (function($, eventNames){
             if (isEventNameRegistered(eventName)) {
                 $(document).trigger(eventName, data);
             } else {
-                log('to-be-triggered eventName ' + eventName + ' is not registered');
+                log('to-be-triggered eventName "' + eventName + '"" is not registered');
             }
         },
 
@@ -65,5 +65,7 @@ var Events = (function($, eventNames){
 
     'openOffer',
     'offerDisplayed',
-    'goBackFromOffer'
+    'goBackFromOffer',
+
+    'openHailCalculator'
 ]);

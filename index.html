@@ -14,7 +14,7 @@
         <section class="search-view">
             <h2>Karosserie &amp; Lack Serviceleistungen</h2>
 
-            <article>
+            <article class="service-selection">
                 <div class="service-views"></div>
 
                 <br>
@@ -54,26 +54,26 @@
 
         <section class="result-list-view">
             <h3>Werkstätten in Ihrer Nähe</h3>
-            <div class="result-list">
-                <div class="result-header">
-                    <div class="result-item-detail location-distance">
+            <div class="result-list table">
+                <div class="table-row">
+                    <div class="table-cell location-distance">
                         <b>Entfernung (km)</b>
                     </div>
-                    <div class="result-item-detail location-name">
+                    <div class="table-cell location-name">
                         <b>Werkstatt</b>
                     </div>
-                    <div class="result-item-detail location-address">
+                    <div class="table-cell location-address">
                         <b>Adresse</b>
                     </div>
-                    <div class="result-item-detail offer-button">
+                    <div class="table-cell offer-button">
 
                     </div>
                 </div>
-                <div class="result-item">
-                    <div class="result-item-detail location-distance"></div>
-                    <div class="result-item-detail location-name"></div>
-                    <div class="result-item-detail location-address"></div>
-                    <div class="result-item-detail offer-button">
+                <div class="result-item table-row">
+                    <div class="table-cell location-distance"></div>
+                    <div class="table-cell location-name"></div>
+                    <div class="table-cell location-address"></div>
+                    <div class="table-cell offer-button">
                         <button class="offer-with-price-button">Unverbindlicher Termin</button>
                         <button class="offer-with-no-price-button">Begutachtungstermin</button>
                         <button class="offer-contact-location-button">Kontaktanfrage</button>
@@ -96,6 +96,10 @@
                     <div class="offer-service">
                         <div class="offer-service-code"></div>
                         <div class="offer-service-message"></div>
+                        <div class="offer-service-additional-option">
+                            <button class="open-config"></button>
+                            <button class="close-config"></button>
+                        </div>
                     </div>
                 </div>
                 <div class="offer-price-message">
@@ -144,8 +148,6 @@
         <link media="all" type="text/css" href="css/cart.css" rel="stylesheet">
         <link media="all" type="text/css" href="css/vehicleSelection.css" rel="stylesheet">
         <link media="all" type="text/css" href="css/regionSelection.css" rel="stylesheet">
-
-        <link media="all" type="text/css" href="css/resultList.css" rel="stylesheet">
 
         <link media="all" type="text/css" href="css/offer.css" rel="stylesheet">
         <!-- endbuild -->

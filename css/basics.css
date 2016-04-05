@@ -54,3 +54,16 @@ h4 {
 .inactive * {
     color: #bbb;
 }
+
+.table {
+    display: table;
+    width: 100%;
+}
+.table-row {
+    display: table-row;
+    width: 100%;
+}
+.table-cell {
+    display: table-cell;
+    padding: 10px;
+}

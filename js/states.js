@@ -1,13 +1,12 @@
 
 var states = {
 // Static states:
-//  'LASTSTATE'
 //  'END'
 
 
 // Kategorie 0
     'category0': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welche Leistung wünschen Sie?',
             answers: [
@@ -17,49 +16,34 @@ var states = {
                     nextStateId: 'touchupstick.type'
                 },
                 {
-                    useConstants: [
-                        {
-                            useKey: 'answer.dent.repair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.dent.repair',
-                            forKey: 'description'
-                        }
-                    ],
+                    answer: 'Einzelne Dellen entfernen',
+                    description: 'Lorem ipsum',
                     nextStateId: 'dent.type'
                 },
                 {
-                    useConstants: [
-                        {
-                            useKey: 'answer.spotrepair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.spotrepair',
-                            forKey: 'description'
-                        }
-                    ],
+                    answer: 'Spot Repair',
+                    description: 'Lorem ipsum',
                     nextStateId: 'spotrepair.type'
                 },
                 {
-                    useConstants: [
-                        {
-                            useKey: 'answer.haildamage.repair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.haildamage.repair',
-                            forKey: 'description'
-                        }
-                    ],
-                    //nextStateId: 'components'
+                    answer: 'Hagelschaden reparieren',
+                    description: 'Lorem ipsum',
+                    nextStateId: 'END',
+                    serviceCode: 'haildamage',
+                    additionalConfiguration: {
+                        openText: 'Hagelrechner öffnen',
+                        closeText: 'Hagelrechner schließen',
+                        triggerOpenEvent: 'openHailCalculator',
+                        triggerCloseEvent: 'closeHailCalculator'
+                    }
                 },
+                /*
                 {
                     answer: 'Sonstige Reparaturen',
-                    description: '(Rost, Steinschlag, größere Kratzer etc.) Lorem ipsum',
+                    description: '(Rost, Steinschlag, größere Kratzer etc.)',
                     //nextStateId: 'window.glas.type',
                 },
+                */
                 {
                     answer: 'Services für Scheiben und Glas',
                     description: 'Lorem ipsum',
@@ -68,30 +52,14 @@ var states = {
                     calculable: true
                 },
                 {
-                    useConstants: [
-                        {
-                            useKey: 'answer.lacquer',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.lacquer',
-                            forKey: 'description'
-                        }
-                    ],
+                    answer: 'Neulackierung des Bauteils',
+                    description: 'Lorem ipsum',
                     nextStateId: 'lacquer.components.type',
                     vehicleRequired: true
                 },
                 {
-                    useConstants: [
-                        {
-                            useKey: 'answer.replace',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.replace',
-                            forKey: 'description'
-                        }
-                    ],
+                    answer: 'Wechsel des Bauteils',
+                    description: 'Lorem ipsum',
                     nextStateId: 'replace.components.type',
                     vehicleRequired: true,
                     calculable: true
@@ -104,7 +72,7 @@ var states = {
                 },
                 {
                     answer: 'Sie haben einen Unfallschaden?',
-                    description: 'Bei größeren Schäden begutachten unsere Experten Ihren Schaden und unterbreiten Ihnen ein konkretes Angebot. Finden Sie Ihren Experten und vereinbaren Sie online einen Termin zur Begutachtung. Sollte Ihr Fahrzeug nicht mehr fahrbereit sein, dann kommen wir auch gerne zu Ihnen.',
+                    description: 'Lorem ipsum',
                     nextStateId: 'accidentaldamage.type'
                 },
                 {
@@ -279,7 +247,7 @@ var states = {
                     //nextStateId: 'rim.type'
                 },
                 {
-                    answer: 'Frontscheide austauschen',
+                    answer: 'Frontscheibe austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
@@ -419,7 +387,7 @@ var states = {
 
 // Fahrzeug komplett
     'vehicle.complete.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             answers: [
@@ -498,7 +466,7 @@ var states = {
     },
 
     'mirror.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
@@ -542,7 +510,7 @@ var states = {
     },
 
     'mirror.replace.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
@@ -712,7 +680,7 @@ var states = {
 
 // Fahrzeugdach
     'roof.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             answers: [
@@ -853,7 +821,7 @@ var states = {
 
 // Felgen
     'rim.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             answers: [
@@ -929,7 +897,7 @@ var states = {
 // Frontscheibe
     'windshield.type': {
         pageTitle: 'Frontscheibe Service View',
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             answers: [
@@ -946,7 +914,7 @@ var states = {
                     calcParams: ['Festpreis']
                 },
                 {
-                    answer: 'Frontscheide austauschen',
+                    answer: 'Frontscheibe austauschen',
                     description: 'Ist eine Reparatur nicht mehr möglich, muss die alte Scheibe fachgerecht herausgetrennt und nach einer gründlichen Reinigung die Neue eingebaut werden. Hierzu verwenden unsere Fachwerkstätten nur hochwertige Scheiben und Hochleistungsklebstoff.',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
@@ -1095,7 +1063,7 @@ var states = {
 
 // Heckklappe / Kofferraumdeckel
     'tailgate.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
             question: 'Welchen Service wünschen Sie?',
@@ -1211,7 +1179,7 @@ var states = {
 // Kotflügel
     'fender.front.type': {
         pageTitle: 'Kotflügel Service View',
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
             question: 'Welchen Service wünschen Sie?',
@@ -1337,7 +1305,7 @@ var states = {
     },
     'fender.rear.type': {
         pageTitle: 'Kotflügel Service View',
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
             question: 'Welchen Service wünschen Sie für Ihren Kotflügel?',
@@ -1670,7 +1638,7 @@ var states = {
 
 // Motorhaube
     'hood.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
             question: 'Welchen Service wünschen Sie für Ihre Motorhaube?',
@@ -1789,12 +1757,13 @@ var states = {
                     calcParams: ['Repaircode E']
                 },
                 {
-                    answer: 'Frontscheide Steinschlag reparieren',
+                    answer: 'Frontscheibe Steinschlag reparieren',
                     nextStateId: 'END',
-                    serviceCode: 'windshield.rockfall.repair'
+                    serviceCode: 'windshield.rockfall.repair',
+                    calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
                 },
                 {
-                    answer: 'Frontscheide wechseln',
+                    answer: 'Frontscheibe wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407537 (Frontscheibe wechseln)',
                     calcParams: ['Repaircode E']
@@ -1990,7 +1959,7 @@ var states = {
 
 // Schweller
     'sill.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
             isTemplate: true,
@@ -2319,7 +2288,7 @@ var states = {
 
 // Stoßstange, Stoßfänger
     'bumper.type': {
-        viewType: 'radioSelectionWithBlockDescription',
+        viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie für Ihren Stoßfänger?',
             answers: [
