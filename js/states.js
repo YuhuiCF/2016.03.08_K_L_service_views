@@ -26,16 +26,9 @@ var states = {
                     nextStateId: 'spotrepair.type'
                 },
                 {
-                    answer: 'Hagelschaden reparieren',
                     description: 'Lorem ipsum',
                     nextStateId: 'END',
-                    serviceCode: 'haildamage',
-                    additionalConfiguration: {
-                        openText: 'Hagelrechner öffnen',
-                        closeText: 'Hagelrechner schließen',
-                        triggerOpenEvent: 'openHailCalculator',
-                        triggerCloseEvent: 'closeHailCalculator'
-                    }
+                    serviceCode: 'haildamage'
                 },
                 /*
                 {
@@ -79,14 +72,11 @@ var states = {
                     answer: 'Schaden Begutachten lassen',
                     description: 'Lorem ipsum',
                     nextStateId: 'examinedamage.type'
-                    //serviceCode: 'examinedamage'
                 },
                 {
-                    answer: 'Fachwerkstatt finden',
                     description: 'Lorem ipsum',
                     nextStateId: 'END',
-                    serviceCode: 'locations.search',
-                    unitPrice: 0
+                    serviceCode: 'locations.search'
                 }
             ]
         }
@@ -106,8 +96,7 @@ var states = {
                 {
                     answer: 'Fahrzeugdach',
                     nextStateId: 'END',
-                    serviceCode: 'roof.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Metallic 2 Schicht', 'Oberflächenlackierungstufe 1']
+                    serviceCode: 'roof.lacquer'
                 },
                 {
                     answer: 'Gehäuse Außenspiegel links',
@@ -139,38 +128,32 @@ var states = {
                 {
                     answer: 'Heckklappe / Kofferraumdeckel',
                     nextStateId: 'END',
-                    serviceCode: 'tailgate.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'tailgate.lacquer.complete'
                 },
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.left.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.front.left.lacquer.complete'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.front.right.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.front.right.lacquer.complete'
                 },
                 {
                     answer: 'Kotflügel / Seitenwand hinten links',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.left.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.rear.left.lacquer.complete'
                 },
                 {
                     answer: 'Kotflügel / Seitenwand hinten rechts',
                     nextStateId: 'END',
-                    serviceCode: 'fender.rear.right.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'fender.rear.right.lacquer.complete'
                 },
                 {
                     answer: 'Motorhaube',
                     nextStateId: 'END',
-                    serviceCode: 'hood.lacquer.complete',
-                    calcParams: ['Repaircode L', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'hood.lacquer.complete'
                 },
                 {
                     answer: 'Schweller links',
@@ -185,14 +168,12 @@ var states = {
                 {
                     answer: 'Stoßfänger vorne',
                     nextStateId: 'END',
-                    serviceCode: 'bumper.front.lacquer',
-                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'bumper.front.lacquer'
                 },
                 {
                     answer: 'Stoßfänger hinten',
                     nextStateId: 'END',
-                    serviceCode: 'bumper.rear.lacquer',
-                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    serviceCode: 'bumper.rear.lacquer'
                 },
                 {
                     answer: 'Tür links vorne',
@@ -232,14 +213,12 @@ var states = {
                 {
                     answer: 'Gehäuse Außenspiegel links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450268 (Außenspiegel links komplett wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450268 (Außenspiegel links komplett wechseln)'
                 },
                 {
                     answer: 'Gehäuse Außenspiegel rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450269 (Außenspiegel rechts komplett wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
                 },
 /*
                 {
@@ -269,26 +248,22 @@ var states = {
                 {
                     answer: 'Heckklappe / Kofferraumdeckel ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'tailgate.replace',
-                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
+                    serviceCode: 'tailgate.replace'
                 },
                 {
                     answer: 'Kotflügel vorne links',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450270 (Kotflügel komplett vorne links wechseln)'
                 },
                 {
                     answer: 'Kotflügel vorne rechts',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
+                    serviceCode: 'service-id-450271 (Kotflügel komplett vorne rechts wechseln)'
                 },
                 {
                     answer: 'Motorhaube',
                     nextStateId: 'END',
-                    serviceCode: 'hood.replace',
-                    calcParams: ['Repaircode E', 'Lackstufe 4', 'Metallic 2 Schicht']
+                    serviceCode: 'hood.replace'
                 },
 /*
                 {
@@ -379,8 +354,7 @@ var states = {
                 }
             ],
             nextStateId: 'END',
-            serviceCode: 'examinedamage',
-            calcParams: ['FIN', 'Upload Bilder (0..5)', 'Schadensbeschreibung']
+            serviceCode: 'examinedamage'
         }
     },
 
@@ -458,8 +432,7 @@ var states = {
                 {
                     answer: 'Beide Außenspiegel ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450284 (Außenspiegel beide komplett wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450284 (Außenspiegel beide komplett wechseln)'
                 }
             ]
         }
@@ -486,8 +459,7 @@ var states = {
                     serviceCode: {
                         'mirror.left.type': 'mirror.left.scratch.rockfall.repair',
                         'mirror.right.type': 'mirror.right.scratch.rockfall.repair'
-                    },
-                    calcParams: ['Repaircode M', 'Lackstufe 1', 'Metallic 2 Schicht']
+                    }
                 },
                 {
                     answer: 'Außenspiegel ersetzen',
@@ -496,8 +468,7 @@ var states = {
                     serviceCode: {
                         'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
                         'mirror.right.type': 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                    }
                 }
             ]
         }
@@ -530,8 +501,7 @@ var states = {
                     serviceCode: {
                         'mirror.left.type': 'service-id-450268 (Außenspiegel links komplett wechseln)',
                         'mirror.right.type': 'service-id-450269 (Außenspiegel rechts komplett wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                    }
                 }
             ]
         }
@@ -558,8 +528,7 @@ var states = {
                     serviceCode: {
                         'mirror.left.glas.replace.type': 'service-id-95663 (Glas Außenspiegel links wechseln)',
                         'mirror.right.glas.replace.type': 'service-id-95641 (Glas Außenspiegel rechts wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                    }
                 },
                 {
                     answer: {
@@ -570,8 +539,7 @@ var states = {
                     serviceCode: {
                         'mirror.left.glas.replace.type': 'service-id-345091 (Glas Außenspiegel links (Weitwinkel) wechseln)',
                         'mirror.right.glas.replace.type': 'service-id-355773 (Glas Außenspiegel rechts (Weitwinkel) wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                    }
                 }
             ]
         }
@@ -598,9 +566,7 @@ var states = {
                 }
             ],
             nextStateId: 'END',
-            serviceCode: 'dent.repair',
-            unitPrice: 60,
-            calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
+            serviceCode: 'dent.repair'
         }
     },
 /*
@@ -735,8 +701,7 @@ var states = {
                         }
                     ],
                     nextStateId: 'END',
-                    serviceCode: 'roof.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Metallic 2 Schicht', 'Oberflächenlackierungstufe 1']
+                    serviceCode: 'roof.lacquer'
                 },
                 {
                     useConstants: [
@@ -779,40 +744,28 @@ var states = {
             question: 'Welchen Teil Ihres Fahrzeuges möchten Sie lackieren lassen?',
             answers: [
                 {
-                    answer: 'Fahrzeug komplett (mit Dach)',
                     nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.outside.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 20']
-                },
-				{
-                    answer: 'Fahrzeug komplett (ohne Dach)',
-                    nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.outside.noroof.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 49']
+                    serviceCode: 'vehicle.complete.outside.lacquer'
                 },
                 {
-                    answer: 'Fahrzeugseite links',
                     nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.leftside.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 50']
+                    serviceCode: 'vehicle.complete.outside.noroof.lacquer'
                 },
                 {
-                    answer: 'Fahrzeugseite rechts',
                     nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.rightside.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 60']
+                    serviceCode: 'vehicle.complete.leftside.lacquer'
                 },
                 {
-                    answer: 'Vorderwagen',
                     nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.frontsection.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 40124']
+                    serviceCode: 'vehicle.complete.rightside.lacquer'
                 },
                 {
-                    answer: 'Hinterwagen',
                     nextStateId: 'END',
-                    serviceCode: 'vehicle.complete.rearsection.lacquer',
-                    calcParams: ['Repaircode L', 'Lackstufe 1', 'Farbe 2-Schicht Metallic', 'DVN 50000']
+                    serviceCode: 'vehicle.complete.frontsection.lacquer'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'vehicle.complete.rearsection.lacquer'
                 }
             ]
         }
@@ -820,6 +773,7 @@ var states = {
 
 
 // Felgen
+/*
     'rim.type': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
@@ -892,7 +846,7 @@ var states = {
             ]
         }
     },
-
+*/
 
 // Frontscheibe
     'windshield.type': {
