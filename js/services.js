@@ -299,10 +299,14 @@ var services = {
 
     'service-id-450272': {
         serviceName: 'Kotflügel komplett hinten links wechseln',
+        isVehicleRequired: true,
+        isCalculable: true,
         calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
     },
     'service-id-450273': {
         serviceName: 'Kotflügel komplett hinten rechts wechseln',
+        isVehicleRequired: true,
+        isCalculable: true,
         calcParams: ['Repaircode E', 'Lackstufe 4 (Neuteil)', 'Metallic 2 Schicht']
     },
 
@@ -323,16 +327,20 @@ var services = {
 
     'sill.left.replace': {
         serviceName: 'Schweller links ersetzen',
+        isVehicleRequired: true,
+        isCalculable: true,
         calcParams: ['Repaircode E']
     },
     'sill.right.replace': {
         serviceName: 'Schweller rechts ersetzen',
+        isVehicleRequired: true,
+        isCalculable: true,
         calcParams: ['Repaircode E']
     },
 
     'spotrepair': {
         serviceName: 'Spot Repair',
-        isVehicleRequired: true,
+        isViewRequired: true,
         unitPrice: 80,
         calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
     },

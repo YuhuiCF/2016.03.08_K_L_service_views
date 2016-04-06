@@ -372,22 +372,77 @@ var states = {
                     nextStateId: 'SERVICEGROUP',
                     serviceCodes: ['service-id-407537']
                 },
-                /*
                 {
-                    answer: 'Kotflügel vorne rechts',
+                    answer: 'Hagelschaden',
                     newWindow: true,
-                    nextStateId: 'fender.front.right.view'
+                    nextStateId: 'SERVICEGROUP',
+                    serviceCodes: ['haildamage']
                 },
-                */
+                {
+                    answer: 'Kotflügel',
+                    newWindow: true,
+                    nextStateId: 'fender.components.view'
+                },
+                {
+                    answer: 'Kotflügel lackieren',
+                    newWindow: true,
+                    nextStateId: 'fender.lacquer.view'
+                },
+                {
+                    answer: 'Kotflügel ersetzen',
+                    newWindow: true,
+                    nextStateId: 'fender.replace.view'
+                },
+                {
+                    answer: 'Motorhaube',
+                    newWindow: true,
+                    nextStateId: 'hood.view'
+                },
+                {
+                    answer: 'Motorhaube lackieren',
+                    newWindow: true,
+                    nextStateId: 'SERVICEGROUP',
+                    serviceCodes: ['hood.lacquer']
+                },
                 {
                     answer: 'Scheiben und Glas',
                     newWindow: true,
                     nextStateId: 'window.glas.view'
                 },
                 {
+                    answer: 'Scheinwerfer wechseln',
+                    newWindow: true,
+                    nextStateId: 'headlight.replace.view'
+                },
+                {
+                    answer: 'Schweller',
+                    newWindow: true,
+                    nextStateId: 'sill.view'
+                },
+                {
+                    answer: 'Schweller lackieren',
+                    newWindow: true,
+                    nextStateId: 'sill.lacquer.view'
+                },
+                {
+                    answer: 'Schweller ersetzen',
+                    newWindow: true,
+                    nextStateId: 'sill.replace.view'
+                },
+                {
                     answer: 'Spiegelglas wechseln',
                     newWindow: true,
                     nextStateId: 'mirror.glas.replace.view'
+                },
+                {
+                    answer: 'Stoßfänger lackieren',
+                    newWindow: true,
+                    nextStateId: 'bumper.lacquer.view'
+                },
+                {
+                    answer: 'Stoßfänger ersetzen',
+                    newWindow: true,
+                    nextStateId: 'bumper.replace.view'
                 }
             ]
         }
@@ -1292,8 +1347,39 @@ var states = {
 
 
 // Kotflügel
-    'fender.front.view': {
-        pageTitle: 'Kotflügel Service View',
+    'fender.components.view': {
+        pageTitle: 'Kotflügel',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Leistungen:',
+            answers: [
+                {
+                    answer: 'Für Kotflügel vorne links',
+                    nextStateId: 'fender.front.left.view'
+                },
+                {
+                    answer: 'Für Kotflügel vorne rechts',
+                    nextStateId: 'fender.front.right.view'
+                },
+                {
+                    answer: 'Für Kotflügel hinten links',
+                    nextStateId: 'fender.rear.left.view'
+                },
+                {
+                    answer: 'Für Kotflügel hinten rechts',
+                    nextStateId: 'fender.rear.right.view'
+                },
+            ]
+        }
+    },
+
+    'fender.services.template.view': {
+        pageTitle: {
+            'fender.front.left.view': 'Kotflügel vorne links',
+            'fender.front.right.view': 'Kotflügel vorne rechts',
+            'fender.rear.left.view': 'Kotflügel hinten links',
+            'fender.rear.right.view': 'Kotflügel hinten rechts',
+        },
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
@@ -1304,96 +1390,32 @@ var states = {
                         {
                             useKey: 'answer.spotrepair',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.spotrepair',
-                            forKey: 'description'
                         }
                     ],
-                    nextStateId: {
-                        'fender.front.right.view': 'fender.front.right.spotrepair.view',
-                        'fender.front.left.view': 'fender.front.left.spotrepair.view'
-                    }
+                    nextStateId: 'spotrepair.view'
                 },
                 {
                     useConstants: [
                         {
                             useKey: 'answer.dent.repair',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.dent.repair',
-                            forKey: 'description'
                         }
                     ],
-                    nextStateId: {
-                        'fender.front.right.view': 'fender.front.right.dent.view',
-                        'fender.front.left.view': 'fender.front.left.dent.view'
-                    }
-                },
-                {
-                    useConstants: [
-                        {
-                            useKey: 'answer.scratch.repair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.scratch.repair',
-                            forKey: 'description'
-                        }
-                    ],
-                    nextStateId: {
-                        'fender.front.right.view': 'fender.front.right.scratch.view',
-                        'fender.front.left.view': 'fender.front.left.scratch.view',
-                    }
-                },
-                {
-                    useConstants: [
-                        {
-                            useKey: 'answer.rust.repair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.rust.repair',
-                            forKey: 'description'
-                        }
-                    ],
-                    nextStateId: {
-                        'fender.front.right.view': 'fender.front.right.rust.view',
-                        'fender.front.left.view': 'fender.front.left.rust.view',
-                    }
-                },
-                {
-                    useConstants: [
-                        {
-                            useKey: 'answer.rockfall.repair',
-                            forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.rockfall.repair',
-                            forKey: 'description'
-                        }
-                    ],
-                    nextStateId: {
-                        'fender.front.right.view': 'fender.front.right.rockfall.view',
-                        'fender.front.left.view': 'fender.front.left.rockfall.view',
-                    }
+                    nextStateId: 'dent.view'
                 },
                 {
                     useConstants: [
                         {
                             useKey: 'answer.lacquer',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.lacquer',
-                            forKey: 'description'
                         }
                     ],
                     nextStateId: 'END',
                     serviceCode: {
+                        'fender.front.left.view': 'fender.front.left.lacquer',
                         'fender.front.right.view': 'fender.front.right.lacquer',
-                        'fender.front.left.view': 'fender.front.left.lacquer'
+                        'fender.rear.left.view': 'fender.rear.left.lacquer',
+                        'fender.rear.right.view': 'fender.rear.right.lacquer',
                     }
                 },
                 {
@@ -1401,21 +1423,20 @@ var states = {
                         {
                             useKey: 'answer.replace',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.replace',
-                            forKey: 'description'
                         }
                     ],
                     nextStateId: 'END',
                     serviceCode: {
+                        'fender.front.left.view': 'service-id-450270',
                         'fender.front.right.view': 'service-id-450271',
-                        'fender.front.left.view': 'service-id-450270'
+                        'fender.rear.left.view': 'service-id-450272',
+                        'fender.rear.right.view': 'service-id-450273',
                     }
                 }
             ]
         }
     },
+
     'fender.rear.view': {
         pageTitle: 'Kotflügel Service View',
         viewType: 'singleSelectionWithBlockDescription',
@@ -1434,11 +1455,9 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: {
-                        'fender.rear.right.view': 'fender.rear.right.dent.view',
-                        'fender.rear.left.view': 'fender.rear.left.dent.view'
-                    }
+                    nextStateId: 'dent.view'
                 },
+                /*
                 {
                     useConstants: [
                         {
@@ -1487,6 +1506,7 @@ var states = {
                         'fender.rear.left.view': 'fender.rear.left.rockfall.view',
                     }
                 },
+                */
                 {
                     useConstants: [
                         {
@@ -1525,19 +1545,20 @@ var states = {
         }
     },
     'fender.front.right.view': {
-        useTemplate: 'fender.front.view'
+        useTemplate: 'fender.services.template.view'
     },
     'fender.front.left.view': {
-        useTemplate: 'fender.front.view'
+        useTemplate: 'fender.services.template.view'
     },
     'fender.rear.right.view': {
-        useTemplate: 'fender.rear.view'
+        useTemplate: 'fender.services.template.view'
     },
     'fender.rear.left.view': {
-        useTemplate: 'fender.rear.view'
+        useTemplate: 'fender.services.template.view'
     },
 
     'fender.lacquer.view': {
+        pageTitle: 'Kotflügel lackieren',
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Kotflügel möchten Sie lackieren?',
@@ -1561,6 +1582,36 @@ var states = {
                     answer: 'Kotflügel hinten rechts',
                     nextStateId: 'END',
                     serviceCode: 'fender.rear.right.lacquer'
+                }
+            ]
+        }
+    },
+
+    'fender.replace.view': {
+        pageTitle: 'Kotflügel ersetzen',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Kotflügel möchten Sie erneuern?',
+            answers: [
+                {
+                    answer: 'Kotflügel vorne links',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450270'
+                },
+                {
+                    answer: 'Kotflügel vorne rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450271'
+                },
+                {
+                    answer: 'Kotflügel hinten links',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450272'
+                },
+                {
+                    answer: 'Kotflügel hinten rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450273'
                 }
             ]
         }
@@ -1611,60 +1662,6 @@ var states = {
         useTemplate: 'fender.rust.view'
     },
     */
-
-    'fender.position.view': {
-        viewType: 'radioSelection',
-        configs: {
-            question: 'Für welchen Kotflügel?',
-            answers: [
-                {
-                    answer: 'Kotflügel vorne rechts',
-                    nextStateId: 'fender.front.right.view'
-                },
-                {
-                    answer: 'Kotflügel vorne links',
-                    nextStateId: 'fender.front.left.view'
-                },
-                {
-                    answer: 'Kotflügel hinten rechts',
-                    nextStateId: 'fender.rear.right.view'
-                },
-                {
-                    answer: 'Kotflügel hinten links',
-                    nextStateId: 'fender.rear.left.view'
-                }
-            ]
-        }
-    },
-
-    'fender.replace.view': {
-        viewType: 'radioSelection',
-        configs: {
-            question: 'Welchen Kotflügel möchten Sie erneuern?',
-            answers: [
-                {
-                    answer: 'Kotflügel vorne links',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-450270'
-                },
-                {
-                    answer: 'Kotflügel vorne rechts',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-450271'
-                },
-                {
-                    answer: 'Kotflügel hinten links',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-450272'
-                },
-                {
-                    answer: 'Kotflügel hinten rechts',
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-450273'
-                }
-            ]
-        }
-    },
 
 
 // Kratzer
@@ -1744,11 +1741,13 @@ var states = {
 
 // Motorhaube
     'hood.view': {
+        pageTitle: 'Motorhaube',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
             question: 'Welchen Service wünschen Sie für Ihre Motorhaube?',
             answers: [
+                /*
                 {
                     useConstants: [
                         {
@@ -1801,15 +1800,12 @@ var states = {
                     ],
                     nextStateId: 'hood.haildamage.view'
                 },
+                */
                 {
                     useConstants: [
                         {
                             useKey: 'answer.lacquer',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.lacquer',
-                            forKey: 'description'
                         }
                     ],
                     nextStateId: 'END',
@@ -1820,10 +1816,6 @@ var states = {
                         {
                             useKey: 'answer.replace',
                             forKey: 'answer'
-                        },
-                        {
-                            useKey: 'description.replace',
-                            forKey: 'description'
                         }
                     ],
                     nextStateId: 'END',
@@ -1951,8 +1943,33 @@ var states = {
     },
 
 
+// Scheinwerfer
+    'headlight.replace.view': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Scheinwerfer möchten Sie tauschen?',
+            answers: [
+                {
+                    answer: 'Scheinwerfer vorne links wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407548'
+                },
+                {
+                    answer: 'Scheinwerfer vorne rechts wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407549'
+                },
+                {
+                    answer: 'Scheinwerfer vorne beide wechseln',
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-407550'
+                }
+            ]
+        }
+    },
+
 // Scheinwerfer, Nebelscheinwerfer
-    'headlight.view': {
+    'headlightfoglights.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Scheinwerfer / Nebelscheinwerfer möchten Sie tauschen?',
@@ -1991,7 +2008,7 @@ var states = {
         }
     },
 
-    'headlight.replace.view': {
+    'headlightfoglights.replace.template.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welches Bauteil möchten Sie wechseln?',
@@ -1999,50 +2016,50 @@ var states = {
             answers: [
                 {
                     answer: {
-                        'headlight.replace.front.left.view': 'Scheinwerfer vorne links wechseln',
-                        'headlight.replace.front.right.view': 'Scheinwerfer vorne rechts wechseln',
-                        'headlight.replace.front.both.view': 'Scheinwerfer vorne beide wechseln'
+                        'headlightfoglights.front.left.replace.view': 'Scheinwerfer vorne links wechseln',
+                        'headlightfoglights.front.right.replace.view': 'Scheinwerfer vorne rechts wechseln',
+                        'headlightfoglights.front.both.replace.view': 'Scheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'headlight.replace.front.left.view': 'service-id-407548',
-                        'headlight.replace.front.right.view': 'service-id-407549',
-                        'headlight.replace.front.both.view': 'service-id-407550'
+                        'headlightfoglights.front.left.replace.view': 'service-id-407548',
+                        'headlightfoglights.front.right.replace.view': 'service-id-407549',
+                        'headlightfoglights.front.both.replace.view': 'service-id-407550'
                     }
                 },
                 {
                     answer: {
-                        'headlight.replace.front.left.view': 'Nebelscheinwerfer vorne links wechseln',
-                        'headlight.replace.front.right.view': 'Nebelscheinwerfer vorne rechts wechseln',
-                        'headlight.replace.front.both.view': 'Nebelscheinwerfer vorne beide wechseln'
+                        'headlightfoglights.front.left.replace.view': 'Nebelscheinwerfer vorne links wechseln',
+                        'headlightfoglights.front.right.replace.view': 'Nebelscheinwerfer vorne rechts wechseln',
+                        'headlightfoglights.front.both.replace.view': 'Nebelscheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'headlight.replace.front.left.view': 'service-id-409871',
-                        'headlight.replace.front.right.view': 'service-id-409872',
-                        'headlight.replace.front.both.view': 'service-id-409870'
+                        'headlightfoglights.front.left.replace.view': 'service-id-409871',
+                        'headlightfoglights.front.right.replace.view': 'service-id-409872',
+                        'headlightfoglights.front.both.replace.view': 'service-id-409870'
                     }
                 }
             ]
         }
     },
-    'headlight.replace.front.left.view': {
-        useTemplate: 'headlight.replace.view'
+    'headlightfoglights.front.left.replace.view': {
+        useTemplate: 'headlightfoglights.replace.template.view'
     },
-    'headlight.replace.front.right.view': {
-        useTemplate: 'headlight.replace.view'
+    'headlightfoglights.front.right.replace.view': {
+        useTemplate: 'headlightfoglights.replace.template.view'
     },
-    'headlight.replace.front.both.view': {
-        useTemplate: 'headlight.replace.view'
+    'headlightfoglights.front.both.replace.view': {
+        useTemplate: 'headlightfoglights.replace.template.view'
     },
 
 
 // Schweller
     'sill.view': {
+        pageTitle: 'Schweller',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
-            isTemplate: true,
             answers: [
                 {
                     useConstants: [
@@ -2055,10 +2072,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: {
-                        'sill.left.view': 'sill.left.spotrepair.view',
-                        'sill.right.view': 'sill.right.spotrepair.view'
-                    }
+                    nextStateId: 'spotrepair.view'
                 },
                 {
                     useConstants: [
@@ -2071,11 +2085,9 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: {
-                        'sill.left.view': 'sill.left.dent.view',
-                        'sill.right.view': 'sill.right.dent.view'
-                    }
+                    nextStateId: 'dent.view'
                 },
+                /*
                 {
                     useConstants: [
                         {
@@ -2108,6 +2120,20 @@ var states = {
                         'sill.right.view': 'sill.right.scratch.view'
                     }
                 },
+                */
+                {
+                    useConstants: [
+                        {
+                            useKey: 'answer.lacquer',
+                            forKey: 'answer'
+                        },
+                        {
+                            useKey: 'description.lacquer',
+                            forKey: 'description'
+                        }
+                    ],
+                    nextStateId: 'sill.lacquer.view'
+                },
                 {
                     useConstants: [
                         {
@@ -2119,34 +2145,45 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'END',
-                    serviceCode: {
-                        'sill.left.view': 'sill.left.replace',
-                        'sill.right.view': 'sill.right.replace'
-                    }
+                    nextStateId: 'sill.replace.view'
                 }
             ]
         }
     },
-    'sill.left.view': {
-        useTemplate: 'sill.view'
-    },
-    'sill.right.view': {
-        useTemplate: 'sill.view'
+
+    'sill.lacquer.view': {
+        pageTitle: 'Schweller lackieren',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Schweller möchten Sie lackieren?',
+            answers: [
+                {
+                    answer: 'Schweller links',
+                    nextStateId: 'END',
+                    serviceCode: 'sill.left.lacquer'
+                },
+                {
+                    answer: 'Schweller rechts',
+                    nextStateId: 'END',
+                    serviceCode: 'sill.right.lacquer'
+                }
+            ]
+        }
     },
 
     'sill.replace.view': {
+        pageTitle: 'Schweller ersetzen',
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Schweller möchten Sie ersetzen?',
             answers: [
                 {
-                    answer: 'Schweller links ersetzen',
+                    answer: 'Schweller links',
                     nextStateId: 'END',
                     serviceCode: 'sill.left.replace'
                 },
                 {
-                    answer: 'Schweller rechts ersetzen',
+                    answer: 'Schweller rechts',
                     nextStateId: 'END',
                     serviceCode: 'sill.right.replace'
                 }
@@ -2377,8 +2414,9 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.spotrepair.view'
+                    nextStateId: 'spotrepair.view'
                 },
+                /*
                 {
                     useConstants: [
                         {
@@ -2405,6 +2443,7 @@ var states = {
                     ],
                     nextStateId: 'bumper.scratch.view'
                 },
+                */
                 {
                     useConstants: [
                         {
@@ -2416,9 +2455,8 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.dent.view'
+                    nextStateId: 'dent.view'
                 },
-                /*
                 {
                     useConstants: [
                         {
@@ -2430,9 +2468,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'END',
-                    serviceCode: 'bumper.lacquer',
-                    calcParams: ['Repaircode M', 'Lackstufe 1 (Oberfläche)', 'Metallic 2 Schicht']
+                    nextStateId: 'bumper.lacquer.view'
                 },
                 {
                     useConstants: [
@@ -2445,11 +2481,48 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'END',
-                    serviceCode: 'service-id-518536 (Frontschürze komplett wechseln)',
-                    calcParams: ['Repaircode E']
+                    nextStateId: 'bumper.replace.view'
                 }
-                */
+            ]
+        }
+    },
+
+    'bumper.lacquer.view': {
+        pageTitle: 'Stoßfänger lackieren',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Für welcher Bauteil suchen Sie den Service?',
+            answers: [
+                {
+                    answer: 'Stoßfänger vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.front.lacquer'
+                },
+                {
+                    answer: 'Stoßfänger hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.rear.lacquer'
+                }
+            ]
+        }
+    },
+
+    'bumper.replace.view': {
+        pageTitle: 'Stoßfänger ersetzen',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Für welcher Bauteil suchen Sie den Service?',
+            answers: [
+                {
+                    answer: 'Stoßfänger vorne',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.front.replace'
+                },
+                {
+                    answer: 'Stoßfänger hinten',
+                    nextStateId: 'END',
+                    serviceCode: 'bumper.rear.replace'
+                }
             ]
         }
     },
