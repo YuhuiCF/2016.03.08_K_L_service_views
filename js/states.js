@@ -372,11 +372,13 @@ var states = {
                     nextStateId: 'SERVICEGROUP',
                     serviceCodes: ['service-id-407537']
                 },
+                /*
                 {
                     answer: 'Kotflügel vorne rechts',
                     newWindow: true,
                     nextStateId: 'fender.front.right.view'
                 },
+                */
                 {
                     answer: 'Scheiben und Glas',
                     newWindow: true,
