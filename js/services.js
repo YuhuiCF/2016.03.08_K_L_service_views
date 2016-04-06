@@ -30,6 +30,7 @@ var services = {
 
     'dent.repair': {
         serviceName: 'Dellen entfernen',
+        isViewRequired: true,
         unitPrice: 60,
         calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
     },
