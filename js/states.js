@@ -2,6 +2,15 @@
 var states = {
 // Static states:
 //  'END'
+//  'SERVICEGROUP'
+
+    'SERVICEGROUP': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welche Leistung wünschen Sie?',
+            answers: []
+        }
+    },
 
 
 // Kategorie 0
@@ -13,17 +22,17 @@ var states = {
                 {
                     answer: 'Lackstift',
                     description: 'Lorem ipsum',
-                    nextStateId: 'touchupstick.type'
+                    nextStateId: 'touchupstick.view'
                 },
                 {
                     answer: 'Einzelne Dellen entfernen',
                     description: 'Lorem ipsum',
-                    nextStateId: 'dent.type'
+                    nextStateId: 'dent.repair.view'
                 },
                 {
                     answer: 'Spot Repair',
                     description: 'Lorem ipsum',
-                    nextStateId: 'spotrepair.type'
+                    nextStateId: 'spotrepair.view'
                 },
                 {
                     description: 'Lorem ipsum',
@@ -34,49 +43,48 @@ var states = {
                 {
                     answer: 'Sonstige Reparaturen',
                     description: '(Rost, Steinschlag, größere Kratzer etc.)',
-                    //nextStateId: 'window.glas.type',
+                    //nextStateId: 'window.glas.view',
                 },
                 */
                 {
                     answer: 'Services für Scheiben und Glas',
                     description: 'Lorem ipsum',
-                    nextStateId: 'window.glas.type',
-                    vehicleRequired: true,
-                    calculable: true
+                    nextStateId: 'window.glas.view'
                 },
                 {
                     answer: 'Neulackierung des Bauteils',
                     description: 'Lorem ipsum',
-                    nextStateId: 'lacquer.components.type',
-                    vehicleRequired: true
+                    nextStateId: 'lacquer.components.view'
                 },
                 {
                     answer: 'Wechsel des Bauteils',
                     description: 'Lorem ipsum',
-                    nextStateId: 'replace.components.type',
-                    vehicleRequired: true,
-                    calculable: true
+                    nextStateId: 'replace.components.view'
                 },
                 {
                     answer: 'Fahrzeug lackieren',
                     description: 'Lorem ipsum',
-                    nextStateId: 'vehicle.complete.lacquer.type',
-                    vehicleRequired: true
+                    nextStateId: 'vehicle.complete.lacquer.view'
                 },
                 {
                     answer: 'Sie haben einen Unfallschaden?',
                     description: 'Lorem ipsum',
-                    nextStateId: 'accidentaldamage.type'
+                    nextStateId: 'accidentaldamage.view'
                 },
                 {
                     answer: 'Schaden Begutachten lassen',
                     description: 'Lorem ipsum',
-                    nextStateId: 'examinedamage.type'
+                    nextStateId: 'examinedamage.view'
                 },
                 {
                     description: 'Lorem ipsum',
                     nextStateId: 'END',
                     serviceCode: 'locations.search'
+                },
+                {
+                    answer: 'Landing pages',
+                    description: 'Available Service Landing Pages',
+                    nextStateId: 'landingpages'
                 }
             ]
         }
@@ -84,7 +92,7 @@ var states = {
 
 
 // Bauteile (Lackieren)
-    'lacquer.components.type': {
+    'lacquer.components.view': {
         viewType: 'radioSelectionWithImg',
         configs: {
             question: 'Für welcher Bauteil suchen Sie den Service?',
@@ -201,7 +209,7 @@ var states = {
 
 
 // Bauteile (Ersetzen)
-    'replace.components.type': {
+    'replace.components.view': {
         viewType: 'radioSelectionWithImg',
         configs: {
             question: 'Welcher Bauteil möchten Sie ersetzen?',
@@ -223,7 +231,7 @@ var states = {
 /*
                 {
                     answer: 'Felgen',
-                    //nextStateId: 'rim.type'
+                    //nextStateId: 'rim.view'
                 },
                 {
                     answer: 'Frontscheibe austauschen',
@@ -269,38 +277,38 @@ var states = {
                 {
                     answer: 'Nebelscheinwerfer vorne links (Single Service)',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
+                    serviceCode: 'service-id-409871',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne rechts (Single Service)',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
+                    serviceCode: 'service-id-409872',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Scheinwerfer vorne links (Single Service)',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
+                    serviceCode: 'service-id-407548',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Scheinwerfer vorne rechts (Single Service)',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
+                    serviceCode: 'service-id-407549',
                     calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Schweller',
-                    nextStateId: 'sill.replace.type'
+                    nextStateId: 'sill.replace.view'
                 },
                 {
                     answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster links',
-                    nextStateId: 'sidewindow.left.replace.type'
+                    nextStateId: 'sidewindow.left.replace.view'
                 },
                 {
                     answer: 'Seitenscheiben, Dreieckscheiben, Seitenfenster rechts',
-                    nextStateId: 'sidewindow.right.replace.type'
+                    nextStateId: 'sidewindow.right.replace.view'
                 },
 */
                 {
@@ -338,8 +346,54 @@ var states = {
     },
 
 
+    'landingpages': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Landing Page:',
+            answers: [
+                {
+                    answer: 'Autotür lackieren',
+                    newWindow: true,
+                    nextStateId: 'door.lacquer.view'
+                },
+                {
+                    answer: 'Außenspiegel',
+                    newWindow: true,
+                    nextStateId: 'mirror.services.template.view'
+                },
+                {
+                    answer: 'Fahrzeug lackieren',
+                    newWindow: true,
+                    nextStateId: 'vehicle.complete.lacquer.view'
+                },
+                {
+                    answer: 'Frontscheibe wechseln',
+                    newWindow: true,
+                    nextStateId: 'SERVICEGROUP',
+                    serviceCodes: ['service-id-407537']
+                },
+                {
+                    answer: 'Kotflügel vorne rechts',
+                    newWindow: true,
+                    nextStateId: 'fender.front.right.view'
+                },
+                {
+                    answer: 'Scheiben und Glas',
+                    newWindow: true,
+                    nextStateId: 'window.glas.view'
+                },
+                {
+                    answer: 'Spiegelglas wechseln',
+                    newWindow: true,
+                    nextStateId: 'mirror.glas.replace.view'
+                }
+            ]
+        }
+    },
+
+
 // Begutachtung
-    'examinedamage.type': {
+    'examinedamage.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
@@ -360,7 +414,7 @@ var states = {
 
 
 // Fahrzeug komplett
-    'vehicle.complete.type': {
+    'vehicle.complete.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -376,7 +430,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'vehicle.haildamage.type'
+                    nextStateId: 'vehicle.haildamage.view'
                 },
                 {
                     useConstants: [
@@ -389,7 +443,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'vehicle.complete.lacquer.type'
+                    nextStateId: 'vehicle.complete.lacquer.view'
                 },
                 {
                     useConstants: [
@@ -416,18 +470,19 @@ var states = {
 
 
 // Außenspiegel
-    'mirror.quick.type': {
+    'mirror.components.view': {
+        pageTitle: 'Außenspiegel',
         viewType: 'radioSelection',
         configs: {
-            question: 'Was möchten Sie mit Ihrem Außenspiegel machen?',
+            question: 'Leistungen',
             answers: [
                 {
-                    answer: 'Leisteungen für den Außenspiegel links',
-                    nextStateId: 'mirror.left.type'
+                    answer: 'Leistungen für den Außenspiegel links',
+                    nextStateId: 'mirror.left.view'
                 },
                 {
-                    answer: 'Leisteungen für den Außenspiegel rechts',
-                    nextStateId: 'mirror.right.type'
+                    answer: 'Leistungen für den Außenspiegel rechts',
+                    nextStateId: 'mirror.right.view'
                 },
                 {
                     answer: 'Beide Außenspiegel ersetzen',
@@ -438,7 +493,7 @@ var states = {
         }
     },
 
-    'mirror.type': {
+    'mirror.services.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -446,10 +501,39 @@ var states = {
             answers: [
                 {
                     answer: 'Glas ersetzen',
-                    description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
+                    //description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
+                    nextStateId: 'mirror.glas.replace.view'
+                },
+                {
+                    answer: 'Außenspiegel ersetzen',
+                    //description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
+                    nextStateId: 'mirror.replace.view'
+                },
+                {
+                    answer: 'Außenspiegel lackieren',
+                    //description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
+                    nextStateId: 'mirror.lacquer.view'
+                }
+            ]
+        }
+    },
+
+    'mirror.services.template.view': {
+        pageTitle: {
+            'mirror.left.view': 'Außenspiegel links',
+            'mirror.right.view': 'Außenspiegel rechts'
+        },
+        viewType: 'singleSelectionWithBlockDescription',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            isTemplate: true,
+            answers: [
+                {
+                    answer: 'Glas ersetzen',
+                    //description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
                     nextStateId: {
-                        'mirror.left.type': 'mirror.left.glas.replace.type',
-                        'mirror.right.type': 'mirror.right.glas.replace.type'
+                        'mirror.left.view': 'mirror.left.glas.replace.view',
+                        'mirror.right.view': 'mirror.right.glas.replace.view'
                     }
                 },
                 /*
@@ -458,32 +542,76 @@ var states = {
                     description: 'Kleine Beschädigungen lassen sich oft reparieren, indem die Beschädigungen beseitigt werden und der Spiegel neu lackiert wird. Eine fachgerecht instandgesetzter Seitenspiegel sieht aus wie neu.',
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.type': 'mirror.left.scratch.rockfall.repair',
-                        'mirror.right.type': 'mirror.right.scratch.rockfall.repair'
+                        'mirror.left.view': 'mirror.left.scratch.rockfall.repair',
+                        'mirror.right.view': 'mirror.right.scratch.rockfall.repair'
                     },
                     calcParams: ['Repaircode M', 'Lackstufe 1', 'Metallic 2 Schicht']
                 },
                 */
                 {
                     answer: 'Außenspiegel ersetzen',
-                    description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
+                    //description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.type': 'service-id-450268',
-                        'mirror.right.type': 'service-id-450269'
+                        'mirror.left.view': 'service-id-450268',
+                        'mirror.right.view': 'service-id-450269'
+                    }
+                },
+                {
+                    answer: 'Außenspiegel lackieren',
+                    //description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
+                    nextStateId: 'END',
+                    serviceCode: {
+                        'mirror.left.view': 'mirror.left.lacquer',
+                        'mirror.right.view': 'mirror.right.lacquer'
                     }
                 }
             ]
         }
     },
-    'mirror.left.type': {
-        useTemplate: 'mirror.type'
+    'mirror.left.view': {
+        useTemplate: 'mirror.services.template.view'
     },
-    'mirror.right.type': {
-        useTemplate: 'mirror.type'
+    'mirror.right.view': {
+        useTemplate: 'mirror.services.template.view'
     },
 
-    'mirror.replace.type': {
+    'mirror.lacquer.view': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            answers: [
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'mirror.left.lacquer'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'mirror.right.lacquer'
+                }
+            ]
+        }
+    },
+
+    'mirror.replace.view': {
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            answers: [
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450268'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-450269'
+                }
+            ]
+        }
+    },
+
+    'mirror.all.replace.template.view': {
+        pageTitle: 'Außenspiegel und Glas ersetzen',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -493,8 +621,8 @@ var states = {
                     answer: 'Glas ersetzen',
                     description: 'Eine kostengünstige Alternative zum Tausch des kompletten Außenspiegels ist der Austausch des Glases. Dies ist allerdings nur dann möglich, wenn das Gehäuse keine Beschädigungen aufweist.',
                     nextStateId: {
-                        'mirror.left.type': 'mirror.left.glas.replace.type',
-                        'mirror.right.type': 'mirror.right.glas.replace.type'
+                        'mirror.left.view': 'mirror.left.glas.replace.view',
+                        'mirror.right.view': 'mirror.right.glas.replace.view'
                     }
                 },
                 {
@@ -502,21 +630,48 @@ var states = {
                     description: 'Ist das Gehäuse des Außenspiegels beschädigt und unter Umständen sogar gebrochen, hilft nur noch der Austausch gegen ein Neuteil.',
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.type': 'service-id-450268',
-                        'mirror.right.type': 'service-id-450269'
+                        'mirror.left.view': 'service-id-450268',
+                        'mirror.right.view': 'service-id-450269'
                     }
                 }
             ]
         }
     },
-    'mirror.left.replace.type': {
-        useTemplate: 'mirror.replace.type'
+    'mirror.left.replace.view': {
+        useTemplate: 'mirror.all.replace.template.view'
     },
-    'mirror.right.replace.type': {
-        useTemplate: 'mirror.replace.type'
+    'mirror.right.replace.view': {
+        useTemplate: 'mirror.all.replace.template.view'
     },
 
-    'mirror.glas.replace': {
+    'mirror.glas.replace.view': {
+        pageTitle: 'Spiegelglas wechseln',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            isTemplate: true,
+            answers: [
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-95663'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-95641'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-345091'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'service-id-355773'
+                }
+            ]
+        }
+    },
+
+    'mirror.glas.replace.template.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -524,39 +679,39 @@ var states = {
             answers: [
                 {
                     answer: {
-                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links ersetzen',
-                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts ersetzen'
+                        'mirror.left.glas.replace.view': 'Glas Außenspiegel links ersetzen',
+                        'mirror.right.glas.replace.view': 'Glas Außenspiegel rechts ersetzen'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.glas.replace.type': 'service-id-95663',
-                        'mirror.right.glas.replace.type': 'service-id-95641'
+                        'mirror.left.glas.replace.view': 'service-id-95663',
+                        'mirror.right.glas.replace.view': 'service-id-95641'
                     }
                 },
                 {
                     answer: {
-                        'mirror.left.glas.replace.type': 'Glas Außenspiegel links (Weitwinkel) ersetzen',
-                        'mirror.right.glas.replace.type': 'Glas Außenspiegel rechts (Weitwinkel) ersetzen'
+                        'mirror.left.glas.replace.view': 'Glas Außenspiegel links (Weitwinkel) ersetzen',
+                        'mirror.right.glas.replace.view': 'Glas Außenspiegel rechts (Weitwinkel) ersetzen'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'mirror.left.glas.replace.type': 'service-id-345091',
-                        'mirror.right.glas.replace.type': 'service-id-355773'
+                        'mirror.left.glas.replace.view': 'service-id-345091',
+                        'mirror.right.glas.replace.view': 'service-id-355773'
                     }
                 }
             ]
         }
     },
-    'mirror.left.glas.replace.type': {
-        useTemplate: 'mirror.glas.replace'
+    'mirror.left.glas.replace.view': {
+        useTemplate: 'mirror.glas.replace.template.view'
     },
-    'mirror.right.glas.replace.type': {
-        useTemplate: 'mirror.glas.replace'
+    'mirror.right.glas.replace.view': {
+        useTemplate: 'mirror.glas.replace.template.view'
     },
 
 
 // Dellen
-    'dent.type': {
+    'dent.repair.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Dellen mit welchem durchschnittlichen Durchmesser möchten Sie reparieren lassen?',
@@ -573,7 +728,7 @@ var states = {
         }
     },
 /*
-    'dent.type': {
+    'dent.repair.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Dellen mit welchem durchschnittlichen Durchmesser möchten Sie reparieren lassen?',
@@ -600,55 +755,55 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'bumper.dent.type': 'bumper.dent.repair',
-                'fender.front.right.dent.type': 'fender.front.right.dent.repair',
-                'fender.front.left.dent.type': 'fender.front.left.dent.repair',
-                'fender.rear.right.dent.type': 'fender.rear.right.dent.repair',
-                'fender.rear.left.dent.type': 'fender.rear.left.dent.repair',
-                'hood.dent.type': 'hood.dent.repair',
-                'roof.dent.type': 'roof.dent.repair',
-                'sill.left.dent.type': 'sill.left.dent.repair',
-                'sill.right.dent.type': 'sill.right.dent.repair',
-                'tailgate.dent.type': 'tailgate.dent.repair'
+                'bumper.dent.view': 'bumper.dent.repair',
+                'fender.front.right.dent.view': 'fender.front.right.dent.repair',
+                'fender.front.left.dent.view': 'fender.front.left.dent.repair',
+                'fender.rear.right.dent.view': 'fender.rear.right.dent.repair',
+                'fender.rear.left.dent.view': 'fender.rear.left.dent.repair',
+                'hood.dent.view': 'hood.dent.repair',
+                'roof.dent.view': 'roof.dent.repair',
+                'sill.left.dent.view': 'sill.left.dent.repair',
+                'sill.right.dent.view': 'sill.right.dent.repair',
+                'tailgate.dent.view': 'tailgate.dent.repair'
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
-    'bumper.dent.type': {
-        useTemplate: 'dent.type'
+    'bumper.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'fender.front.right.dent.type': {
-        useTemplate: 'dent.type'
+    'fender.front.right.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'fender.front.left.dent.type': {
-        useTemplate: 'dent.type'
+    'fender.front.left.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'fender.rear.right.dent.type': {
-        useTemplate: 'dent.type'
+    'fender.rear.right.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'fender.rear.left.dent.type': {
-        useTemplate: 'dent.type'
+    'fender.rear.left.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'hood.dent.type': {
-        useTemplate: 'dent.type'
+    'hood.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'roof.dent.type': {
-        useTemplate: 'dent.type'
+    'roof.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'sill.left.dent.type': {
-        useTemplate: 'dent.type'
+    'sill.left.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'sill.right.dent.type': {
-        useTemplate: 'dent.type'
+    'sill.right.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
-    'tailgate.dent.type': {
-        useTemplate: 'dent.type'
+    'tailgate.dent.view': {
+        useTemplate: 'dent.repair.view'
     },
 */
 
 
 // Fahrzeugdach
-    'roof.type': {
+    'roof.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -664,7 +819,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'roof.dent.type'
+                    nextStateId: 'roof.dent.view'
                 },
                 {
                     useConstants: [
@@ -677,7 +832,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'roof.scratch.type'
+                    nextStateId: 'roof.scratch.view'
                 },
                 {
                     useConstants: [
@@ -690,7 +845,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'roof.rockfall.type'
+                    nextStateId: 'roof.rockfall.repair.view'
                 },
                 {
                     useConstants: [
@@ -717,12 +872,12 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'roof.haildamage.type',
+                    nextStateId: 'roof.haildamage.view',
                 }
             ]
         }
     },
-    'roof.rockfall.type': {
+    'roof.rockfall.repair.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Steinschläge möchten Sie reparieren lassen?',
@@ -741,7 +896,8 @@ var states = {
 
 
 // Fahrzeug lackieren
-    'vehicle.complete.lacquer.type': {
+    'vehicle.complete.lacquer.view': {
+        pageTitle: 'Fahrzeug lackieren',
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Teil Ihres Fahrzeuges möchten Sie lackieren lassen?',
@@ -777,7 +933,7 @@ var states = {
 
 // Felgen
 /*
-    'rim.type': {
+    'rim.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -852,7 +1008,7 @@ var states = {
 */
 
 // Frontscheibe
-    'windshield.type': {
+    'windshield.view': {
         pageTitle: 'Frontscheibe Service View',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
@@ -861,7 +1017,7 @@ var states = {
                 {
                     answer: 'Frontscheibe reparieren',
                     description: 'Die Reparatur der Frontscheibe ist günstiger und geht schneller, als der Austausch. Allerdings können Schäden nur dann repariert werden, wenn sie nicht im Sichtfeld des Fahrers liegen oder im Randbereich der Scheibe. Repariert werden können oberflächliche Steinschläge und kleine Risse bis maximal 2,5 cm Länge. Zudem dürfen maximal 2 Steinschläge repariert werden, danach bleibt nur noch der Tausch der Scheibe.',
-                    nextStateId: 'windshield.repair.type'
+                    nextStateId: 'windshield.repair.view'
                 },
                 /*
                 {
@@ -881,7 +1037,7 @@ var states = {
             ]
         }
     },
-    'windshield.repair.type': {
+    'windshield.repair.view': {
         viewType: 'radioSelectionWithImg',
         configs: {
             question: 'Befindet sich eine Beschädigung im roten Bereich oder sind die Risse länger als 2,5 Zentimeter?',
@@ -892,17 +1048,17 @@ var states = {
                 {
                     answer: 'Ja',
                     nextStateId: 'END',
-                    serviceCode: 'windshield.replace'
+                    serviceCode: 'service-id-407537'
                 },
                 {
                     answer: 'Nein',
-                    nextStateId: 'windshield.repair.number.type'
+                    nextStateId: 'windshield.repair.number.view'
                 }
             ]
         }
     },
     /*
-    'windshield.repair.number.type': {
+    'windshield.repair.number.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Beschädigungen sind es?',
@@ -923,7 +1079,7 @@ var states = {
 
 // Hagelschaden
 /*
-    'haildamage.type': {
+    'haildamage.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Sind die Dellen teilweise größer als 20 mm?',
@@ -932,38 +1088,38 @@ var states = {
                 {
                     answer: 'Ja',
                     nextStateId: {
-                        'hood.haildamage.type': 'hood.haildamage.severe.type',
-                        'roof.haildamage.type': 'roof.haildamage.severe.type',
-                        'tailgate.haildamage.type': 'tailgate.haildamage.severe.type',
-                        'vehicle.haildamage.type': 'vehicle.haildamage.severe.type'
+                        'hood.haildamage.view': 'hood.haildamage.severe.view',
+                        'roof.haildamage.view': 'roof.haildamage.severe.view',
+                        'tailgate.haildamage.view': 'tailgate.haildamage.severe.view',
+                        'vehicle.haildamage.view': 'vehicle.haildamage.severe.view'
                     }
                 },
                 {
                     answer: 'Nein',
                     nextStateId: {
-                        'hood.haildamage.type': 'hood.haildamage.minor.type',
-                        'roof.haildamage.type': 'roof.haildamage.minor.type',
-                        'tailgate.haildamage.type': 'tailgate.haildamage.minor.type',
-                        'vehicle.haildamage.type': 'vehicle.haildamage.minor.type'
+                        'hood.haildamage.view': 'hood.haildamage.minor.view',
+                        'roof.haildamage.view': 'roof.haildamage.minor.view',
+                        'tailgate.haildamage.view': 'tailgate.haildamage.minor.view',
+                        'vehicle.haildamage.view': 'vehicle.haildamage.minor.view'
                     }
                 },
             ]
         }
     },
-    'hood.haildamage.type': {
-        useTemplate: 'haildamage.type'
+    'hood.haildamage.view': {
+        useTemplate: 'haildamage.view'
     },
-    'roof.haildamage.type': {
-        useTemplate: 'haildamage.type'
+    'roof.haildamage.view': {
+        useTemplate: 'haildamage.view'
     },
-    'tailgate.haildamage.type': {
-        useTemplate: 'haildamage.type'
+    'tailgate.haildamage.view': {
+        useTemplate: 'haildamage.view'
     },
-    'vehicle.haildamage.type': {
-        useTemplate: 'haildamage.type'
+    'vehicle.haildamage.view': {
+        useTemplate: 'haildamage.view'
     },
 
-    'haildamage.damage.type': {
+    'haildamage.damage.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Dellen sind es?',
@@ -977,53 +1133,53 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'hood.haildamage.minor.type': 'hood.haildamage.minor',
-                'roof.haildamage.minor.type': 'roof.haildamage.minor',
-                'tailgate.haildamage.minor.type': 'tailgate.haildamage.minor',
-                'vehicle.haildamage.minor.type': 'vehicle.haildamage.minor',
-                'hood.haildamage.severe.type': 'hood.haildamage.severe',
-                'roof.haildamage.severe.type': 'roof.haildamage.severe',
-                'tailgate.haildamage.severe.type': 'tailgate.haildamage.severe',
-                'vehicle.haildamage.severe.type': 'vehicle.haildamage.severe',
+                'hood.haildamage.minor.view': 'hood.haildamage.minor',
+                'roof.haildamage.minor.view': 'roof.haildamage.minor',
+                'tailgate.haildamage.minor.view': 'tailgate.haildamage.minor',
+                'vehicle.haildamage.minor.view': 'vehicle.haildamage.minor',
+                'hood.haildamage.severe.view': 'hood.haildamage.severe',
+                'roof.haildamage.severe.view': 'roof.haildamage.severe',
+                'tailgate.haildamage.severe.view': 'tailgate.haildamage.severe',
+                'vehicle.haildamage.severe.view': 'vehicle.haildamage.severe',
             },
             calcParams: {
-                'hood.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
-                'roof.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
-                'tailgate.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
-                'vehicle.haildamage.minor.type': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'hood.haildamage.minor.view': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'roof.haildamage.minor.view': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'tailgate.haildamage.minor.view': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
+                'vehicle.haildamage.minor.view': ['D (nur Drücken)', 'Methode 2', 'Anzahl Dellen', 'Dellengröße'],
                 'default': ['DVL (Vordrücken, Lackieren)', 'Lackstufe 3 (über 50%)', 'Anzahl Dellen']
             }
         }
     },
-    'hood.haildamage.minor.type': {
-        useTemplate: 'haildamage.damage.type'
+    'hood.haildamage.minor.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'roof.haildamage.minor.type': {
-        useTemplate: 'haildamage.damage.type'
+    'roof.haildamage.minor.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'tailgate.haildamage.minor.type': {
-        useTemplate: 'haildamage.damage.type'
+    'tailgate.haildamage.minor.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'vehicle.haildamage.minor.type': {
-        useTemplate: 'haildamage.damage.type'
+    'vehicle.haildamage.minor.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'hood.haildamage.severe.type': {
-        useTemplate: 'haildamage.damage.type'
+    'hood.haildamage.severe.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'roof.haildamage.severe.type': {
-        useTemplate: 'haildamage.damage.type'
+    'roof.haildamage.severe.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'tailgate.haildamage.severe.type': {
-        useTemplate: 'haildamage.damage.type'
+    'tailgate.haildamage.severe.view': {
+        useTemplate: 'haildamage.damage.view'
     },
-    'vehicle.haildamage.severe.type': {
-        useTemplate: 'haildamage.damage.type'
+    'vehicle.haildamage.severe.view': {
+        useTemplate: 'haildamage.damage.view'
     },
     */
 
 
 // Heckklappe / Kofferraumdeckel
-    'tailgate.type': {
+    'tailgate.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
@@ -1040,7 +1196,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'tailgate.dent.type'
+                    nextStateId: 'tailgate.dent.view'
                 },
                 {
                     useConstants: [
@@ -1053,7 +1209,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'tailgate.scratch.type'
+                    nextStateId: 'tailgate.scratch.view'
                 },
                 {
                     useConstants: [
@@ -1066,7 +1222,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'tailgate.rockfall.type'
+                    nextStateId: 'tailgate.rockfall.view'
                 },
                 {
                     useConstants: [
@@ -1079,7 +1235,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'tailgate.haildamage.type'
+                    nextStateId: 'tailgate.haildamage.view'
                 },
                 {
                     useConstants: [
@@ -1115,7 +1271,7 @@ var states = {
 
 
 // Lackstift
-    'touchupstick.type': {
+    'touchupstick.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Lackstifte sind nötig?',
@@ -1134,7 +1290,7 @@ var states = {
 
 
 // Kotflügel
-    'fender.front.type': {
+    'fender.front.view': {
         pageTitle: 'Kotflügel Service View',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
@@ -1153,8 +1309,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.front.right.type': 'fender.front.right.spotrepair.type',
-                        'fender.front.left.type': 'fender.front.left.spotrepair.type'
+                        'fender.front.right.view': 'fender.front.right.spotrepair.view',
+                        'fender.front.left.view': 'fender.front.left.spotrepair.view'
                     }
                 },
                 {
@@ -1169,8 +1325,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.front.right.type': 'fender.front.right.dent.type',
-                        'fender.front.left.type': 'fender.front.left.dent.type'
+                        'fender.front.right.view': 'fender.front.right.dent.view',
+                        'fender.front.left.view': 'fender.front.left.dent.view'
                     }
                 },
                 {
@@ -1185,8 +1341,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.front.right.type': 'fender.front.right.scratch.type',
-                        'fender.front.left.type': 'fender.front.left.scratch.type',
+                        'fender.front.right.view': 'fender.front.right.scratch.view',
+                        'fender.front.left.view': 'fender.front.left.scratch.view',
                     }
                 },
                 {
@@ -1201,8 +1357,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.front.right.type': 'fender.front.right.rust.type',
-                        'fender.front.left.type': 'fender.front.left.rust.type',
+                        'fender.front.right.view': 'fender.front.right.rust.view',
+                        'fender.front.left.view': 'fender.front.left.rust.view',
                     }
                 },
                 {
@@ -1217,8 +1373,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.front.right.type': 'fender.front.right.rockfall.type',
-                        'fender.front.left.type': 'fender.front.left.rockfall.type',
+                        'fender.front.right.view': 'fender.front.right.rockfall.view',
+                        'fender.front.left.view': 'fender.front.left.rockfall.view',
                     }
                 },
                 {
@@ -1234,8 +1390,8 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.front.right.type': 'fender.front.right.lacquer',
-                        'fender.front.left.type': 'fender.front.left.lacquer'
+                        'fender.front.right.view': 'fender.front.right.lacquer',
+                        'fender.front.left.view': 'fender.front.left.lacquer'
                     }
                 },
                 {
@@ -1251,14 +1407,14 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.front.right.type': 'service-id-450271',
-                        'fender.front.left.type': 'service-id-450270'
+                        'fender.front.right.view': 'service-id-450271',
+                        'fender.front.left.view': 'service-id-450270'
                     }
                 }
             ]
         }
     },
-    'fender.rear.type': {
+    'fender.rear.view': {
         pageTitle: 'Kotflügel Service View',
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
@@ -1277,8 +1433,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.rear.right.type': 'fender.rear.right.dent.type',
-                        'fender.rear.left.type': 'fender.rear.left.dent.type'
+                        'fender.rear.right.view': 'fender.rear.right.dent.view',
+                        'fender.rear.left.view': 'fender.rear.left.dent.view'
                     }
                 },
                 {
@@ -1293,8 +1449,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.rear.right.type': 'fender.rear.right.scratch.type',
-                        'fender.rear.left.type': 'fender.rear.left.scratch.type',
+                        'fender.rear.right.view': 'fender.rear.right.scratch.view',
+                        'fender.rear.left.view': 'fender.rear.left.scratch.view',
                     }
                 },
                 {
@@ -1309,8 +1465,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.rear.right.type': 'fender.rear.right.rust.type',
-                        'fender.rear.left.type': 'fender.rear.left.rust.type',
+                        'fender.rear.right.view': 'fender.rear.right.rust.view',
+                        'fender.rear.left.view': 'fender.rear.left.rust.view',
                     }
                 },
                 {
@@ -1325,8 +1481,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'fender.rear.right.type': 'fender.rear.right.rockfall.type',
-                        'fender.rear.left.type': 'fender.rear.left.rockfall.type',
+                        'fender.rear.right.view': 'fender.rear.right.rockfall.view',
+                        'fender.rear.left.view': 'fender.rear.left.rockfall.view',
                     }
                 },
                 {
@@ -1342,8 +1498,8 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.rear.right.type': 'fender.rear.right.lacquer',
-                        'fender.rear.left.type': 'fender.rear.left.lacquer'
+                        'fender.rear.right.view': 'fender.rear.right.lacquer',
+                        'fender.rear.left.view': 'fender.rear.left.lacquer'
                     }
                 },
                 {
@@ -1359,27 +1515,27 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'fender.rear.right.type': 'service-id-450273',
-                        'fender.rear.left.type': 'service-id-450272'
+                        'fender.rear.right.view': 'service-id-450273',
+                        'fender.rear.left.view': 'service-id-450272'
                     }
                 }
             ]
         }
     },
-    'fender.front.right.type': {
-        useTemplate: 'fender.front.type'
+    'fender.front.right.view': {
+        useTemplate: 'fender.front.view'
     },
-    'fender.front.left.type': {
-        useTemplate: 'fender.front.type'
+    'fender.front.left.view': {
+        useTemplate: 'fender.front.view'
     },
-    'fender.rear.right.type': {
-        useTemplate: 'fender.rear.type'
+    'fender.rear.right.view': {
+        useTemplate: 'fender.rear.view'
     },
-    'fender.rear.left.type': {
-        useTemplate: 'fender.rear.type'
+    'fender.rear.left.view': {
+        useTemplate: 'fender.rear.view'
     },
 
-    'fender.lacquer.type': {
+    'fender.lacquer.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Kotflügel möchten Sie lackieren?',
@@ -1409,7 +1565,7 @@ var states = {
     },
 
 /*
-    'fender.rust.type': {
+    'fender.rust.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Anzahl und Größe der Roststellen.',
@@ -1432,54 +1588,54 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'fender.front.right.rust.type': 'fender.front.right.rust.repair',
-                'fender.front.left.rust.type': 'fender.front.left.rust.repair',
-                'fender.rear.right.rust.type': 'fender.rear.right.rust.repair',
-                'fender.rear.left.rust.type': 'fender.rear.left.rust.repair'
+                'fender.front.right.rust.view': 'fender.front.right.rust.repair',
+                'fender.front.left.rust.view': 'fender.front.left.rust.repair',
+                'fender.rear.right.rust.view': 'fender.rear.right.rust.repair',
+                'fender.rear.left.rust.view': 'fender.rear.left.rust.repair'
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
-    'fender.front.left.rust.type': {
-        useTemplate: 'fender.rust.type'
+    'fender.front.left.rust.view': {
+        useTemplate: 'fender.rust.view'
     },
-    'fender.front.right.rust.type': {
-        useTemplate: 'fender.rust.type'
+    'fender.front.right.rust.view': {
+        useTemplate: 'fender.rust.view'
     },
-    'fender.rear.left.rust.type': {
-        useTemplate: 'fender.rust.type'
+    'fender.rear.left.rust.view': {
+        useTemplate: 'fender.rust.view'
     },
-    'fender.rear.right.rust.type': {
-        useTemplate: 'fender.rust.type'
+    'fender.rear.right.rust.view': {
+        useTemplate: 'fender.rust.view'
     },
     */
 
-    'fender.position.type': {
+    'fender.position.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Für welchen Kotflügel?',
             answers: [
                 {
                     answer: 'Kotflügel vorne rechts',
-                    nextStateId: 'fender.front.right.type'
+                    nextStateId: 'fender.front.right.view'
                 },
                 {
                     answer: 'Kotflügel vorne links',
-                    nextStateId: 'fender.front.left.type'
+                    nextStateId: 'fender.front.left.view'
                 },
                 {
                     answer: 'Kotflügel hinten rechts',
-                    nextStateId: 'fender.rear.right.type'
+                    nextStateId: 'fender.rear.right.view'
                 },
                 {
                     answer: 'Kotflügel hinten links',
-                    nextStateId: 'fender.rear.left.type'
+                    nextStateId: 'fender.rear.left.view'
                 }
             ]
         }
     },
 
-    'fender.replace.type': {
+    'fender.replace.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Kotflügel möchten Sie erneuern?',
@@ -1511,7 +1667,7 @@ var states = {
 
 // Kratzer
 /*
-    'scratch.type': {
+    'scratch.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie den oder die Kratzer:',
@@ -1538,54 +1694,54 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'bumper.scratch.type': 'bumper.scratch.repair',
-                'fender.front.right.scratch.type': 'fender.front.right.scratch.repair',
-                'fender.front.left.scratch.type': 'fender.front.left.scratch.repair',
-                'fender.rear.right.scratch.type': 'fender.rear.right.scratch.repair',
-                'fender.rear.left.scratch.type': 'fender.rear.left.scratch.repair',
-                'hood.scratch.type': 'hood.scratch.repair',
-                'roof.scratch.type': 'roof.scratch.repair',
-                'sill.left.scratch.type': 'sill.left.scratch.repair',
-                'sill.right.scratch.type': 'sill.right.scratch.repair',
-                'tailgate.scratch.type': 'tailgate.scratch.repair',
+                'bumper.scratch.view': 'bumper.scratch.repair',
+                'fender.front.right.scratch.view': 'fender.front.right.scratch.repair',
+                'fender.front.left.scratch.view': 'fender.front.left.scratch.repair',
+                'fender.rear.right.scratch.view': 'fender.rear.right.scratch.repair',
+                'fender.rear.left.scratch.view': 'fender.rear.left.scratch.repair',
+                'hood.scratch.view': 'hood.scratch.repair',
+                'roof.scratch.view': 'roof.scratch.repair',
+                'sill.left.scratch.view': 'sill.left.scratch.repair',
+                'sill.right.scratch.view': 'sill.right.scratch.repair',
+                'tailgate.scratch.view': 'tailgate.scratch.repair',
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
-    'bumper.scratch.type': {
-        useTemplate: 'scratch.type'
+    'bumper.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'fender.front.right.scratch.type': {
-        useTemplate: 'scratch.type'
+    'fender.front.right.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'fender.front.left.scratch.type': {
-        useTemplate: 'scratch.type'
+    'fender.front.left.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'fender.rear.right.scratch.type': {
-        useTemplate: 'scratch.type'
+    'fender.rear.right.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'fender.rear.left.scratch.type': {
-        useTemplate: 'scratch.type'
+    'fender.rear.left.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'hood.scratch.type': {
-        useTemplate: 'scratch.type'
+    'hood.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'roof.scratch.type': {
-        useTemplate: 'scratch.type'
+    'roof.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'sill.left.scratch.type': {
-        useTemplate: 'scratch.type'
+    'sill.left.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'sill.right.scratch.type': {
-        useTemplate: 'scratch.type'
+    'sill.right.scratch.view': {
+        useTemplate: 'scratch.view'
     },
-    'tailgate.scratch.type': {
-        useTemplate: 'scratch.type'
+    'tailgate.scratch.view': {
+        useTemplate: 'scratch.view'
     },
 */
 
 // Motorhaube
-    'hood.type': {
+    'hood.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             isTemplate: true,
@@ -1602,7 +1758,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'hood.dent.type'
+                    nextStateId: 'hood.dent.view'
                 },
                 {
                     useConstants: [
@@ -1615,7 +1771,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'hood.scratch.type'
+                    nextStateId: 'hood.scratch.view'
                 },
                 {
                     useConstants: [
@@ -1628,7 +1784,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'hood.rockfall.type'
+                    nextStateId: 'hood.rockfall.view'
                 },
                 {
                     useConstants: [
@@ -1641,7 +1797,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'hood.haildamage.type'
+                    nextStateId: 'hood.haildamage.view'
                 },
                 {
                     useConstants: [
@@ -1677,30 +1833,28 @@ var states = {
 
 
 // Scheiben & Glas
-    'window.glas.type': {
-        pageTitle: 'Scheiben & Glas Service View',
+    'window.glas.view': {
+        pageTitle: 'Scheiben und Glas',
         viewType: 'radioSelection',
         configs: {
             question: 'Für welches Bauteil wünschen Sie einen Service?',
             answers: [
 /*
                 {
-                    answer: 'Landign Page: Frontscheibe',
-                    nextStateId: 'windshield.type',
+                    answer: 'Landing Page: Frontscheibe',
+                    nextStateId: 'windshield.view',
                     newWindow: true
                 },
 */
                 {
                     answer: 'Dreieckscheibe links vorne wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450258 (Dreieckscheibe links vorne wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450258',
                 },
                 {
                     answer: 'Dreieckscheibe rechts vorne wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450261 (Dreieckscheibe rechts vorne wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450261',
                 },
                 /*
                 {
@@ -1714,97 +1868,81 @@ var states = {
                     answer: 'Frontscheibe wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-407537',
-                    calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Glas Außenspiegel links ersetzen',
                     nextStateId: 'END',
                     serviceCode: 'service-id-95663',
-                    calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Glas Außenspiegel rechts ersetzen',
                     nextStateId: 'END',
                     serviceCode: 'service-id-95641',
-                    calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Heckscheibe wechseln',
                     nextStateId: 'END',
                     serviceCode: 'service-id-450250',
-                    calcParams: ['Repaircode E']
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne links wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409871',
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409872',
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409870 (Nebelscheinwerfer komplett vorne beide wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409870',
                 },
                 {
                     answer: 'Scheinwerfer vorne links wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407548',
                 },
                 {
                     answer: 'Scheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407549',
                 },
                 {
                     answer: 'Scheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407550 (Scheinwerfer komplett vorne beide wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407550',
                 },
                 {
                     answer: 'Seitenscheibe Tür links vorne wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450253 (Seitenscheibe Tür links vorne wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450253',
                 },
                 {
                     answer: 'Seitenscheibe Tür rechts vorne wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450254 (Seitenscheibe Tür rechts vorne wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450254',
                 },
                 {
                     answer: 'Seitenscheibe Tür links hinten wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450255 (Seitenscheibe Tür links hinten wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450255',
                 },
                 {
                     answer: 'Seitenscheibe Tür rechts hinten wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450256 (Seitenscheibe Tür rechts hinten wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450256',
                 },
                 {
                     answer: 'Seitenfenster, Dreieckscheibe hinten links wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450262 (Seitenfenster, Dreieckscheibe hinten links wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450262',
                 },
                 {
                     answer: 'Seitenfenster, Dreieckscheibe hinten rechts wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-450263 (Seitenfenster, Dreieckscheibe hinten rechts wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-450263',
                 }
             ]
         }
@@ -1812,7 +1950,7 @@ var states = {
 
 
 // Scheinwerfer, Nebelscheinwerfer
-    'headlight.type': {
+    'headlight.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Scheinwerfer / Nebelscheinwerfer möchten Sie tauschen?',
@@ -1820,44 +1958,38 @@ var states = {
                 {
                     answer: 'Scheinwerfer vorne links wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407548'
                 },
                 {
                     answer: 'Scheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407549'
                 },
                 {
                     answer: 'Scheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-407550 (Scheinwerfer komplett vorne beide wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-407550'
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne links wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409871'
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne rechts wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409872'
                 },
                 {
                     answer: 'Nebelscheinwerfer vorne beide wechseln',
                     nextStateId: 'END',
-                    serviceCode: 'service-id-409870 (Nebelscheinwerfer komplett vorne beide wechseln)',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'service-id-409870'
                 }
             ]
         }
     },
 
-    'headlight.replace.type': {
+    'headlight.replace.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welches Bauteil möchten Sie wechseln?',
@@ -1865,48 +1997,46 @@ var states = {
             answers: [
                 {
                     answer: {
-                        'headlight.replace.front.left.type': 'Scheinwerfer vorne links wechseln',
-                        'headlight.replace.front.right.type': 'Scheinwerfer vorne rechts wechseln',
-                        'headlight.replace.front.both.type': 'Scheinwerfer vorne beide wechseln'
+                        'headlight.replace.front.left.view': 'Scheinwerfer vorne links wechseln',
+                        'headlight.replace.front.right.view': 'Scheinwerfer vorne rechts wechseln',
+                        'headlight.replace.front.both.view': 'Scheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'headlight.replace.front.left.type': 'service-id-407548 (Scheinwerfer komplett vorne links wechseln)',
-                        'headlight.replace.front.right.type': 'service-id-407549 (Scheinwerfer komplett vorne rechts wechseln)',
-                        'headlight.replace.front.both.type': 'service-id-407550 (Scheinwerfer komplett vorne beide wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                        'headlight.replace.front.left.view': 'service-id-407548',
+                        'headlight.replace.front.right.view': 'service-id-407549',
+                        'headlight.replace.front.both.view': 'service-id-407550'
+                    }
                 },
                 {
                     answer: {
-                        'headlight.replace.front.left.type': 'Nebelscheinwerfer vorne links wechseln',
-                        'headlight.replace.front.right.type': 'Nebelscheinwerfer vorne rechts wechseln',
-                        'headlight.replace.front.both.type': 'Nebelscheinwerfer vorne beide wechseln'
+                        'headlight.replace.front.left.view': 'Nebelscheinwerfer vorne links wechseln',
+                        'headlight.replace.front.right.view': 'Nebelscheinwerfer vorne rechts wechseln',
+                        'headlight.replace.front.both.view': 'Nebelscheinwerfer vorne beide wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'headlight.replace.front.left.type': 'service-id-409871 (Nebelscheinwerfer komplett vorne links wechseln)',
-                        'headlight.replace.front.right.type': 'service-id-409872 (Nebelscheinwerfer komplett vorne rechts wechseln)',
-                        'headlight.replace.front.both.type': 'service-id-409870 (Nebelscheinwerfer komplett vorne beide wechseln)'
-                    },
-                    calcParams: ['Repaircode E']
+                        'headlight.replace.front.left.view': 'service-id-409871',
+                        'headlight.replace.front.right.view': 'service-id-409872',
+                        'headlight.replace.front.both.view': 'service-id-409870'
+                    }
                 }
             ]
         }
     },
-    'headlight.replace.front.left.type': {
-        useTemplate: 'headlight.replace.type'
+    'headlight.replace.front.left.view': {
+        useTemplate: 'headlight.replace.view'
     },
-    'headlight.replace.front.right.type': {
-        useTemplate: 'headlight.replace.type'
+    'headlight.replace.front.right.view': {
+        useTemplate: 'headlight.replace.view'
     },
-    'headlight.replace.front.both.type': {
-        useTemplate: 'headlight.replace.type'
+    'headlight.replace.front.both.view': {
+        useTemplate: 'headlight.replace.view'
     },
 
 
 // Schweller
-    'sill.type': {
+    'sill.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -1924,8 +2054,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'sill.left.type': 'sill.left.spotrepair.type',
-                        'sill.right.type': 'sill.right.spotrepair.type'
+                        'sill.left.view': 'sill.left.spotrepair.view',
+                        'sill.right.view': 'sill.right.spotrepair.view'
                     }
                 },
                 {
@@ -1940,8 +2070,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'sill.left.type': 'sill.left.dent.type',
-                        'sill.right.type': 'sill.right.dent.type'
+                        'sill.left.view': 'sill.left.dent.view',
+                        'sill.right.view': 'sill.right.dent.view'
                     }
                 },
                 {
@@ -1956,8 +2086,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'sill.left.type': 'sill.left.rockfall.type',
-                        'sill.right.type': 'sill.right.rockfall.type'
+                        'sill.left.view': 'sill.left.rockfall.view',
+                        'sill.right.view': 'sill.right.rockfall.view'
                     }
                 },
                 {
@@ -1972,8 +2102,8 @@ var states = {
                         }
                     ],
                     nextStateId: {
-                        'sill.left.type': 'sill.left.scratch.type',
-                        'sill.right.type': 'sill.right.scratch.type'
+                        'sill.left.view': 'sill.left.scratch.view',
+                        'sill.right.view': 'sill.right.scratch.view'
                     }
                 },
                 {
@@ -1989,22 +2119,21 @@ var states = {
                     ],
                     nextStateId: 'END',
                     serviceCode: {
-                        'sill.left.type': 'sill.left.replace',
-                        'sill.right.type': 'sill.right.replace'
-                    },
-                    calcParams: ['Repaircode E']
+                        'sill.left.view': 'sill.left.replace',
+                        'sill.right.view': 'sill.right.replace'
+                    }
                 }
             ]
         }
     },
-    'sill.left.type': {
-        useTemplate: 'sill.type'
+    'sill.left.view': {
+        useTemplate: 'sill.view'
     },
-    'sill.right.type': {
-        useTemplate: 'sill.type'
+    'sill.right.view': {
+        useTemplate: 'sill.view'
     },
 
-    'sill.replace.type': {
+    'sill.replace.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Schweller möchten Sie ersetzen?',
@@ -2012,14 +2141,12 @@ var states = {
                 {
                     answer: 'Schweller links ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'sill.left.replace',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'sill.left.replace'
                 },
                 {
                     answer: 'Schweller rechts ersetzen',
                     nextStateId: 'END',
-                    serviceCode: 'sill.right.replace',
-                    calcParams: ['Repaircode E']
+                    serviceCode: 'sill.right.replace'
                 }
             ]
         }
@@ -2027,7 +2154,7 @@ var states = {
 
 
 // Seitenscheiben, Dreieckscheiben, Seitenfenster links
-    'sidewindow.replace.type': {
+    'sidewindow.replace.view': {
         viewType: 'radioSelection',
         configs: {
             question: 'Welchen Service wünschen Sie?',
@@ -2035,65 +2162,61 @@ var states = {
             answers: [
                 {
                     answer: {
-                        'sidewindow.left.replace.type': 'Dreieckscheibe links vorne wechseln',
-                        'sidewindow.right.replace.type': 'Dreieckscheibe rechts vorne wechseln'
+                        'sidewindow.left.replace.view': 'Dreieckscheibe links vorne wechseln',
+                        'sidewindow.right.replace.view': 'Dreieckscheibe rechts vorne wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'sidewindow.left.replace.type': 'service-id-450258',
-                        'sidewindow.right.replace.type': 'service-id-450261'
-                    },
-                    calcParams: ['Repaircode E']
+                        'sidewindow.left.replace.view': 'service-id-450258',
+                        'sidewindow.right.replace.view': 'service-id-450261'
+                    }
                 },
                 {
                     answer: {
-                        'sidewindow.left.replace.type': 'Seitenscheibe Tür links vorne wechseln',
-                        'sidewindow.right.replace.type': 'Seitenscheibe Tür rechts vorne wechseln'
+                        'sidewindow.left.replace.view': 'Seitenscheibe Tür links vorne wechseln',
+                        'sidewindow.right.replace.view': 'Seitenscheibe Tür rechts vorne wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'sidewindow.left.replace.type': 'service-id-450253',
-                        'sidewindow.right.replace.type': 'service-id-450254'
-                    },
-                    calcParams: ['Repaircode E']
+                        'sidewindow.left.replace.view': 'service-id-450253',
+                        'sidewindow.right.replace.view': 'service-id-450254'
+                    }
                 },
                 {
                     answer: {
-                        'sidewindow.left.replace.type': 'Seitenscheibe Tür links hinten wechseln',
-                        'sidewindow.right.replace.type': 'Seitenscheibe Tür rechts hinten wechseln'
+                        'sidewindow.left.replace.view': 'Seitenscheibe Tür links hinten wechseln',
+                        'sidewindow.right.replace.view': 'Seitenscheibe Tür rechts hinten wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'sidewindow.left.replace.type': 'service-id-450255',
-                        'sidewindow.right.replace.type': 'service-id-450256'
-                    },
-                    calcParams: ['Repaircode E']
+                        'sidewindow.left.replace.view': 'service-id-450255',
+                        'sidewindow.right.replace.view': 'service-id-450256'
+                    }
                 },
                 {
                     answer: {
-                        'sidewindow.left.replace.type': 'Seitenfenster, Dreieckscheibe hinten links wechseln',
-                        'sidewindow.right.replace.type': 'Seitenfenster, Dreieckscheibe hinten links wechseln'
+                        'sidewindow.left.replace.view': 'Seitenfenster, Dreieckscheibe hinten links wechseln',
+                        'sidewindow.right.replace.view': 'Seitenfenster, Dreieckscheibe hinten links wechseln'
                     },
                     nextStateId: 'END',
                     serviceCode: {
-                        'sidewindow.left.replace.type': 'service-id-450262',
-                        'sidewindow.right.replace.type': 'service-id-450263'
-                    },
-                    calcParams: ['Repaircode E']
+                        'sidewindow.left.replace.view': 'service-id-450262',
+                        'sidewindow.right.replace.view': 'service-id-450263'
+                    }
                 }
             ]
         }
     },
-    'sidewindow.left.replace.type': {
-        useTemplate: 'sidewindow.replace.type'
+    'sidewindow.left.replace.view': {
+        useTemplate: 'sidewindow.replace.view'
     },
-    'sidewindow.right.replace.type': {
-        useTemplate: 'sidewindow.replace.type'
+    'sidewindow.right.replace.view': {
+        useTemplate: 'sidewindow.replace.view'
     },
 
 
 // Spotrepair
-    'spotrepair.type': {
+    'spotrepair.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
@@ -2105,13 +2228,11 @@ var states = {
                 }
             ],
             nextStateId: 'END',
-            serviceCode: 'spotrepair',
-            unitPrice: 80,
-            calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
+            serviceCode: 'spotrepair'
         }
     },
 /*
-    'spotrepair.type': {
+    'spotrepair.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
@@ -2138,43 +2259,44 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'bumper.spotrepair.type': 'bumper.spotrepair',
-                'fender.front.right.spotrepair.type': 'fender.front.right.spotrepair',
-                'fender.front.left.spotrepair.type': 'fender.front.left.spotrepair',
-                'fender.rear.right.spotrepair.type': 'fender.rear.right.spotrepair',
-                'fender.rear.left.spotrepair.type': 'fender.rear.left.spotrepair',
-                'sill.left.spotrepair.type': 'sill.left.spotrepair',
-                'sill.right.spotrepair.type': 'sill.right.spotrepair',
+                'bumper.spotrepair.view': 'bumper.spotrepair',
+                'fender.front.right.spotrepair.view': 'fender.front.right.spotrepair',
+                'fender.front.left.spotrepair.view': 'fender.front.left.spotrepair',
+                'fender.rear.right.spotrepair.view': 'fender.rear.right.spotrepair',
+                'fender.rear.left.spotrepair.view': 'fender.rear.left.spotrepair',
+                'sill.left.spotrepair.view': 'sill.left.spotrepair',
+                'sill.right.spotrepair.view': 'sill.right.spotrepair',
             },
             calcParams: ['Repaircode C', 'Anzahl Spots / Streifschäden']
         }
     },
-    'bumper.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'bumper.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'fender.front.right.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'fender.front.right.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'fender.front.left.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'fender.front.left.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'fender.rear.right.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'fender.rear.right.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'fender.rear.left.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'fender.rear.left.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'sill.left.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'sill.left.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
-    'sill.right.spotrepair.type': {
-        useTemplate: 'spotrepair.type'
+    'sill.right.spotrepair.view': {
+        useTemplate: 'spotrepair.view'
     },
 */
 
 
 // Steinschlag
-    'rockfall.type': {
+/*
+    'rockfall.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Wie viele Steinschläge in welcher Größe haben Sie?',
@@ -2193,49 +2315,51 @@ var states = {
             ],
             nextStateId: 'END',
             serviceCode: {
-                'bumper.rockfall.type': 'bumper.rockfall.repair',
-                'fender.front.left.rockfall.type': 'fender.front.left.rockfall.repair',
-                'fender.front.right.rockfall.type': 'fender.front.right.rockfall.repair',
-                'fender.rear.left.rockfall.type': 'fender.rear.left.rockfall.repair',
-                'fender.rear.right.rockfall.type': 'fender.rear.right.rockfall.repair',
-                'hood.rockfall.type': 'hood.rockfall.repair',
-                'sill.left.rockfall.type': 'sill.left.rockfall.repair',
-                'sill.right.rockfall.type': 'sill.right.rockfall.repair',
-                'tailgate.rockfall.type': 'tailgate.rockfall.repair'
+                'bumper.rockfall.view': 'bumper.rockfall.repair',
+                'fender.front.left.rockfall.view': 'fender.front.left.rockfall.repair',
+                'fender.front.right.rockfall.view': 'fender.front.right.rockfall.repair',
+                'fender.rear.left.rockfall.view': 'fender.rear.left.rockfall.repair',
+                'fender.rear.right.rockfall.view': 'fender.rear.right.rockfall.repair',
+                'hood.rockfall.view': 'hood.rockfall.repair',
+                'sill.left.rockfall.view': 'sill.left.rockfall.repair',
+                'sill.right.rockfall.view': 'sill.right.rockfall.repair',
+                'tailgate.rockfall.view': 'tailgate.rockfall.repair'
             },
             calcParams: ['Repaircode I', 'Zeit aus Ausbeulhilfe', 'Lackstufe 2 (bis 50%)', 'Metallic 2 Schicht']
         }
     },
-    'bumper.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'bumper.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'fender.front.left.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'fender.front.left.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'fender.front.right.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'fender.front.right.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'fender.rear.left.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'fender.rear.left.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'fender.rear.right.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'fender.rear.right.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'hood.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'hood.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'sill.left.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'sill.left.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'sill.right.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'sill.right.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
-    'tailgate.rockfall.type': {
-        useTemplate: 'rockfall.type'
+    'tailgate.rockfall.view': {
+        useTemplate: 'rockfall.view'
     },
+*/
+
 
 // Stoßstange, Stoßfänger
-    'bumper.type': {
+    'bumper.view': {
         viewType: 'singleSelectionWithBlockDescription',
         configs: {
             question: 'Welchen Service wünschen Sie für Ihren Stoßfänger?',
@@ -2251,7 +2375,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.spotrepair.type'
+                    nextStateId: 'bumper.spotrepair.view'
                 },
                 {
                     useConstants: [
@@ -2264,7 +2388,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.rockfall.type'
+                    nextStateId: 'bumper.rockfall.view'
                 },
                 {
                     useConstants: [
@@ -2277,7 +2401,7 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.scratch.type'
+                    nextStateId: 'bumper.scratch.view'
                 },
                 {
                     useConstants: [
@@ -2290,8 +2414,9 @@ var states = {
                             forKey: 'description'
                         }
                     ],
-                    nextStateId: 'bumper.dent.type'
+                    nextStateId: 'bumper.dent.view'
                 },
+                /*
                 {
                     useConstants: [
                         {
@@ -2322,13 +2447,160 @@ var states = {
                     serviceCode: 'service-id-518536 (Frontschürze komplett wechseln)',
                     calcParams: ['Repaircode E']
                 }
+                */
+            ]
+        }
+    },
+
+
+// Tür
+    'door.components.view': {
+        pageTitle: 'Autotür',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Leistungen:',
+            answers: [
+                {
+                    answer: 'Leistungen für die Tür vorne links',
+                    nextStateId: 'door.front.left.view'
+                },
+                {
+                    answer: 'Leistungen für die Tür vorne rechts',
+                    nextStateId: 'door.front.right.view'
+                },
+                {
+                    answer: 'Leistungen für die Tür hinten links',
+                    nextStateId: 'door.rear.left.view'
+                },
+                {
+                    answer: 'Leistungen für die Tür hinten rechts',
+                    nextStateId: 'door.rear.right.view'
+                },
+            ]
+        }
+    },
+
+    'door.services.template.view': {
+        pageTitle: {
+            'door.front.left.view': 'Autotür vorne links',
+            'door.front.right.view': 'Autotür vorne rechts',
+            'door.rear.left.view': 'Autotür hinten links',
+            'door.rear.right.view': 'Autotür hinten rechts'
+        },
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Welchen Service wünschen Sie?',
+            isTemplate: true,
+            answers: [
+                {
+                    answer: 'Tür lackieren',
+                    nextStateId: 'END',
+                    serviceCode: {
+                        'door.front.left.view': 'door.front.left.lacquer',
+                        'door.front.right.view': 'door.front.right.lacquer',
+                        'door.rear.left.view': 'door.rear.left.lacquer',
+                        'door.rear.right.view': 'door.rear.right.lacquer'
+                    }
+                },
+                {
+                    answer: 'Tür ersetzen',
+                    nextStateId: 'END',
+                    serviceCode: {
+                        'door.front.left.view': 'door.front.left.replace',
+                        'door.front.right.view': 'door.front.right.replace',
+                        'door.rear.left.view': 'door.rear.left.replace',
+                        'door.rear.right.view': 'door.rear.right.replace'
+                    }
+                }
+            ]
+        }
+    },
+    'door.front.left.view': {
+        useTemplate: 'door.services.template.view'
+    },
+    'door.front.right.view': {
+        useTemplate: 'door.services.template.view'
+    },
+    'door.rear.left.view': {
+        useTemplate: 'door.services.template.view'
+    },
+    'door.rear.right.view': {
+        useTemplate: 'door.services.template.view'
+    },
+
+    'door.services.view': {
+        pageTitle: 'Autotür Leistungen',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Leistungen:',
+            answers: [
+                {
+                    answer: 'Autotür lackieren',
+                    nextStateId: 'door.lacquer.view'
+                },
+                {
+                    answer: 'Autotür ersetzen',
+                    nextStateId: 'door.replace.view'
+                }
+            ]
+        }
+    },
+
+    'door.lacquer.view': {
+        pageTitle: 'Autotür lackieren',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Leistungen:',
+            answers: [
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.left.lacquer'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.right.lacquer'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.left.lacquer'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.right.lacquer'
+                },
+            ]
+        }
+    },
+
+    'door.replace.view': {
+        pageTitle: 'Autotür ersetzen',
+        viewType: 'radioSelection',
+        configs: {
+            question: 'Leistungen:',
+            answers: [
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.left.replace'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.front.right.replace'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.left.replace'
+                },
+                {
+                    nextStateId: 'END',
+                    serviceCode: 'door.rear.right.replace'
+                },
             ]
         }
     },
 
 
 // Unfallschaden
-    'accidentaldamage.type': {
+    'accidentaldamage.view': {
         viewType: 'mixSelection',
         configs: {
             question: 'Bitte beschreiben Sie Ihren Schaden:',
@@ -2343,8 +2615,7 @@ var states = {
                 }
             ],
             nextStateId: 'END',
-            serviceCode: 'accidentaldamage',
-            calcParams: ['FIN', 'Upload Bilder (0..5)', 'Schadensbeschreibung']
+            serviceCode: 'accidentaldamage'
         }
     }
 
@@ -2392,20 +2663,6 @@ var states = {
         state.configs.id = stateKey;
     });
 
-    forEachState(function(state){
-        // set vehicleRequired property for child states
-        inheritStateProperties(state, [
-            {
-                key: 'vehicleRequired',
-                inheritValue: true
-            },
-            {
-                key: 'calculable',
-                inheritValue: true
-            }
-        ]);
-    });
-
     function setAndReturnValueOfConfigId(value, stateKey){
         if (typeof value === 'object') {
             if (value[stateKey]) {
@@ -2421,6 +2678,8 @@ var states = {
     }
 
     function applyTemplateForState(state, stateKey){
+        state.pageTitle = setAndReturnValueOfConfigId(state.pageTitle, stateKey);
+
         var configs = state.configs;
 
         configs.question = setAndReturnValueOfConfigId(configs.question, stateKey);
@@ -2433,7 +2692,7 @@ var states = {
             configs.checklist = setAndReturnValueOfConfigId(configs.checklist, stateKey);
             configs.nextStateId = setAndReturnValueOfConfigId(configs.nextStateId, stateKey);
             configs.serviceCode = setAndReturnValueOfConfigId(configs.serviceCode, stateKey);
-            configs.calcParams = setAndReturnValueOfConfigId(configs.calcParams, stateKey);
+            //configs.calcParams = setAndReturnValueOfConfigId(configs.calcParams, stateKey);
         }
 
         $.each(configs.answers || [], function(i, answer){
@@ -2460,68 +2719,5 @@ var states = {
                 answer[setting.forKey] = stateConstants[setting.useKey];
             });
         }
-    }
-
-    function inheritStateProperties(state, properties){
-        // check only for states whose property propertiesInherited is not true
-        if (state.propertiesInherited !== true) {
-            // set propertiesInherited
-            state.propertiesInherited = true;
-
-            var answers = state.configs.answers || [];
-            if (!answers.length) {
-                $.each(properties || [], function(i, property){
-                    state.configs[property.key] = property.value;
-                });
-                //state.configs.vehicleRequired = vehicleRequired;
-            }
-
-            //console.log(state.configs.id);
-            $.each(answers, function(i, answer){
-                setAnswerInheritedProperties(answer, properties);
-            });
-        }
-    }
-
-    function setAnswerInheritedProperties(answer, properties){
-        $.each(properties || [], function(i, property){
-            /*
-            if (answer.vehicleRequired !== true) {
-                answer.vehicleRequired = vehicleRequired;
-            }
-            */
-            if (answer[property.key] !== property.inheritValue) {
-                answer[property.key] = property.value;
-            }
-                //console.log(vehicleRequired);
-                //console.log(state.configs.id);
-                //console.log(answer);
-        });
-        // need to check children states for vehicleRequired answer
-        if (hasAnswerPropertyToInherit(answer, properties) && answer.nextStateId && answer.nextStateId !== 'END') {
-            //console.log('set next vehicleRequired for next state: ' + answer.nextStateId);
-            inheritStateProperties(states[answer.nextStateId], returnUpdatedProperties(answer, properties));
-        }
-    }
-
-    function hasAnswerPropertyToInherit(answer, properties){
-        var output = false;
-        $.each(properties || [], function(i, property){
-            if (answer[property.key] === property.inheritValue){
-                output = true;
-                return;
-            }
-        });
-        return output;
-    }
-
-    function returnUpdatedProperties(answer, properties){
-        var output = [];
-        $.each(properties || [], function(i, property){
-            var newProperty = $.extend({},property);
-            newProperty.value = answer[newProperty.key];
-            output.push(newProperty);
-        });
-        return output;
     }
 })(states);

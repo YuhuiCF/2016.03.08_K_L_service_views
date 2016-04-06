@@ -1,12 +1,12 @@
 
-var ServiceViews = function(states, $, Events, configs){
+var ServiceViews = function(states, serivces, $, Events, configs){
     var self = this;
 
     var templates = {};
 
     var isDevEnv = configs.isDevEnv;
 
-    self.loadView = function(state, isInitState){
+    self.loadView = function(state){
         var configId = state.configs.id;
         console.log('loading view: ' + configId);
 
@@ -27,11 +27,6 @@ var ServiceViews = function(states, $, Events, configs){
 
         function appendView(template, state){
             $('.service-views').append(template);
-
-            // set page title if needed
-            if (state.pageTitle && isInitState) {
-                $('title').html(state.pageTitle);
-            }
 
             // fill data of the service view
             var numberOfViews = $('.service-view').length;
@@ -89,22 +84,27 @@ var ServiceViews = function(states, $, Events, configs){
                 answersElmt.append(answerElmt.clone());
             }
 
+            var service;
+            if (answer.serviceCode) {
+                service = services[answer.serviceCode];
+            }
+
             var thisAnswerElmt = viewJQElmt.find('.service-answer:last');
             var textElmt = thisAnswerElmt.find('.service-answer-text');
             var clickElmt = thisAnswerElmt.find('.service-answer-click');
             var viewIdElmt = thisAnswerElmt.find('.service-answer-view-id');
             var descriptionElmt = thisAnswerElmt.find('.service-answer-description');
 
-            textElmt.html(answer.answer);
+            textElmt.html(answer.answer || service.serviceName);
 
             viewIdElmt.attr('name',configId);
 
-            descriptionElmt.html(answer.description);
+            descriptionElmt.html(answer.description || 'Lorem ipsum');
 
             var nextStateId = answer.nextStateId;
             if (nextStateId) {
                 clickElmt.bind('click', function(){
-                    goToNextFrom(clickElmt, answer);
+                    goToNextFrom(clickElmt, answer, service);
                 });
             } else {
                 thisAnswerElmt.addClass('inactive');
@@ -132,13 +132,21 @@ var ServiceViews = function(states, $, Events, configs){
         });
 
         var goBackElmt = viewJQElmt.find('.service-answer-back');
-        goBackElmt.bind('click', function(){
-            goBackFrom(this);
-        });
+        if (numberOfViews === 1) {
+            goBackElmt.prop('disabled', true);
+        } else {
+            goBackElmt.bind('click', function(){
+                goBackFrom(this);
+            });
+        }
 
         var confirmElmt = viewJQElmt.find('.service-answer-confirm');
         confirmElmt.bind('click', function(){
-            goToNextFrom(this, configs);
+            var service;
+            if (configs.serviceCode) {
+                service = services[configs.serviceCode];
+            }
+            goToNextFrom(this, configs, service);
         });
 
 /*
@@ -162,26 +170,49 @@ var ServiceViews = function(states, $, Events, configs){
             }
         }
 
-        function goToNextFrom(jQElmt, answer){
+        function goToNextFrom(jQElmt, answer, service){
             var nextStateId = answer.nextStateId;
+
             self.highlight(jQElmt);
             self.keepViews(numberOfViews);
 
             if (answer.newWindow) {
-                window.open('?initState=' + nextStateId);
+                var invalidStates = ['END'];
+                if ($.inArray(nextStateId, invalidStates) > -1) {
+                    return;
+                }
+
+                var serviceCodes = answer.serviceCodes;
+                var params = {};
+
+                if (serviceCodes && serviceCodes.length > 0) {
+                    params.serviceCode = serviceCodes;
+                } else {
+                    params.initState = nextStateId;
+                }
+
+                var nextState = states[nextStateId];
+                var pageTitle = nextState.pageTitle;
+                if (pageTitle) {
+                    params.pageTitle = pageTitle;
+                }
+
+                var query = $.param(params, true);
+                window.open('?' + query);
                 return;
             }
 
-            answer.calcParams = answer.calcParams || [];
-            var serviceCode = answer.serviceCode;
-            if (serviceCode) {
-                Events.trigger('serviceSelected', answer);
+            //answer.calcParams = answer.calcParams || [];
+            if (service) {
+                Events.trigger('serviceSelected', service);
             }
 
             switch (nextStateId) {
+                /*
                 case 'LASTSTATE':
                     goBackFrom(jQElmt);
                     break;
+                */
                 case 'END':
                     break;
                 default:

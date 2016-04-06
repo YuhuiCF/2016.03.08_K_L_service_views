@@ -24,8 +24,8 @@ var Cart = function($, Events){
             if (service.serviceCode === 'locations.search') {
                 hasContactRequest = true;
             }
-            // test if is calculable
-            if (service.calculable !== true) {
+            // test if is isCalculable
+            if (service.isCalculable !== true) {
                 isCalculable = false;
             }
         });
@@ -96,14 +96,9 @@ var Cart = function($, Events){
 
     self.addService = function(data){
         var serviceCode = data.serviceCode;
-        var calcParams = data.calcParams;
-        var vehicleRequired = data.vehicleRequired;
-        /*
-        var service = {
-            serviceCode: serviceCode,
-            vehicleRequired: vehicleRequired
-        };
-        */
+        var serviceName = data.serviceName;
+        var calcParams = data.calcParams || [];
+        var isVehicleRequired = data.isVehicleRequired;
 
         var newElmt = serviceItemElmt.clone();
 
@@ -111,15 +106,20 @@ var Cart = function($, Events){
             services.push(data);
 
             newElmt.attr('data-service-config', serviceCode);
-            newElmt.find('.service-cart-item-text').html(serviceCode);
+            newElmt.find('.service-cart-item-text').html(serviceName);
             newElmt.find('.service-cart-item-calc-params').html(calcParams.join('<br>'));
 
-            newElmt.find('.service-cart-item-remove').bind('click', function(){
-                newElmt.remove();
-                self.removeService(serviceCode);
+            var removeServiceButton = newElmt.find('.service-cart-item-remove');
+            if (data.isNotRemovable) {
+                removeServiceButton.prop('disabled', true);
+            } else {
+                removeServiceButton.bind('click', function(){
+                    newElmt.remove();
+                    self.removeService(serviceCode);
 
-                self.updateServiceDisplay();
-            });
+                    self.updateServiceDisplay();
+                });
+            }
             serviceItemParentElmt.append(newElmt);
         } else {
             newElmt = allServicesElmt.find('[data-service-config="' + serviceCode + '"]');
@@ -146,7 +146,7 @@ var Cart = function($, Events){
         // show or hide vehicle selection
         hasVehicleRequiredService = false;
         $.each(services, function(i, service){
-            if (service.vehicleRequired) {
+            if (service.isVehicleRequired) {
                 hasVehicleRequiredService = true;
                 return;
             }

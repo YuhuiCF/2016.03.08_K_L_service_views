@@ -7,28 +7,75 @@ var vehicleSelection = new VehicleSelection($, Events);
 var regionSelection = new RegionSelection($, Events);
 var views = new Views($, Events);
 
-var serviceViews = new ServiceViews(states, $, Events, configs);
+var serviceViews = new ServiceViews(states, services, $, Events, configs);
 var resultList = new ResultList(resultListData, $, Events);
 var offer = new Offer($, Events);
 
+(function(){
+    function getUrlParam(parameterName){
+        var result = [];
+        var search = window.location.search.substring(1);
+        var searchParameters = search.split('&');
+        for (var i = 0; i < searchParameters.length; i++) {
+            var parameter = searchParameters[i].split('=');
+            if (parameter[0] == parameterName && $.inArray(result,parameter[1])===-1) {
+                if(typeof (parameter[1]) === 'undefined'){
+                    parameter[1]=true;
+                }
+                if(parameter[1]==='true'){
+                    parameter[1]=true;
+                }
+                if(parameter[1]==='false'){
+                    parameter[1]=false;
+                }
+                result.push(parameter[1]);
+            }
+        }
+        return result;
+    }
 
-function getUrlParam(name){
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    // set page title if needed
+    var pageTitle = getUrlParam('pageTitle');
+    if (pageTitle.length > 0) {
+        $('title').html(decodeURIComponent(pageTitle[0]));
+    }
 
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( window.location.href );
+    // load single-serivce, view of single-service, SERVICEGROUP service-view, or standard service-view
+    var serviceCodes = getUrlParam('serviceCode');
+    var serviceGroupKey = 'SERVICEGROUP';
+    if (serviceCodes.length === 1) {
+        var serviceCode = serviceCodes[0];
+        var service = services[serviceCode];
+        if (service.isViewRequired) {
+            serviceViews.loadView(states[serviceCode + '.view']);
+        } else {
+            service.isNotRemovable = true;
+            Events.trigger('serviceSelected', service);
+        }
+    } else if (serviceCodes.length > 1) {
+        states[serviceGroupKey].configs.answers = $.map(serviceCodes, function(serviceCode){
+            var service = services[serviceCode];
+            var output = {
+                nextStateId: serviceCode + '.view',
+                answer: service.serviceName
+            };
+            if (service.isViewRequired !== true) {
+                output = {
+                    nextStateId: 'END',
+                    serviceCode: serviceCode
+                };
+            }
+            return output;
+        });
 
-    if (results === null)
-        return "";
-    else
-        return results[1];
-}
+        serviceViews.loadView(states[serviceGroupKey]);
+    } else {
+        var initStateUrlParam = getUrlParam('initState');
+        var initState = 'category0';
+        if (initStateUrlParam.length > 0) {
+            initState = initStateUrlParam[0];
+        }
 
-var initStateUrlParam = getUrlParam('initState');
-var initState = 'category0';
-if (initStateUrlParam !== '') {
-    initState = initStateUrlParam;
-}
-
-serviceViews.loadView(states[initState], true);
+        serviceViews.loadView(states[initState]);
+    }
+})();

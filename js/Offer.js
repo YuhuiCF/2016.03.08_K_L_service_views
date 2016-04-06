@@ -31,17 +31,19 @@ var Offer = function($, Events){
             offerServicesElmt.append(offerServiceElmt.clone());
 
             var thisServiceElmt = offerServicesElmt.find(offerServiceSelector).filter(':last');
-            var serviceCodeElmt = thisServiceElmt.find('.offer-service-code');
+            var serviceNameElmt = thisServiceElmt.find('.offer-service-name');
             var serviceMsgElmt = thisServiceElmt.find('.offer-service-message');
             var serviceAddtConfigElmt = thisServiceElmt.find('.offer-service-additional-option');
             var openAddtConfigButton = serviceAddtConfigElmt.find('.open-config');
             var closeAddtConfigButton = serviceAddtConfigElmt.find('.close-config');
 
-            var serviceCode = service.serviceCode;
-            serviceCodeElmt.html(serviceCode);
+            thisServiceElmt.attr('data-service-code', service.serviceCode);
+
+            var serviceName = service.serviceName;
+            serviceNameElmt.html(serviceName);
 
             var message = 'Preis nach Vereinbahrung';
-            if (service.calculable) {
+            if (service.isCalculable) {
                 message = 'Einzelpreis: ' + (service.unitPrice || '100') + ' €';
             } else if (typeof service.unitPrice !== 'undefined') {
                 message = 'Einzelpreis: ab ' + service.unitPrice + ' €';
