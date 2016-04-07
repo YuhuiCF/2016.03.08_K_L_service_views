@@ -6,7 +6,7 @@ var ServiceViews = function(states, serivces, $, Events, configs){
 
     var isDevEnv = configs.isDevEnv;
 
-    self.loadView = function(state){
+    self.loadView = function(state, isPredifined){
         var configId = state.configs.id;
         console.log('loading view: ' + configId);
 
@@ -20,18 +20,18 @@ var ServiceViews = function(states, serivces, $, Events, configs){
                 dataType: 'html',
                 success: function(template){
                     templates[state.viewType] = template;
-                    appendView(template, state);
+                    appendView(template, state, isPredifined);
                 }
             });
         }
 
-        function appendView(template, state){
+        function appendView(template, state, isPredifined){
             $('.service-views').append(template);
 
             // fill data of the service view
             var numberOfViews = $('.service-view').length;
             if (state.configs) {
-                self.setViewData($('.service-views').find('.service-view:last'), state.configs, numberOfViews);
+                self.setViewData($('.service-views').find('.service-view:last'), state.configs, numberOfViews, isPredifined);
             }
 
             // scroll only if there are several views
@@ -43,7 +43,7 @@ var ServiceViews = function(states, serivces, $, Events, configs){
         }
     };
 
-    self.setViewData = function(viewJQElmt, configs, numberOfViews){
+    self.setViewData = function(viewJQElmt, configs, numberOfViews, isPredifined){
         var configId = configs.id;
 
         var questionElmt = viewJQElmt.find('.service-question');
@@ -76,45 +76,109 @@ var ServiceViews = function(states, serivces, $, Events, configs){
             setImageConfigs(imgElmt, configs.img);
         }
 
-        var answerElmt = viewJQElmt.find('.service-answer');
+        var serviceAnswerSelector = '.service-answer';
+        var answerElmt = viewJQElmt.find(serviceAnswerSelector);
         var answersElmt = answerElmt.parent();
-        answerElmt = answerElmt.clone();
+
+        if (configs.useGroup) {
+            var singleAnswerSelector = '.service-answer-single';
+            var groupAnswerSelector = '.service-group-answers';
+
+            var singleAnswerElmt = viewJQElmt.find(singleAnswerSelector).clone();
+            var groupAnswerElmt = viewJQElmt.find(groupAnswerSelector).clone();
+
+            answerElmt = answerElmt.empty().clone();
+        } else {
+            answerElmt = answerElmt.clone();
+        }
+
+        viewJQElmt.find(serviceAnswerSelector).remove();
+
         $.each(configs.answers || [], function(i, answer){
-            if (i > 0) {
-                answersElmt.append(answerElmt.clone());
-            }
+            var service,
+                textElmt,
+                clickElmt,
+                viewIdElmt,
+                thisAnswerElmt
+            ;
 
-            var service;
-            if (answer.serviceCode) {
-                service = services[answer.serviceCode];
-            }
+            if (configs.useGroup) {
+                if (answer.serviceCodes.length) {
+                    answersElmt.append(answerElmt.clone());
+                    thisAnswerElmt = viewJQElmt.find('.service-answer:last');
 
-            var thisAnswerElmt = viewJQElmt.find('.service-answer:last');
-            var textElmt = thisAnswerElmt.find('.service-answer-text');
-            var clickElmt = thisAnswerElmt.find('.service-answer-click');
-            var viewIdElmt = thisAnswerElmt.find('.service-answer-view-id');
-            var descriptionElmt = thisAnswerElmt.find('.service-answer-description');
+                    if (answer.serviceCodes.length === 1) {
+                        service = services[answer.serviceCodes[0]];
 
-            textElmt.html(answer.answer || service.serviceName);
+                        thisAnswerElmt.append(singleAnswerElmt.clone());
+                        var thisServiceElmt = thisAnswerElmt.find(singleAnswerSelector).filter(':last');
 
-            viewIdElmt.attr('name',configId);
+                        textElmt = thisServiceElmt.find('.service-answer-text');
+                        clickElmt = thisServiceElmt.find('.service-answer-click');
+                        viewIdElmt = thisServiceElmt.find('.service-answer-view-id');
 
-            descriptionElmt.html(answer.description || 'Lorem ipsum');
+                        textElmt.html(answer.answer || service.serviceName);
+                        viewIdElmt.attr('name',configId);
 
-            var nextStateId = answer.nextStateId;
-            if (nextStateId) {
-                clickElmt.bind('click', function(){
-                    goToNextFrom(clickElmt, answer, service);
-                });
+                        clickElmt.bind('click', function(){
+                            goToNextFrom(clickElmt, answer, service, isPredifined);
+                        });
+                    } else if (answer.serviceCodes.length > 1) {
+                        thisAnswerElmt.append(groupAnswerElmt.clone());
+                        var groupTextElmt = thisAnswerElmt.find('.service-answer-text');
+                        groupTextElmt.html(answer.answer || 'Lorem ipsum');
+                        var thisGroupAnswerElmt = thisAnswerElmt.find('.service-group-answers-items');
+                        $.each(answer.serviceCodes, function(i, serviceCode){
+                            service = services[answer.serviceCodes[i]];
+
+                            thisGroupAnswerElmt.append(singleAnswerElmt.clone());
+                            var thisServiceElmt = thisGroupAnswerElmt.find(singleAnswerSelector).filter(':last');
+
+                            textElmt = thisServiceElmt.find('.service-answer-text');
+                            clickElmt = thisServiceElmt.find('.service-answer-click');
+                            viewIdElmt = thisServiceElmt.find('.service-answer-view-id');
+
+                            textElmt.html(service.serviceName);
+                            viewIdElmt.attr('name',configId);
+
+                            clickElmt.bind('click', function(){
+                                goToNextFrom(clickElmt, answer, service, isPredifined);
+                            });
+                        });
+                    }
+                }
             } else {
-                thisAnswerElmt.addClass('inactive');
+                answersElmt.append(answerElmt.clone());
+                thisAnswerElmt = viewJQElmt.find('.service-answer:last');
+
+                if (answer.serviceCode) {
+                    service = services[answer.serviceCode];
+                }
+
+                textElmt = thisAnswerElmt.find('.service-answer-text');
+                clickElmt = thisAnswerElmt.find('.service-answer-click');
+                viewIdElmt = thisAnswerElmt.find('.service-answer-view-id');
+                descriptionElmt = thisAnswerElmt.find('.service-answer-description');
+
+                textElmt.html(answer.answer || service.serviceName);
+
+                viewIdElmt.attr('name',configId);
+
+                descriptionElmt.html(answer.description || 'Lorem ipsum');
+
+                var nextStateId = answer.nextStateId;
+                if (nextStateId) {
+                    clickElmt.bind('click', function(){
+                        goToNextFrom(clickElmt, answer, service, isPredifined);
+                    });
+                } else {
+                    thisAnswerElmt.addClass('inactive');
+                }
             }
         });
 
         $.each(configs.checklist || [], function(i, item){
-            if (i > 0) {
-                answersElmt.append(answerElmt.clone());
-            }
+            answersElmt.append(answerElmt.clone());
 
             var thisAnswerElmt = viewJQElmt.find('.service-answer:last');
 
@@ -170,7 +234,7 @@ var ServiceViews = function(states, serivces, $, Events, configs){
             }
         }
 
-        function goToNextFrom(jQElmt, answer, service){
+        function goToNextFrom(jQElmt, answer, service, isPredifined){
             var nextStateId = answer.nextStateId;
 
             self.highlight(jQElmt);
@@ -204,7 +268,12 @@ var ServiceViews = function(states, serivces, $, Events, configs){
 
             //answer.calcParams = answer.calcParams || [];
             if (service) {
-                Events.trigger('serviceSelected', service);
+                if (isPredifined && service.isViewRequired) {
+                    nextStateId = service.serviceCode + '.view';
+                } else {
+                    nextStateId = 'END';
+                    Events.trigger('serviceSelected', service);
+                }
             }
 
             switch (nextStateId) {

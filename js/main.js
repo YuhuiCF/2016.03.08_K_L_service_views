@@ -11,7 +11,7 @@ var serviceViews = new ServiceViews(states, services, $, Events, configs);
 var resultList = new ResultList(resultListData, $, Events);
 var offer = new Offer($, Events);
 
-(function(){
+(function(services, serviceViews){
     function getUrlParam(parameterName){
         var result = [];
         var search = window.location.search.substring(1);
@@ -41,9 +41,37 @@ var offer = new Offer($, Events);
     }
 
     // load single-serivce, view of single-service, SERVICEGROUP service-view, or standard service-view
+    // if service requires a view, the view must be named as "serviceCode + '.view'"
     var serviceCodes = getUrlParam('serviceCode');
     var serviceGroupKey = 'SERVICEGROUP';
-    if (serviceCodes.length === 1) {
+
+    var usePredefinedView = false;
+    var predefinedView = {
+        viewType: 'groupSelection',
+        configs: {
+            id: serviceGroupKey,
+            question: 'Leistungen lorem ipsum',
+            useGroup: true,
+            answers: [
+                {
+                    answer: '0',
+                    serviceCodes: []
+                },
+                {
+                    answer: 'Single Service (Unfallschaden)',
+                    serviceCodes: ['accidentaldamage']
+                },
+                {
+                    answer: '2 Services in a Group',
+                    serviceCodes: ['accidentaldamage', 'bumper.front.replace']
+                }
+            ]
+        }
+    };
+
+    if (usePredefinedView && predefinedView) {
+        serviceViews.loadView(predefinedView, true);
+    } else if (serviceCodes.length === 1) {
         var serviceCode = serviceCodes[0];
         var service = services[serviceCode];
         if (service.isViewRequired) {
@@ -78,4 +106,4 @@ var offer = new Offer($, Events);
 
         serviceViews.loadView(states[initState]);
     }
-})();
+})(services, serviceViews);
