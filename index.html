@@ -3,54 +3,177 @@
     <head>
         <meta charset="UTF-8">
         <title>K+L service view</title>
+        <meta name="robots" content="noindex,nofollow">
     </head>
     <body>
         <header class="clearfix">
             <div class="floatRight">
-                <img height="50" src="img/Acoat_Logo_Horizontal_web.jpg">
+                <a href="index.html"><img height="50" class="logo"></a>
             </div>
         </header>
 
-        <h2>Karosserie & Lack Serviceleistungen</h2>
+        <section class="search-view">
+            <h2>Karosserie &amp; Lack Serviceleistungen</h2>
 
-        <h3>Ihr Fahrzeug: Mercedes-Benz BM 219 CLS (06.2004->) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</h3>
+            <article class="service-selection">
+                <div class="service-views"></div>
 
-        <h3>Ihre Region: Stuttgart</h3>
+                <br>
 
-        <br>
+                <div class="service-cart">
+                    <h3 class="service-cart-empty">Sie haben noch keine Services ausgewählt</h3>
+                    <div class="service-cart-not-empty">
+                        <h3 class="service-cart-not-empty-text">Ihre ausgewählte Services und Kalkulationsparametern:</h3>
+                        <ul class="service-cart-services">
+                            <li class="service-cart-item">
+                                <b class="service-cart-item-text"></b><br>
+                                <span class="service-cart-item-calc-params"></span>
+                                <button class="floatRight service-cart-item-remove">Entfernen</button>
+                                <br clear="all">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
 
-        <div data-views></div>
+            <article class="vehicle-selection">
+                <h3>Ihr Fahrzeug: <button class="select-vehicle">Fahrzeug auswählen</button><span class="selected-vehicle">Mercedes-Benz BM 219 CLS (06.2004-&gt;) CLS 63 AMG (219.377) Motor 6,2 Ltr. - 378 kW V8 KAT</span></h3>
+            </article>
 
-        <br>
+            <article class="region-selection">
+                <h3>Ihre Region: <button class="select-region">Standort auswählen</button><span class="selected-region">Stuttgart</span></h3>
+            </article>
 
-        <div data-service-cart>
-            <h3 data-service-empty>Sie haben noch keine Services ausgewählt</h3>
-            <div data-service-not-empty>
-                <h3 data-service-not-empty-text>Ihre ausgewählte Services und Kalkulationsparametern:</h3>
-                <ul data-services>
-                    <li data-service-item>
-                        <b data-service-item-text></b><br>
-                        <span data-service-item-calc-params></span>
-                        <button data-service-item-remove class="floatRight">Entfernen</button>
-                        <br clear="all">
-                    </li>
-                </ul>
-                <div>
-                    <button>Angebote Suchen</button>
+            <br>
+
+            <div class="search">
+                <button class="search-button" disabled>Angebote Suchen</button>
+            </div>
+        </section>
+
+
+
+        <section class="result-list-view">
+            <h3>Werkstätten in Ihrer Nähe</h3>
+            <div class="result-list table">
+                <div class="table-row">
+                    <div class="table-cell location-distance">
+                        <b>Entfernung (km)</b>
+                    </div>
+                    <div class="table-cell location-name">
+                        <b>Werkstatt</b>
+                    </div>
+                    <div class="table-cell location-address">
+                        <b>Adresse</b>
+                    </div>
+                    <div class="table-cell offer-button">
+
+                    </div>
+                </div>
+                <div class="result-item table-row">
+                    <div class="table-cell location-distance"></div>
+                    <div class="table-cell location-name"></div>
+                    <div class="table-cell location-address"></div>
+                    <div class="table-cell offer-button">
+                        <button class="offer-with-price-button">Unverbindlicher Termin</button>
+                        <button class="offer-with-no-price-button">Begutachtungstermin</button>
+                        <button class="offer-contact-location-button">Kontaktanfrage</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- build:css css/styles.css -->
-        <link media="all" type="text/css" href="css/styles.css" rel="stylesheet">
+            <div class="view-navigation">
+                <button class="last-view">Neue Suche</button>
+            </div>
+        </section>
+
+
+
+        <section class="offer-view">
+            <h3>Ihr Angebot</h3>
+            <div class="offer">
+                <div class="offer-services">
+                    <h4>Gewählte Services</h4>
+                    <div class="offer-service">
+                        <div class="offer-service-name"></div>
+                        <div class="offer-service-message"></div>
+                        <div class="offer-service-additional-option">
+                            <button class="open-config"></button>
+                            <button class="close-config"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="offer-price-message">
+                    <i>Der genaue Preisvorschlag erhalten Sie von der Werkstatt nach Ihrem Begutachtungstermin.</i>
+                </div>
+                <div class="offer-timeslot">
+                    <h4>Termin</h4>
+                    <select>
+                        <option>Heute</option>
+                        <option>Morgen</option>
+                        <option>Übermorgen</option>
+                    </select>
+                </div>
+                <div class="offer-customer-info">
+                    <h4>Ihre Kontaktangaben</h4>
+                    <div><b>E-Mail-Adresse:</b> Max.Mustermann@mcon-group.com</div>
+                    <div><b>Telefonnummer:</b> 01234567</div>
+                    <div>
+                        <b>Ihre Nachricht:</b><br>
+                        <textarea></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="booking-button">
+                    <button class="booking-with-price-button">Unverbindlicher Termin</button>
+                    <button class="booking-with-no-price-button">Begutachtungstermin</button>
+                    <button class="booking-contact-location-button">Werkstatt Kontaktieren</button>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="view-navigation">
+                <button class="last-view">Zurück zur Ergebnisliste</button>
+            </div>
+        </section>
+
+
+
+        <!-- build:css styles.css -->
+        <link media="all" type="text/css" href="css/basics.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/views.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/serviceViews.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/cart.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/vehicleSelection.css" rel="stylesheet">
+        <link media="all" type="text/css" href="css/regionSelection.css" rel="stylesheet">
+
+        <link media="all" type="text/css" href="css/offer.css" rel="stylesheet">
         <!-- endbuild -->
 
-        <!-- build:js js/scripts.js -->
+        <!-- build:js scripts.js -->
         <script type="text/javascript" src="js/lib/jquery.js"></script>
-        <script type="text/javascript" src="js/cart.js"></script>
-        <script type="text/javascript" src="js/states.js"></script>
-        <script type="text/javascript" src="js/view.js"></script>
+        <script type="text/javascript" src="js/Events.js"></script>
 
+        <script type="text/javascript" src="js/Header.js"></script>
+
+        <script type="text/javascript" src="js/Views.js"></script>
+        <script type="text/javascript" src="js/VehicleSelection.js"></script>
+        <script type="text/javascript" src="js/RegionSelection.js"></script>
+        <script type="text/javascript" src="js/Cart.js"></script>
+
+        <script type="text/javascript" src="js/states.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+        <script type="text/javascript" src="js/ServiceViews.js"></script>
+
+        <script type="text/javascript" src="js/resultListData.js"></script>
+        <script type="text/javascript" src="js/ResultList.js"></script>
+
+        <script type="text/javascript" src="js/Offer.js"></script>
+
+        <script type="text/javascript" src="js/configs.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         <!-- endbuild -->
 

@@ -1,0 +1,34 @@
+
+.service-cart-empty {
+    display: none;
+}
+
+.service-cart-not-empty {
+    display: none;
+}
+
+.service-cart-services {
+    margin-top: 0;
+}
+.service-cart-services .service-cart-item:first-child {
+    display: none;
+}
+
+.service-cart-item {
+    padding: 20px;
+    background: #eee;
+}
+.service-cart-item + .service-cart-item {
+    margin-top: 20px;
+}
+.service-cart-item:first-child + .service-cart-item {
+    margin-top: 0;
+}
+
+.service-cart-item-calc-params {
+    line-height: 1.3;
+}
+
+.search {
+    display: none;
+}
